@@ -369,6 +369,66 @@ window.AULA = window.AULA || { modulos: {} };
     }
   };
 
+  /* ======================================================
+     7 · CRECIMIENTO, MÚLTIPLO Y RENDIMIENTO
+     ====================================================== */
+  H["pe-crecimiento"] = {
+    render() {
+      return `
+        <div class="tool tool-pe">
+          <div class="tool-head"><span class="tool-kicker">Herramienta</span><h4>¿Cuánto puede rendir una acción?</h4></div>
+          <div class="tool-grid">
+            <div class="tool-inputs">
+              <div class="tasas-row">
+                <label class="num-field"><span>Precio hoy</span><input type="number" step="1" value="1490" data-i="precio"><em>USD</em></label>
+                <label class="num-field"><span>Ganancia por acción</span><input type="number" step="0.01" value="38.26" data-i="eps"><em>USD, este año</em></label>
+              </div>
+              <label class="tool-field">Crecimiento anual de la ganancia <output data-o="g">30%</output>
+                <input type="range" min="-10" max="50" step="1" value="30" data-i="g"></label>
+              <label class="tool-field">Años <output data-o="n">3</output>
+                <input type="range" min="1" max="8" step="1" value="3" data-i="n"></label>
+              <label class="tool-field tool-field-strong">P/E que le pone el mercado al final <output data-o="pef">25</output>
+                <input type="range" min="8" max="60" step="1" value="25" data-i="pef"></label>
+            </div>
+            <div class="tool-outputs">
+              <div class="kpis">
+                <div class="kpi"><span>P/E de hoy</span><strong data-k="pe0">—</strong><small>precio ÷ ganancia</small></div>
+                <div class="kpi"><span>Ganancia final</span><strong data-k="epsf">—</strong><small>por acción</small></div>
+                <div class="kpi"><span>Precio final</span><strong data-k="pf">—</strong><small>ganancia × P/E final</small></div>
+              </div>
+              <div class="pe-result" data-res></div>
+              <div class="pe-split" data-split></div>
+            </div>
+          </div>
+          <p class="tool-foot">Valores iniciales: precio de MELI al 10/11/2026 y ganancia por acción esperada para 2026 según el consenso de analistas (TIKR). El resto son supuestos para jugar: no es una proyección. No incluye dividendos.</p>
+        </div>`;
+    },
+    init(raiz) {
+      const v = k => parseFloat($(raiz, `[data-i=${k}]`).value);
+      function pintar() {
+        const p = v("precio"), e = v("eps"), g = v("g") / 100, n = v("n"), pef = v("pef");
+        $(raiz, "[data-o=g]").textContent = fmt(g * 100, 0) + "%";
+        $(raiz, "[data-o=n]").textContent = n + (n === 1 ? " año" : " años");
+        $(raiz, "[data-o=pef]").textContent = pef + " veces";
+        if (!(p > 0 && e > 0)) return;
+        const pe0 = p / e, ef = e * Math.pow(1 + g, n), pf = ef * pef;
+        const anual = Math.pow(pf / p, 1 / n) - 1;
+        const efMult = Math.pow(pef / pe0, 1 / n) - 1;
+        $(raiz, "[data-k=pe0]").textContent = fmt(pe0, 1) + "x";
+        $(raiz, "[data-k=epsf]").textContent = "$" + fmt(ef, 2);
+        $(raiz, "[data-k=pf]").textContent = "$" + fmt(pf, 0);
+        $(raiz, "[data-res]").className = "pe-result " + (anual >= 0 ? "ok" : "bad");
+        $(raiz, "[data-res]").innerHTML = `<span>Rendimiento anual de la acción</span><strong>${fmtSigno(anual * 100)}%</strong>`;
+        const max = Math.max(Math.abs(g), Math.abs(efMult), 0.05);
+        const fila = (nombre, val) => `<div class="pe-row"><span>${nombre}</span><div class="pe-bar"><i class="${val < 0 ? "neg" : "pos"}" style="width:${Math.abs(val) / max * 50}%;${val < 0 ? "right:50%" : "left:50%"}"></i><b></b></div><em>${fmtSigno(val * 100)}%</em></div>`;
+        $(raiz, "[data-split]").innerHTML = `<span class="contrib-title">De dónde sale (por año)</span>
+          ${fila("Crecimiento de la ganancia", g)}${fila("Cambio del múltiplo", efMult)}`;
+      }
+      $$(raiz, "input").forEach(i => i.addEventListener("input", pintar));
+      pintar();
+    }
+  };
+
   AULA.herramientas = H;
 
   /* ======================================================
@@ -431,6 +491,29 @@ window.AULA = window.AULA || { modulos: {} };
       ${grid}<path class="curve c-risk" d="${d}"/>
       ${datos.map(p => `<circle class="dot-s dot-risk" cx="${X(p.fecha)}" cy="${Y(p.valor)}" r="4.5"/><text class="pt-label" x="${X(p.fecha)}" y="${Y(p.valor) - 11}" text-anchor="middle">${p.valor}</text><text class="ax" x="${X(p.fecha)}" y="${Hh - 20}" text-anchor="middle">${p.etiqueta}</text>`).join("")}
     </svg><figcaption>Riesgo país en puntos básicos, puntos seleccionados (no es una serie diaria). Fuentes: Forbes Argentina, Invecq.</figcaption></figure>`;
+  };
+
+  G["proceso-inversion"] = () => {
+    const pasos = [["Perfil", "¿Para qué es la plata y cuánto riesgo tolera?", 0], ["Asignación", "¿Cuánto va a acciones?", 0], ["Selección", "¿Qué empresas?", 1], ["Ejecución", "¿A qué precio y cómo opero?", 0], ["Seguimiento", "¿La razón de compra sigue en pie?", 1]];
+    return `<figure class="figura"><ol class="proceso">${pasos.map(([t, d, f], i) => `
+      <li class="${f ? "is-fund" : ""}"><span class="proceso-n">${i + 1}</span><strong>${t}</strong><small>${d}</small>${f ? `<em>Análisis fundamental</em>` : ""}</li>`).join("")}</ol>
+      <figcaption>El análisis fundamental entra en la selección y vuelve en el seguimiento, cada vez que la empresa presenta resultados.</figcaption></figure>`;
+  };
+
+  G.margenes = () => {
+    const datos = [
+      { n: "MercadoLibre", t: "MELI", ventas: 10750, op: 676, neta: 448 },
+      { n: "Vista", t: "VIST", ventas: 1234, op: null, neta: 293.5 },
+      { n: "JPMorgan", t: "JPM", ventas: 50200, op: null, neta: 15300 }
+    ];
+    return `<figure class="figura"><div class="margen-grid">${datos.map(d => {
+      const m = d.neta / d.ventas * 100;
+      return `<div class="margen-card"><span class="margen-t">${d.t}</span><strong>${d.n}</strong>
+        <div class="margen-bar"><i style="width:${m}%"></i></div>
+        <p><b>${fmt(m, 0)}</b> de cada 100 dólares de ingresos quedan como ganancia neta</p>
+        <small>Ingresos USD ${fmt(d.ventas, 0)} M · ganancia USD ${fmt(d.neta, 0)} M</small></div>`;
+    }).join("")}</div>
+    <figcaption>Tercer trimestre de 2026. Margen neto = ganancia neta ÷ ingresos. Fuentes: MercadoLibre (4/11), Vista Energy (28/10) y JPMorgan (13/10). En los bancos, "ingresos" son los ingresos netos de intereses y comisiones.</figcaption></figure>`;
   };
 
   AULA.graficos = G;

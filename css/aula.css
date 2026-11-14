@@ -135,7 +135,7 @@ svg.ring[width="140"] text { font-size: 28px; }
 .metodo-step strong { display: block; font: 600 19px var(--serif); margin: 4px 0 6px; }
 .metodo-step p { margin: 0; font-size: 14px; color: var(--ink-soft); }
 
-.journey { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; position: relative; }
+.journey { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 18px; position: relative; }
 .journey-step { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 22px; border: 1px solid var(--rule); border-radius: var(--radius); text-decoration: none; color: var(--ink); background: var(--paper); transition: transform .18s, box-shadow .18s, border-color .18s; }
 .journey-step:hover { transform: translateY(-2px); box-shadow: var(--shadow-up); border-color: var(--teal); }
 .journey-step strong { font: 600 18px/1.25 var(--serif); }
@@ -554,4 +554,124 @@ input[type=range]:focus-visible { outline: 2px solid var(--teal-wash); }
   .metodo-step + .metodo-step { padding-left: 0; border-left: 0; border-top: 1px solid var(--rule); }
   .ej { padding: 18px; }
   .num-field-lg input { width: 150px; }
+}
+
+/* ---------------- Módulo empresas ---------------- */
+.proceso { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; counter-reset: none; }
+.proceso li { position: relative; padding: 14px 12px 12px; border: 1px solid var(--rule); border-radius: 10px; background: var(--paper); font: 400 13px/1.4 var(--sans); }
+.proceso li:not(:last-child)::after { content: "→"; position: absolute; right: -9px; top: 50%; transform: translateY(-50%); color: var(--ink-faint); font-size: 13px; background: var(--paper-raised); z-index: 1; }
+.proceso-n { font: 600 11px var(--mono); color: var(--ink-faint); }
+.proceso strong { display: block; font: 600 15px var(--serif); margin: 2px 0 4px; }
+.proceso small { display: block; color: var(--ink-soft); }
+.proceso li.is-fund { border-color: var(--teal); background: var(--teal-wash); }
+.proceso li em { display: inline-block; margin-top: 8px; font: 600 10px var(--sans); letter-spacing: .08em; text-transform: uppercase; font-style: normal; color: #fff; background: var(--teal); padding: 3px 7px; border-radius: 999px; }
+.margen-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.margen-card { padding: 16px; border: 1px solid var(--rule); border-radius: 10px; background: var(--paper); font: 400 13.5px/1.45 var(--sans); }
+.margen-t { font: 600 11px var(--mono); color: var(--gold); }
+.margen-card strong { display: block; font: 600 17px var(--serif); margin-bottom: 10px; }
+.margen-bar { height: 10px; background: var(--paper-deep); border-radius: 5px; overflow: hidden; margin-bottom: 10px; }
+.margen-bar i { display: block; height: 100%; background: var(--teal); border-radius: 5px; }
+.margen-card p { margin: 0 0 6px; color: var(--ink-soft); }
+.margen-card p b { font: 600 22px var(--mono); color: var(--ink); margin-right: 4px; }
+.margen-card small { color: var(--ink-faint); font-size: 11.5px; }
+.pe-result { margin-top: 14px; padding: 14px 16px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; }
+.pe-result span { font-size: 13px; font-weight: 600; }
+.pe-result strong { font: 600 26px var(--mono); }
+.pe-result.ok { background: var(--olive-wash); color: var(--olive-deep); }
+.pe-result.bad { background: var(--terracotta-wash); color: var(--terracotta); }
+.pe-split { margin-top: 14px; }
+.pe-row { display: grid; grid-template-columns: 150px 1fr 60px; gap: 10px; align-items: center; font-size: 12.5px; margin-bottom: 6px; }
+.pe-bar { position: relative; height: 14px; background: var(--paper); border-radius: 4px; overflow: hidden; }
+.pe-bar b { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--ink-faint); }
+.pe-bar i { position: absolute; top: 2px; bottom: 2px; border-radius: 3px; }
+.pe-bar i.pos { background: var(--olive); }
+.pe-bar i.neg { background: var(--terracotta); }
+.pe-row em { font: 600 12.5px var(--mono); font-style: normal; text-align: right; }
+@media (max-width: 760px) {
+  .proceso { grid-template-columns: 1fr; }
+  .proceso li:not(:last-child)::after { content: "↓"; right: 50%; top: auto; bottom: -12px; transform: translateX(50%); }
+  .margen-grid { grid-template-columns: 1fr; }
+  .pe-row { grid-template-columns: 1fr 56px; }
+  .pe-bar { grid-column: 1 / -1; grid-row: 2; }
+}
+
+/* ---------------- Taller de duration ---------------- */
+.pagos-presets { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0 18px; }
+.pagos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.pagos-bono { padding: 14px 14px 8px; border: 1px solid var(--rule); border-radius: 10px; background: var(--paper); }
+.pagos-bono header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+.pagos-bono header strong { font: 600 15px var(--serif); }
+.pagos-precio { font: 600 20px var(--mono); color: var(--ink); text-align: right; }
+.pagos-precio small { display: block; font-size: 12px; color: var(--ink-faint); }
+.pagos-precio.neg, .pagos-precio.neg small { color: var(--terracotta); }
+.pagos-precio.pos, .pagos-precio.pos small { color: var(--olive-deep); }
+.pagos-x { text-align: center; font-size: 11px; color: var(--ink-faint); letter-spacing: .04em; }
+.svgchart .bar-ghost { fill: none; stroke: var(--ink-faint); stroke-width: 1.2; stroke-dasharray: 3 2; }
+.svgchart .bar-now { fill: var(--teal); transition: y .25s, height .25s; }
+.svgchart .bar-now.down { fill: var(--terracotta); }
+.svgchart .bar-now.up { fill: var(--olive); }
+.svgchart .bar-pct { font: 600 10.5px var(--mono); }
+.svgchart .bar-pct.neg { fill: var(--terracotta); }
+.svgchart .bar-pct.pos { fill: var(--olive-deep); }
+.pagos-legend { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 10px; font-size: 12px; color: var(--ink-soft); }
+.pagos-legend i { display: inline-block; width: 14px; height: 10px; margin-right: 6px; vertical-align: middle; border-radius: 2px; }
+.lg-ghost { border: 1.2px dashed var(--ink-faint); }
+.lg-now { background: var(--terracotta); }
+
+.bal-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+.svgchart .bal-plank { stroke: var(--ink); stroke-width: 4; stroke-linecap: round; }
+.svgchart .bal-block { fill: var(--teal); opacity: .85; transition: all .3s; }
+.svgchart .bal-val { font: 600 10.5px var(--mono); fill: var(--ink-soft); }
+.svgchart .bal-fulcrum { fill: var(--gold); transition: all .4s cubic-bezier(.2,.8,.2,1); }
+.svgchart .bal-dur { font: 700 13px var(--sans); fill: #8a6526; }
+.bal-read { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 6px; }
+.bal-read p { grid-column: 1 / -1; margin: 4px 0 0; padding: 12px 14px; background: var(--paper); border-radius: 9px; font: 400 15px/1.5 var(--serif); }
+.bal-read strong.neg { color: var(--terracotta); }
+
+.bolsillo { width: 100%; border-collapse: separate; border-spacing: 3px; font: 600 13px var(--mono); }
+.bolsillo th { font: 600 11px var(--sans); color: var(--ink-soft); padding: 6px 4px; text-align: center; letter-spacing: .02em; }
+.bolsillo thead th:first-child { text-align: left; font-weight: 500; color: var(--ink-faint); }
+.bolsillo tbody th { font: 600 14px var(--mono); color: var(--ink); }
+.bolsillo td { text-align: center; padding: 10px 4px; border-radius: 6px; cursor: pointer; transition: transform .1s, box-shadow .1s; }
+.bolsillo td:hover { transform: scale(1.06); box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+.bolsillo td.is-sel { outline: 2.5px solid var(--ink); outline-offset: 1px; }
+.bolsillo-read { margin-top: 12px; padding: 12px 14px; border-radius: 9px; background: var(--paper); font: 400 15px/1.5 var(--serif); color: var(--ink-soft); }
+.bolsillo-read strong { color: var(--ink); }
+
+.juego-top { display: flex; justify-content: space-between; font: 600 13px var(--mono); color: var(--ink-soft); margin-bottom: 10px; }
+.juego-card { padding: 18px 20px; border-radius: 12px; background: var(--ink); color: rgba(247,244,236,.9); font: 400 18px/1.55 var(--serif); margin-bottom: 16px; }
+.juego-card strong { color: #fff; }
+.juego-card strong.neg { color: #F0A89E; }
+.juego-card strong.pos { color: #C9D6A8; }
+.juego-acc { display: flex; gap: 10px; margin-top: 12px; }
+.juego-res { margin-top: 14px; }
+.juego-res p { margin: 6px 0 0; padding: 10px 14px; border-radius: 9px; font-size: 14.5px; }
+.juego-res p.ok { background: var(--olive-wash); color: var(--olive-deep); }
+.juego-res p.mid { background: var(--gold-wash); color: #8a6526; }
+.juego-res p.bad { background: var(--terracotta-wash); color: var(--terracotta); }
+.svgchart .zero-l { stroke: var(--ink-faint); stroke-width: 1.5; }
+.svgchart .j-real { fill: var(--gold); }
+.svgchart .j-tuya { fill: var(--teal); stroke: #fff; stroke-width: 2; }
+.juego-fin { margin-top: 12px; padding: 14px 16px; border-radius: 10px; border: 1px solid var(--rule); background: var(--paper-raised); font-size: 15px; }
+.juego-fin span { display: block; margin-top: 4px; font-size: 13px; color: var(--ink-faint); }
+
+.asim { display: flex; flex-direction: column; gap: 10px; }
+.asim-row { display: grid; grid-template-columns: 90px 1fr 140px; gap: 12px; align-items: center; font-size: 13px; }
+.asim-l { font: 600 13px var(--mono); color: var(--ink-soft); }
+.asim-bar { position: relative; height: 18px; background: var(--paper); border-radius: 4px; overflow: hidden; }
+.asim-bar b { position: absolute; left: 50%; top: 0; bottom: 0; width: 1.5px; background: var(--ink-faint); }
+.asim-bar i { position: absolute; top: 3px; bottom: 3px; border-radius: 3px; }
+.asim-bar i.neg { background: var(--terracotta); }
+.asim-bar i.pos { background: var(--olive); }
+.asim-v { font: 600 13px var(--mono); text-align: right; }
+.asim-v em { font-style: normal; }
+.asim-v .neg { color: var(--terracotta); }
+.asim-v .pos { color: var(--olive-deep); }
+@media (max-width: 640px) {
+  .pagos-grid { grid-template-columns: 1fr; }
+  .bal-read { grid-template-columns: 1fr 1fr; }
+  .bolsillo { font-size: 11px; border-spacing: 2px; }
+  .bolsillo td { padding: 8px 2px; }
+  .asim-row { grid-template-columns: 70px 1fr; }
+  .asim-v { grid-column: 1 / -1; text-align: left; }
 }

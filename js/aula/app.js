@@ -19,12 +19,13 @@
   const disponibles = () => AULA.recorrido.map(modulo).filter(Boolean);
   const claveLec = (m, l) => m + "." + l;
   const ejerciciosDe = lec => lec.bloques.filter(b => b.t === "ej");
+  const etiqueta = m => m.taller ? "Taller práctico" : "Módulo " + m.numero;
 
   function avanceModulo(m) {
     const total = m.lecciones.length;
     const hechas = m.lecciones.filter(l => P.leccionCompleta(claveLec(m.id, l.id))).length;
     const ev = P.evaluacion(m.id);
-    return { total, hechas, pct: Math.round(hechas / total * 100), ev, aprobado: !!(ev && ev.mejor >= 0.7) };
+    return { total, hechas, pct: Math.round(hechas / total * 100), ev, aprobado: m.evaluacion ? !!(ev && ev.mejor >= 0.7) : hechas === total };
   }
   function estadoModulo(m) {
     const a = avanceModulo(m);
@@ -35,7 +36,7 @@
   function siguientePaso() {
     for (const m of disponibles()) {
       for (const l of m.lecciones) if (!P.leccionCompleta(claveLec(m.id, l.id))) return { m, l };
-      if (!avanceModulo(m).aprobado) return { m, eval: true };
+      if (m.evaluacion && !avanceModulo(m).aprobado) return { m, eval: true };
     }
     return null;
   }
@@ -87,7 +88,7 @@
       const a = avanceModulo(m), st = estadoModulo(m);
       return `<a class="journey-step st-${st}" href="#/m/${m.id}">
         <span class="journey-dot">${st === "completo" ? check : i + 1}</span>
-        <span class="journey-num">Módulo ${m.numero}</span>
+        <span class="journey-num">${etiqueta(m)}</span>
         <strong>${esc(m.titulo)}</strong>
         <span class="journey-meta">${a.hechas}/${a.total} lecciones${a.ev ? " · eval. " + Math.round(a.ev.mejor * 100) + "%" : ""}</span>
         <span class="journey-bar"><i style="width:${a.pct}%"></i></span>
@@ -164,7 +165,7 @@
 
       <section class="panel">
         <header class="section-head"><span class="eyebrow">Plan de estudio</span><h2>Todos los módulos</h2>
-          <p class="section-lede">Doce módulos basados en el Book y ampliados con coyuntura. Se van habilitando a medida que están listos.</p></header>
+          <p class="section-lede">Once módulos basados en el Book y ampliados con coyuntura. Se van habilitando a medida que están listos.</p></header>
         ${mapa}
       </section>`;
   }
@@ -185,10 +186,10 @@
     }).join("");
     const ev = a.ev;
     app.innerHTML = `
-      <nav class="crumbs"><a href="#/">Aula</a><span>/</span><span>Módulo ${m.numero}</span></nav>
+      <nav class="crumbs"><a href="#/">Aula</a><span>/</span><span>${etiqueta(m)}</span></nav>
       <section class="mod-hero">
         <div>
-          <p class="eyebrow">Módulo ${m.numero}</p>
+          <p class="eyebrow">${etiqueta(m)}</p>
           <h1>${esc(m.titulo)}</h1>
           <p class="lede">${esc(m.bajada)}</p>
           <p class="mod-src">${esc(m.fuente)}</p>
@@ -208,13 +209,13 @@
             <a class="practica-card" href="${p.href}"><strong>${esc(p.titulo)}</strong><p>${esc(p.desc)}</p><span class="link">Abrir el simulador ${flecha}</span></a>`).join("")}
           </div>
         </section>
-        <section class="panel eval-card ${a.aprobado ? "is-ok" : ""}">
+${m.evaluacion ? `        <section class="panel eval-card ${a.aprobado ? "is-ok" : ""}">
           <header class="section-head"><span class="eyebrow">Paso 4</span><h2>Evaluación del módulo</h2></header>
           <p>${m.evaluacion.cantidad} preguntas del banco de práctica, elegidas priorizando las que todavía no viste. Se aprueba con 70%.</p>
           ${ev ? `<div class="eval-score"><span>Mejor resultado</span><strong>${Math.round(ev.mejor * 100)}%</strong><small>${ev.intentos} ${ev.intentos === 1 ? "intento" : "intentos"}</small></div>` : ""}
           ${a.hechas < a.total ? `<p class="hint">Conviene terminar las lecciones antes, aunque podés hacerla cuando quieras.</p>` : ""}
           <a class="btn ${a.hechas === a.total ? "btn-primary" : "btn-ghost"}" href="#/m/${m.id}/evaluacion">${ev ? "Volver a hacerla" : "Empezar evaluación"} ${flecha}</a>
-        </section>
+        </section>` : `<section class="panel eval-card"><header class="section-head"><span class="eyebrow">Taller</span><h2>Sin evaluación</h2></header><p>Es un taller de práctica: se completa terminando sus lecciones. Lo importante es el juego y los ejercicios.</p><a class="btn btn-ghost" href="#/">Volver al aula →</a></section>`}
       </div>`;
   }
 
@@ -260,9 +261,9 @@
       <div class="read-progress"><i id="readBar"></i></div>
       <div class="lesson-layout">
         <aside class="lesson-side">
-          <a class="side-mod" href="#/m/${m.id}"><small>Módulo ${m.numero}</small>${esc(m.titulo)}</a>
+          <a class="side-mod" href="#/m/${m.id}"><small>${etiqueta(m)}</small>${esc(m.titulo)}</a>
           <nav>${lateral}</nav>
-          <a class="side-lec side-eval" href="#/m/${m.id}/evaluacion"><span>✓</span>Evaluación del módulo</a>
+          ${m.evaluacion ? `<a class="side-lec side-eval" href="#/m/${m.id}/evaluacion"><span>✓</span>Evaluación del módulo</a>` : ""}
         </aside>
         <article class="lesson">
           <nav class="crumbs"><a href="#/">Aula</a><span>/</span><a href="#/m/${m.id}">${esc(m.titulo)}</a></nav>
@@ -293,7 +294,8 @@
     const completa = P.leccionCompleta(k);
     const faltan = ejs.length - resp;
     const navSig = sig ? `<a class="btn btn-primary" href="#/m/${m.id}/${sig.id}"><span><small>Siguiente</small>${esc(sig.titulo)}</span>${flecha}</a>`
-                       : `<a class="btn btn-primary" href="#/m/${m.id}/evaluacion"><span><small>Último paso</small>Evaluación del módulo</span>${flecha}</a>`;
+                       : m.evaluacion ? `<a class="btn btn-primary" href="#/m/${m.id}/evaluacion"><span><small>Último paso</small>Evaluación del módulo</span>${flecha}</a>`
+                       : `<a class="btn btn-primary" href="#/"><span><small>Taller terminado</small>Volver al aula</span>${flecha}</a>`;
     const end = document.getElementById("lessonEnd");
     if (!end) return;
     end.innerHTML = completa ? `
@@ -319,12 +321,24 @@
      ====================================================== */
   const ETIQUETA = { mc: "Elegí una opción", multi: "Marcá todas las correctas", estimar: "Estimá antes de ver", caso: "Caso de cliente" };
 
+  // Orden de opciones mezclado pero estable para cada ejercicio (así la correcta
+  // no cae siempre en el mismo lugar y no cambia al recargar la página).
+  function ordenMezclado(clave, n) {
+    let h = 2166136261;
+    for (const ch of clave) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); }
+    const rnd = () => { h ^= h << 13; h ^= h >>> 17; h ^= h << 5; return (h >>> 0) / 4294967296; };
+    const idx = Array.from({ length: n }, (_, i) => i);
+    for (let i = n - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [idx[i], idx[j]] = [idx[j], idx[i]]; }
+    return idx;
+  }
+  const opBtn = (el, j) => el.querySelector(`.ej-op[data-op="${j}"]`);
+
   function renderEjercicio(e, ctx) {
     const clave = claveLec(ctx.m.id, ctx.l.id) + "." + e.id;
     let cuerpo = "";
     if (e.tipo === "mc" || e.tipo === "multi") {
-      cuerpo = `<div class="ej-ops ${e.tipo === "multi" ? "is-multi" : ""}">${e.opciones.map((o, i) => `
-        <button type="button" class="ej-op" data-op="${i}"><span class="ej-mark"></span><span class="ej-txt">${o.txt}</span></button>`).join("")}</div>
+      cuerpo = `<div class="ej-ops ${e.tipo === "multi" ? "is-multi" : ""}">${ordenMezclado(clave, e.opciones.length).map(i => `
+        <button type="button" class="ej-op" data-op="${i}"><span class="ej-mark"></span><span class="ej-txt">${e.opciones[i].txt}</span></button>`).join("")}</div>
         ${e.tipo === "multi" ? `<button type="button" class="btn btn-primary btn-sm" data-action="confirmar" disabled>Confirmar respuesta</button>` : ""}`;
     } else if (e.tipo === "estimar") {
       cuerpo = `<div class="ej-estimar"><label class="num-field num-field-lg"><input type="text" inputmode="decimal" placeholder="Tu número" data-input>${e.unidad ? `<em>${esc(e.unidad)}</em>` : ""}</label>
@@ -360,8 +374,8 @@
 
   function resolverMC(el, i, registrar) {
     const { e } = buscarEj(el);
-    const ops = el.querySelectorAll(".ej-op");
-    ops.forEach((b, j) => {
+    e.opciones.forEach((_, j) => {
+      const b = opBtn(el, j);
       b.disabled = true;
       if (e.opciones[j].ok) b.classList.add("op-ok");
       if (j === i && !e.opciones[j].ok) b.classList.add("op-bad");
@@ -381,7 +395,7 @@
     let aciertos = 0;
     const items = e.opciones.map((o, j) => {
       const marcada = sel.includes(j);
-      const btn = el.querySelectorAll(".ej-op")[j];
+      const btn = opBtn(el, j);
       btn.disabled = true;
       let cls, tag;
       if (o.ok && marcada) { cls = "op-ok"; tag = "Bien marcada"; aciertos++; }
@@ -444,7 +458,7 @@
     if (!r || r.r === undefined) return;
     const tipo = el.dataset.tipo;
     if (tipo === "mc") resolverMC(el, r.r, false);
-    else if (tipo === "multi") { r.r.forEach(j => el.querySelectorAll(".ej-op")[j].classList.add("op-chosen")); resolverMulti(el, r.r, false); }
+    else if (tipo === "multi") { r.r.forEach(j => opBtn(el, j).classList.add("op-chosen")); resolverMulti(el, r.r, false); }
     else if (tipo === "estimar") { el.querySelector("[data-input]").value = String(r.r).replace(".", ","); resolverEstimar(el, r.r, false); }
     else if (tipo === "caso") {
       el.querySelector("[data-input]").value = r.texto || "";
@@ -477,7 +491,7 @@
     if (act) {
       const a = act.dataset.action;
       if (a === "confirmar") {
-        const sel = Array.from(el.querySelectorAll(".ej-op")).map((b, j) => b.classList.contains("op-chosen") ? j : -1).filter(j => j >= 0);
+        const sel = Array.from(el.querySelectorAll(".ej-op.op-chosen")).map(b => +b.dataset.op).sort((a, b) => a - b);
         resolverMulti(el, sel, true); refrescarFin();
       } else if (a === "estimar") {
         const v = leerNumero(el.querySelector("[data-input]").value);
@@ -523,7 +537,8 @@
   function armarEvaluacion(m) {
     const prev = P.evaluacion(m.id);
     const vistas = new Set(prev ? prev.vistas : []), falladas = new Set(prev ? prev.falladas : []);
-    const pool = m.evaluacion.ids.filter(id => BANCO[id]);
+    const pool = (m.evaluacion.ids && m.evaluacion.ids.length ? m.evaluacion.ids
+      : Object.values(BANCO).filter(q => q.categoria === m.evaluacion.categoria).map(q => q.id)).filter(id => BANCO[id]);
     const peso = id => (falladas.has(id) ? 3 : !vistas.has(id) ? 2 : 1) + Math.random() * 1.5;
     const elegidas = pool.map(id => [id, peso(id)]).sort((a, b) => b[1] - a[1]).slice(0, m.evaluacion.cantidad).map(x => x[0]);
     // casos abiertos al final
@@ -703,7 +718,7 @@
     if (partes[0] === "m" && modulo(partes[1])) {
       const m = modulo(partes[1]);
       if (!partes[2]) return { tipo: "modulo", m };
-      if (partes[2] === "evaluacion") return { tipo: "evaluacion", m };
+      if (partes[2] === "evaluacion" && m.evaluacion) return { tipo: "evaluacion", m };
       const l = m.lecciones.find(x => x.id === partes[2]);
       if (l) return { tipo: "leccion", m, l, foco: params.get("ej") };
     }

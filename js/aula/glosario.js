@@ -5,6 +5,16 @@
 window.AULA = window.AULA || { modulos: {} };
 
 AULA.glosario = {
+  fundamental:   { termino: "Análisis fundamental", def: "Estudiar el negocio de una empresa y sus números para formarse una opinión sobre cuánto vale y compararla con su precio. Entra al elegir qué empresas comprar y en el seguimiento de cada resultado trimestral." },
+  ebitda:        { termino: "EBITDA", def: "Resultado operativo antes de intereses, impuestos, depreciaciones y amortizaciones. Aproxima lo que genera la operación; muy usado en empresas con mucha inversión en equipos." },
+  fcf:           { termino: "Flujo de caja libre", def: "La plata que genera la empresa después de pagar sus gastos e inversiones. Es lo que realmente puede usar para pagar deuda, dividendos o recomprar acciones." },
+  margen:        { termino: "Margen", def: "Un resultado dividido por las ventas. Margen operativo 6%: de cada 100 que factura, le quedan 6 después de operar." },
+  pe:            { termino: "P/E (precio / ganancia)", def: "Precio de la acción dividido la ganancia por acción del año. Cuántos años de la ganancia actual se pagan por adelantado." },
+  ev:            { termino: "EV (valor de empresa)", def: "Valor de mercado de las acciones más la deuda neta. Es lo que costaría comprar la empresa entera, haciéndose cargo de lo que debe." },
+  cedear:        { termino: "CEDEAR", def: "Certificado que cotiza en BYMA y representa una fracción de una acción o ETF del exterior. Su precio en pesos combina el precio de la acción en dólares y el dólar CCL." },
+  ratio:         { termino: "Ratio de un CEDEAR", def: "Cuántos CEDEARs equivalen a una acción del exterior. MELI 120:1 significa que 120 CEDEARs son una acción." },
+  etf:           { termino: "ETF", def: "Fondo que cotiza como una acción y replica un índice o un sector. Permite comprar una canasta de empresas en una sola operación." },
+  tesis:         { termino: "Tesis de inversión", def: "La razón, en pocas líneas, por la que tiene sentido comprar un activo a ese precio, incluida la señal que indicaría que uno se equivocó." },
   perfil:        { termino: "Perfil del inversor", def: "Combinación de tolerancia al riesgo, horizonte, situación, objetivo y conocimiento que define qué inversiones son adecuadas para una persona y para cada uno de sus objetivos." },
   volatilidad:   { termino: "Volatilidad", def: "Cuánto sube y baja el precio de un activo en el camino. Es una medida de incertidumbre, no de pérdida permanente." },
   puntas:        { termino: "Caja de puntas", def: "La pantalla que muestra las mejores ofertas de compra y de venta de un instrumento, con sus cantidades. Indica cuánta liquidez real hay." },

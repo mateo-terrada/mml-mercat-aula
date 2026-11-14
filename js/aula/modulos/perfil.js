@@ -49,10 +49,10 @@ AULA.modulos.perfil = {
       { t: "ej", id: "e1", tipo: "mc",
         enunciado: `Graciela, de 63 años, cobra una jubilación que le alcanza para vivir. Tiene USD 40.000 que heredó y te dice: "Es para mis nietos, no lo voy a tocar en por lo menos 15 años. Igual, si baja mucho me pongo nerviosa". ¿Cuál es la lectura más profesional?`,
         opciones: [
-          { txt: "Es conservadora por la edad: a los 63 años corresponde renta fija corta.", ok: false, fb: "La edad es un indicio, pero no decide sola. Su horizonte es de 15 años y no depende de esta plata para vivir." },
-          { txt: "Su horizonte permite un perfil moderado, pero su tolerancia emocional es baja: conviene una cartera moderada con caídas acotadas y explicarle de antemano cuánto puede bajar.", ok: true, fb: "Exacto. Horizonte y situación empujan hacia más riesgo; la tolerancia lo frena. La solución es un punto intermedio, con la conversación sobre caídas hecha antes, no durante." },
-          { txt: "Es agresiva: 15 años de horizonte justifican 100% acciones.", ok: false, fb: "El horizonte lo permitiría, pero ella misma dijo que se pone nerviosa. Una cartera que la haga vender en pánico en la primera caída es peor que una más prudente." },
-          { txt: "No se puede definir sin hacerle el test de perfil formal.", ok: false, fb: "El test formal es obligatorio, pero ya tenés información suficiente para una lectura. El test confirma; el criterio lo ponés vos." }
+          { txt: "Conservadora: por su edad y porque se pone nerviosa le corresponde renta fija corta, aunque piense dejar la plata 15 años.", ok: false, fb: "La edad es un indicio, pero no decide sola. Su horizonte es de 15 años y no depende de esta plata para vivir." },
+          { txt: "Moderada cuidando las caídas: el horizonte permite riesgo, su tolerancia lo limita, y hay que anticiparle cuánto puede bajar.", ok: true, fb: "Exacto. Horizonte y situación empujan hacia más riesgo; la tolerancia lo frena. La solución es un punto intermedio, con la conversación sobre caídas hecha antes, no durante." },
+          { txt: "Agresiva: con 15 años por delante y la jubilación cubierta, puede tener casi todo en acciones y aguantar las bajas.", ok: false, fb: "El horizonte lo permitiría, pero ella misma dijo que se pone nerviosa. Una cartera que la haga vender en pánico en la primera caída es peor que una más prudente." },
+          { txt: "Todavía no se puede definir: primero hay que hacerle el test de perfil formal y recién ahí pensar la cartera.", ok: false, fb: "El test formal es obligatorio, pero ya tenés información suficiente para una lectura. El test confirma; el criterio lo ponés vos." }
         ],
         explicacion: `Los factores no siempre apuntan para el mismo lado. Cuando chocan, el que manda en la práctica suele ser la <strong>tolerancia real</strong>: una cartera que el cliente abandona en la primera caída no sirve, por buena que sea en teoría.` },
       { t: "h", texto: "Lo que dice el cliente vs. lo que hace" },
@@ -63,9 +63,9 @@ AULA.modulos.perfil = {
         opciones: [
           { txt: "¿Cuándo vas a necesitar esta plata?", ok: true, fb: "Clave: sin horizonte largo no hay perfil agresivo que aguante." },
           { txt: "¿Tenés un fondo para emergencias aparte de esto?", ok: true, fb: "Si no lo tiene, cualquier imprevisto lo obliga a vender en el peor momento." },
-          { txt: "¿Qué acciones te gustan?", ok: false, fb: "Es una pregunta de producto, no de perfil. Puede venir después." },
+          { txt: "¿Qué acciones o empresas te gustan más?", ok: false, fb: "Es una pregunta de producto, no de perfil. Puede venir después." },
           { txt: "Si en seis meses la cartera vale 25% menos, ¿qué harías?", ok: true, fb: "Es la pregunta que separa la tolerancia declarada de la real." },
-          { txt: "¿Cuánto querés ganar por año?", ok: false, fb: "Sirve para calibrar expectativas, pero por sí sola no valida el perfil: todos quieren ganar mucho." }
+          { txt: "¿Cuánto te gustaría ganar por año?", ok: false, fb: "Sirve para calibrar expectativas, pero por sí sola no valida el perfil: todos quieren ganar mucho." }
         ],
         explicacion: `Validar un perfil es buscar evidencia de que la persona <em>puede</em> y <em>está dispuesta</em> a atravesar caídas: horizonte, colchón y reacción ante pérdidas.` },
       { t: "cliente", titulo: "Cómo se lo explicás al cliente", html: `"No te voy a preguntar solo qué te gustaría ganar, sino para qué es esta plata y cuándo la vas a necesitar. Puede que te arme dos carteras distintas: una tranquila para lo que tenés que usar pronto y otra más ambiciosa para lo que puede esperar."` }
@@ -91,9 +91,9 @@ AULA.modulos.perfil = {
       { t: "ej", id: "e1", tipo: "mc",
         enunciado: `Un cliente te dice: "Este bono es súper seguro, mirá: hace tres meses que no se mueve". ¿Qué le respondés?`,
         opciones: [
-          { txt: "Tiene razón: poca volatilidad significa poco riesgo.", ok: false, fb: "Esa es justamente la confusión: poca volatilidad no garantiza que el emisor pague." },
-          { txt: "Que no se mueva habla de la volatilidad, no de la capacidad de pago del emisor. Hay que mirar quién lo emite, cuánto rinde y por qué.", ok: true, fb: "Bien. Si además rinde mucho más que bonos parecidos, eso es una señal para investigar, no una ganga." },
-          { txt: "Que no se mueva significa que nadie lo quiere, así que hay que venderlo.", ok: false, fb: "Puede ser poco líquido, pero eso no implica venderlo automáticamente. Es una conclusión apresurada." }
+          { txt: "Tiene razón: si el precio casi no se mueve, el riesgo es bajo y es un buen lugar para estacionar plata.", ok: false, fb: "Esa es justamente la confusión: poca volatilidad no garantiza que el emisor pague." },
+          { txt: "Que no se mueva habla de su volatilidad, no de si el emisor va a pagar: eso hay que mirarlo aparte.", ok: true, fb: "Bien. Si además rinde mucho más que bonos parecidos, eso es una señal para investigar, no una ganga." },
+          { txt: "Que no se mueva indica que nadie lo opera, así que conviene venderlo antes de que sea tarde.", ok: false, fb: "Puede ser poco líquido, pero eso no implica venderlo automáticamente. Es una conclusión apresurada." }
         ],
         explicacion: `En renta fija, el riesgo más importante (el de no cobrar) muchas veces no se ve en el precio diario hasta que se materializa.` },
       { t: "h", texto: "Los riesgos que más pesan en Argentina" },
@@ -111,9 +111,9 @@ AULA.modulos.perfil = {
       { t: "ej", id: "e2", tipo: "mc",
         enunciado: `Un cliente tiene AL30, GD35, una ON de YPF y acciones de Pampa. Te dice: "Estoy bien diversificado, tengo cuatro cosas distintas". ¿Qué le falta entender?`,
         opciones: [
-          { txt: "Nada, cuatro activos de distinto tipo es una buena diversificación.", ok: false, fb: "Son instrumentos distintos, pero comparten el mismo riesgo de fondo." },
-          { txt: "Que todos dependen en gran medida del riesgo argentino: ante un shock local, es probable que caigan juntos.", ok: true, fb: "Exacto. Diversificar es combinar activos que no reaccionen igual ante el mismo evento." },
-          { txt: "Que le conviene tener solo bonos, porque las acciones son más riesgosas.", ok: false, fb: "Eso cambia el nivel de riesgo, pero no resuelve el problema de concentración en Argentina." }
+          { txt: "Nada: combina soberanos, una ON y acciones, que son tres clases de activo distintas.", ok: false, fb: "Son instrumentos distintos, pero comparten el mismo riesgo de fondo." },
+          { txt: "Que todos dependen del riesgo argentino: ante un shock local, es probable que caigan todos juntos.", ok: true, fb: "Exacto. Diversificar es combinar activos que no reaccionen igual ante el mismo evento." },
+          { txt: "Que le convendría pasar todo a bonos, porque las acciones son lo que hace riesgosa la cartera.", ok: false, fb: "Eso cambia el nivel de riesgo, pero no resuelve el problema de concentración en Argentina." }
         ],
         explicacion: `Una buena pregunta para el cliente: "¿Qué evento haría caer todo lo que tenés al mismo tiempo?". Si la respuesta es "una crisis argentina", la cartera está concentrada aunque tenga muchos tickers.` }
     ]
@@ -137,9 +137,9 @@ AULA.modulos.perfil = {
       { t: "ej", id: "e1", tipo: "mc",
         enunciado: `Un cliente quiere estacionar pesos que va a usar en 20 días para pagar una seña, sin sorpresas. ¿Qué vértice del triángulo debería resignar?`,
         opciones: [
-          { txt: "Liquidez: que lo deje inmovilizado a 6 meses para ganar más.", ok: false, fb: "Necesita la plata en 20 días: la liquidez no se negocia." },
-          { txt: "Seguridad: que compre una acción que puede subir en el mes.", ok: false, fb: "Si baja, no llega con la seña. La seguridad tampoco se negocia." },
-          { txt: "Rentabilidad: algo corto y muy seguro, como caución o una LECAP que venza antes de la fecha de pago.", ok: true, fb: "Exacto. Para plata con destino y fecha, el rendimiento es lo que se resigna." }
+          { txt: "Liquidez: que la inmovilice unos meses en algo más largo, que paga una tasa bastante mayor.", ok: false, fb: "Necesita la plata en 20 días: la liquidez no se negocia." },
+          { txt: "Seguridad: que compre una acción líder, que se vende en segundos y puede subir en el mes.", ok: false, fb: "Si baja, no llega con la seña. La seguridad tampoco se negocia." },
+          { txt: "Rentabilidad: algo corto y seguro, como caución o una LECAP que venza antes del pago.", ok: true, fb: "Exacto. Para plata con destino y fecha, el rendimiento es lo que se resigna." }
         ],
         explicacion: `Para plata con fecha de uso cercana, el orden de prioridades es casi siempre: <strong>seguridad → liquidez → rendimiento</strong>.` },
       { t: "ojo", titulo: "La liquidez también tiene matices", html: `"Se puede vender" no es lo mismo que "se puede vender bien". Una ON con poco volumen se puede vender, pero quizás con un descuento grande respecto del último precio. Antes de prometer liquidez, mirá la <span class="term" data-term="puntas">caja de puntas</span>: cuántos compradores hay y a qué precio.` },
@@ -182,7 +182,7 @@ AULA.modulos.perfil = {
         opciones: [
           { txt: "El rendimiento esperado sube un poco y la caída en un año malo sube mucho más.", ok: true, fb: "Exacto: el rendimiento extra es moderado y el costo en caída potencial es grande. Ese es el precio del crecimiento." },
           { txt: "El rendimiento sube y el riesgo baja, porque las acciones rinden más a largo plazo.", ok: false, fb: "Rinden más a largo plazo justamente porque en el camino caen más." },
-          { txt: "No cambia nada importante.", ok: false, fb: "Cambia muchísimo: pasás de un perfil moderado a uno agresivo." }
+          { txt: "Casi nada: el rendimiento esperado y la caída posible crecen más o menos en la misma proporción.", ok: false, fb: "Cambia muchísimo: pasás de un perfil moderado a uno agresivo." }
         ],
         explicacion: `Esta asimetría es lo más importante para transmitirle a un cliente que pide "un poco más de rendimiento": ese poco más suele venir con bastante más caída posible.` },
       { t: "h", texto: "Referencias por perfil" },
@@ -240,9 +240,9 @@ AULA.modulos.perfil = {
         opciones: [
           { txt: "Preguntarle si cambió algo en su vida o en sus planes para esta plata.", ok: true, fb: "Es la pregunta que define si hay que cambiar el plan o sostenerlo." },
           { txt: "Mostrarle que la liquidez y la defensa cubren lo que necesita en el corto plazo.", ok: true, fb: "Le baja la urgencia: lo que cayó no es lo que tiene que usar mañana." },
-          { txt: "Decirle que seguro rebota la semana que viene.", ok: false, fb: "Es una promesa imposible de garantizar y te deja mal parada si no pasa." },
+          { txt: "Tranquilizarlo diciéndole que seguro rebota en las próximas semanas.", ok: false, fb: "Es una promesa imposible de garantizar y te deja mal parada si no pasa." },
           { txt: "Evaluar si corresponde rebalancear, comprando un poco del bloque que cayó.", ok: true, fb: "Si el plan sigue vigente, la caída puede ser una oportunidad de rebalanceo." },
-          { txt: "Vender todo para que no se enoje.", ok: false, fb: "Puede ser lo que pide, pero tu rol es mostrarle el costo de esa decisión. Si igual lo decide, que sea informado." }
+          { txt: "Vender todo, porque es su plata y lo importante es que el cliente esté tranquilo.", ok: false, fb: "Puede ser lo que pide, pero tu rol es mostrarle el costo de esa decisión. Si igual lo decide, que sea informado." }
         ],
         explicacion: `En una caída, el orden es: contener, separar lo urgente de lo que puede esperar, volver al objetivo y recién después hablar de instrumentos.` }
     ]

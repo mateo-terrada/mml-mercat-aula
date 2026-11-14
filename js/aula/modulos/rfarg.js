@@ -57,8 +57,8 @@ AULA.modulos.rfarg = {
           { txt: "Tiene menos liquidez y el mercado pide un premio por eso.", ok: true, fb: "Muy común en bonos chicos o poco negociados." },
           { txt: "Está bajo otra legislación (por ejemplo, ley local en lugar de Nueva York).", ok: true, fb: "En Argentina es una de las diferencias más importantes." },
           { txt: "Tiene una estructura de pagos distinta (amortización o cupones).", ok: true, fb: "Dos bonos con la misma duration pueden tener flujos muy distintos." },
-          { txt: "Es un error de la plataforma y hay que ignorarlo.", ok: false, fb: "Puede pasar, pero no es lo primero que hay que suponer." },
-          { txt: "Es una ganga segura.", ok: false, fb: "Puede ser una oportunidad, pero nunca es 'segura' sin saber por qué paga más." }
+          { txt: "Es un error de precio de la plataforma, así que conviene ignorarlo.", ok: false, fb: "Puede pasar, pero no es lo primero que hay que suponer." },
+          { txt: "Es una oportunidad clara: rinde más por el mismo riesgo de duration.", ok: false, fb: "Puede ser una oportunidad, pero nunca es 'segura' sin saber por qué paga más." }
         ],
         explicacion: `Un rendimiento extra casi siempre es el pago por algún riesgo extra. El trabajo es identificarlo y decidir si al cliente le conviene cobrarlo.` },
       { t: "cliente", titulo: "Cómo se lo explicás al cliente", html: `"Este gráfico es un mapa: más arriba, más rinde; más a la derecha, más se mueve el precio. Lo que buscamos es el punto que te pague bien por el riesgo que estás dispuesto a tomar, no simplemente el que esté más arriba."` }
@@ -101,9 +101,9 @@ AULA.modulos.rfarg = {
       { t: "ej", id: "e3", tipo: "mc",
         enunciado: `Con el riesgo país subiendo, un cliente pregunta si sus ONs de empresas sólidas "también van a bajar, si la empresa no tiene nada que ver con el Gobierno". ¿Qué le respondés?`,
         opciones: [
-          { txt: "No, las ONs de buenas empresas no se ven afectadas.", ok: false, fb: "Se ven afectadas, aunque suelen caer menos que los soberanos." },
-          { txt: "Suelen sentirlo, aunque en menor medida: el riesgo país funciona como un piso para todo el crédito argentino, porque la empresa opera en la misma economía y con las mismas reglas cambiarias.", ok: true, fb: "Exacto. El 'techo soberano' afecta a casi todos los emisores locales." },
-          { txt: "Sí, y caen exactamente lo mismo que los bonos del Gobierno.", ok: false, fb: "Caen en general menos: depende de la empresa, su duration y su negocio." }
+          { txt: "No: si la empresa es sólida y no depende del Gobierno, sus ONs no tienen por qué verse afectadas.", ok: false, fb: "Se ven afectadas, aunque suelen caer menos que los soberanos." },
+          { txt: "Suelen sentirlo, aunque menos: el riesgo país funciona como piso para casi todo el crédito argentino.", ok: true, fb: "Exacto. El 'techo soberano' afecta a casi todos los emisores locales." },
+          { txt: "Sí, y caen lo mismo que los soberanos, porque el mercado no distingue entre los emisores argentinos.", ok: false, fb: "Caen en general menos: depende de la empresa, su duration y su negocio." }
         ],
         explicacion: `Por eso en una cartera argentina diversificar solo entre bonos y ONs locales no protege del riesgo argentino: cambia la intensidad, no la dirección.` }
     ]
@@ -142,9 +142,9 @@ AULA.modulos.rfarg = {
       { t: "ej", id: "e2", tipo: "mc",
         enunciado: `Un cliente con pesos que va a necesitar en pesos dentro de 3 meses (para pagar una obra) pregunta si le conviene comprar dólares "por las dudas". ¿Cuál es el razonamiento correcto?`,
         opciones: [
-          { txt: "Siempre conviene dolarizarse en Argentina.", ok: false, fb: "Si el gasto es en pesos, dolarizarse agrega un riesgo (que el dólar baje o no suba) que no necesita tomar." },
-          { txt: "Como el gasto es en pesos y tiene fecha, una LECAP que venza antes de esa fecha calza la moneda y el plazo. Dolarizarse sería apostar al tipo de cambio.", ok: true, fb: "Exacto: calzar moneda y plazo del gasto es la decisión más defensiva." },
-          { txt: "Le conviene una BONCAP a 2027 porque rinde más.", ok: false, fb: "Rinde más, pero vence después de cuando necesita la plata: tendría que venderla a precio de mercado." }
+          { txt: "Que se dolarice: en Argentina comprar dólares siempre es la opción más segura para no perder.", ok: false, fb: "Si el gasto es en pesos, dolarizarse agrega un riesgo (que el dólar baje o no suba) que no necesita tomar." },
+          { txt: "Una LECAP que venza antes del pago calza moneda y plazo; dolarizarse sería apostar al dólar.", ok: true, fb: "Exacto: calzar moneda y plazo del gasto es la decisión más defensiva." },
+          { txt: "Una BONCAP a 2027, porque rinde más que una LECAP y puede venderla cuando necesite la plata.", ok: false, fb: "Rinde más, pero vence después de cuando necesita la plata: tendría que venderla a precio de mercado." }
         ],
         explicacion: `La primera pregunta en pesos no es "¿cuánto rinde?" sino <strong>"¿en qué moneda y cuándo vas a usar esta plata?"</strong>. Calzar moneda y plazo elimina riesgos que el cliente no necesita.` }
     ]
@@ -178,11 +178,11 @@ AULA.modulos.rfarg = {
       { t: "ej", id: "e2", tipo: "multi",
         enunciado: `Un cliente conservador dice: "Pongo todo en CER y me olvido, total me cubre de la inflación". Marcá <strong>todas</strong> las aclaraciones correctas.`,
         opciones: [
-          { txt: "Lo cubre de la inflación si lo mantiene hasta el vencimiento y el Tesoro paga, pero no de una devaluación más fuerte que la inflación.", ok: true, fb: "Es la aclaración central." },
+          { txt: "Lo cubre de la inflación si lo mantiene al vencimiento, pero no de una devaluación más fuerte que la inflación.", ok: true, fb: "Es la aclaración central." },
           { txt: "Un CER largo puede mostrar caídas de precio en el camino.", ok: true, fb: "Tiene duration y responde a la tasa real." },
-          { txt: "Si necesita dólares, conviene venderlo directo contra dólares para ahorrar un paso.", ok: false, fb: "Al revés: casi no hay puntas en dólares. Se vende en pesos y se compra el dólar aparte." },
+          { txt: "Si en algún momento necesita dólares, conviene venderlo directo contra dólares para ahorrarse un paso.", ok: false, fb: "Al revés: casi no hay puntas en dólares. Se vende en pesos y se compra el dólar aparte." },
           { txt: "La TIR que ve en pantalla ya es una tasa por encima de la inflación.", ok: true, fb: "Exacto: es una tasa real." },
-          { txt: "Todos los meses va a cobrar exactamente la inflación de ese mes.", ok: false, fb: "No: el ajuste tiene rezago y el precio se mueve por la tasa real." }
+          { txt: "Mes a mes, el bono va a rendir exactamente la inflación que publique el INDEC para ese mes.", ok: false, fb: "No: el ajuste tiene rezago y el precio se mueve por la tasa real." }
         ],
         explicacion: `"Cubre la inflación" es verdad a lo largo de toda la vida del bono y con supuestos. En el camino, el CER puede tener sobresaltos que un cliente conservador tiene que conocer de antemano.` }
     ]
@@ -206,9 +206,9 @@ AULA.modulos.rfarg = {
       { t: "ej", id: "e1", tipo: "mc",
         enunciado: `Una empresa importadora tiene que pagar mercadería en 6 meses, al tipo de cambio oficial, y tiene los pesos hoy. ¿Para qué le sirve un dollar-linked?`,
         opciones: [
-          { txt: "Para nada: le conviene comprar MEP.", ok: false, fb: "Puede hacerlo, pero su deuda está atada al oficial, no al MEP." },
-          { txt: "Calza exactamente su riesgo: si el oficial sube, el bono sube en la misma proporción y le alcanza para pagar.", ok: true, fb: "Exacto: el dollar-linked es la cobertura natural para quien tiene un costo atado al oficial." },
-          { txt: "Le sirve para ganarle a la inflación.", ok: false, fb: "No es su función: sigue al dólar oficial, no a los precios." }
+          { txt: "Para nada: le conviene comprar dólar MEP, la cobertura más directa contra una devaluación.", ok: false, fb: "Puede hacerlo, pero su deuda está atada al oficial, no al MEP." },
+          { txt: "Calza su riesgo: si sube el oficial, el bono sube en la misma proporción y le alcanza para pagar.", ok: true, fb: "Exacto: el dollar-linked es la cobertura natural para quien tiene un costo atado al oficial." },
+          { txt: "Le sirve para ganarle a la inflación de esos seis meses mientras espera para pagar la mercadería.", ok: false, fb: "No es su función: sigue al dólar oficial, no a los precios." }
         ],
         explicacion: `El dollar-linked es ideal para quien tiene una obligación atada al dólar oficial. Para un ahorrista que quiere "tener dólares", es una cobertura parcial.` },
       { t: "h", texto: "Bonos duales: \"lo mejor de dos\" tiene precio" },
@@ -220,9 +220,9 @@ AULA.modulos.rfarg = {
       { t: "ej", id: "e2", tipo: "mc",
         enunciado: `Un cliente dice: "El dual me paga lo mejor entre las dos opciones, así que gano seguro". ¿Qué le aclarás?`,
         opciones: [
-          { txt: "Tiene razón: es una cobertura perfecta.", ok: false, fb: "Reduce un riesgo, pero no elimina todos." },
-          { txt: "Que el derecho a elegir lo mejor está incluido en el precio, que sigue teniendo riesgo de precio y de crédito, y que puede rendir menos que la alternativa simple si no se da el escenario que cubre.", ok: true, fb: "Exacto: es un seguro, y los seguros se pagan." },
-          { txt: "Que los duales siempre rinden más que los bonos comunes.", ok: false, fb: "Al contrario: por la opción incluida, en el escenario base suelen rendir algo menos." }
+          { txt: "Tiene razón: al cobrar siempre lo mejor de dos opciones, es una cobertura perfecta y sin costo extra.", ok: false, fb: "Reduce un riesgo, pero no elimina todos." },
+          { txt: "Que esa elección ya está incluida en el precio, y que sigue teniendo riesgo de precio y de crédito.", ok: true, fb: "Exacto: es un seguro, y los seguros se pagan." },
+          { txt: "Que los duales siempre rinden más que un bono común, justamente porque pagan lo mejor de dos.", ok: false, fb: "Al contrario: por la opción incluida, en el escenario base suelen rendir algo menos." }
         ],
         explicacion: `Una buena analogía para el cliente: <em>"Es como un seguro: te cubre si pasa lo malo, pero lo pagás aunque no pase"</em>.` },
       { t: "h", texto: "Mapa final: qué instrumento cubre qué" },

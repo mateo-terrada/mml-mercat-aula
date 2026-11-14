@@ -2075,5 +2075,151 @@ const BANCO_PREGUNTAS = [
     ],
     "respuesta_correcta": 1,
     "explicacion": "Es importante que el cliente entienda que los porcentajes que ve son orientativos, no una fórmula rígida universal. Sirven como punto de partida razonable, pero se ajustan según la situación particular de cada persona y se revisan con el tiempo."
+  },
+  {
+    "id": "EMP-MC-001",
+    "categoria": "Renta Variable",
+    "subtema": "Precio y expectativas (caso MELI)",
+    "dificultad": "intermedia",
+    "tipo": "multiple_choice",
+    "enunciado": "En el tercer trimestre de 2026, MercadoLibre vendió 45% más que un año antes, pero su resultado operativo bajó 6,6% y la acción cayó cerca de 20% en un mes. ¿Qué dato explica mejor la reacción del mercado?",
+    "opciones": [
+      "Las ventas: crecer 45% es poco para una empresa que viene creciendo más de 30% hace casi ocho años.",
+      "La ganancia neta, que subió apenas 6% y quedó por debajo de lo que el mercado esperaba para el trimestre.",
+      "El margen operativo, que bajó a 6,3%: el mercado duda de cuánta ganancia le dejará tanto crecimiento.",
+      "El tipo de cambio en Brasil, que es lo único que mueve la acción de MELI en el corto plazo."
+    ],
+    "respuesta_correcta": 2,
+    "explicacion": "El mercado ya descontaba que MELI iba a crecer mucho. Lo que cambió la expectativa fue la rentabilidad: de cada 100 dólares vendidos le quedaron 6,3 de resultado operativo, menos que antes, por más gastos de envío y marketing. El precio sigue a las ganancias futuras, no a las ventas. La ganancia neta subió, pero por un efecto impositivo, no por el negocio."
+  },
+  {
+    "id": "EMP-MC-002",
+    "categoria": "Renta Variable",
+    "subtema": "Sensibilidad al petróleo (VIST vs XOM)",
+    "dificultad": "intermedia",
+    "tipo": "multiple_choice",
+    "enunciado": "Un cliente tiene Vista (VIST) y ExxonMobil (XOM). El petróleo Brent cae USD 15 en un mes. ¿Qué es razonable esperar?",
+    "opciones": [
+      "Que VIST sufra más: es solo extracción y está en crecimiento; la refinación de XOM amortigua parte de la baja.",
+      "Que XOM sufra más: al ser mucho más grande, la baja del petróleo le pega sobre muchos más barriles producidos.",
+      "Que ambas se muevan casi igual, porque las dos venden el mismo commodity al mismo precio internacional.",
+      "Que ninguna se vea muy afectada, porque las dos cobran en dólares y eso las protege de la baja del crudo."
+    ],
+    "respuesta_correcta": 0,
+    "explicacion": "Vista solo extrae y vende crudo: su generación depende directamente del precio (la propia empresa estimó unos USD 200 millones de EBITDA semestral por cada USD 10 de Brent). Exxon está integrada: cuando el crudo baja, su negocio de refinación suele mejorar márgenes, como pasó en el tercer trimestre de 2026. Que sean más grandes no significa que sean más sensibles en proporción, y cobrar en dólares protege del peso, no del precio del petróleo."
+  },
+  {
+    "id": "EMP-MC-003",
+    "categoria": "Renta Variable",
+    "subtema": "Cómo valuar un banco (JPM)",
+    "dificultad": "intermedia",
+    "tipo": "multiple_choice",
+    "enunciado": "Querés evaluar si la acción de JPMorgan está cara o barata. ¿Qué combinación de indicadores es la más adecuada?",
+    "opciones": [
+      "El margen bruto sobre ventas y el P/E, como se haría con cualquier empresa industrial o de consumo masivo.",
+      "El costo por unidad producida y la deuda neta sobre EBITDA de los últimos doce meses de la empresa.",
+      "La cantidad de sucursales y el crecimiento de clientes, porque el valor de un banco depende de su tamaño.",
+      "El precio sobre valor libros, junto con la rentabilidad sobre el patrimonio, la morosidad y el capital."
+    ],
+    "respuesta_correcta": 3,
+    "explicacion": "El negocio de un banco es su balance: presta y capta depósitos. Por eso se lo valúa contra su patrimonio (P/BV) y se mira cuánto gana sobre ese patrimonio (ROE o ROTCE), cuántos préstamos no se pagan y cuánto colchón de capital tiene. JPMorgan cotizaba a unas 2,5 veces su valor libros con una rentabilidad cercana al 20%: el múltiplo alto se explica por la rentabilidad alta. 'Margen bruto' y 'deuda/EBITDA' no aplican a un banco."
+  },
+  {
+    "id": "EMP-MC-004",
+    "categoria": "Renta Variable",
+    "subtema": "Calidad de la ganancia",
+    "dificultad": "intermedia",
+    "tipo": "multiple_choice",
+    "enunciado": "Una empresa informa que su ganancia neta subió 40%, pero su resultado operativo cayó 10%. En las notas aclara que vendió un edificio en el trimestre. ¿Cuál es la lectura correcta?",
+    "opciones": [
+      "Fue un trimestre excelente: la ganancia neta es lo que le importa al accionista y creció con fuerza.",
+      "La ganancia creció por una venta que no se repite; el negocio en sí empeoró y eso es lo que hay que seguir.",
+      "Los números se contradicen, así que conviene esperar a que la empresa corrija sus estados contables.",
+      "El resultado operativo no importa a largo plazo, porque las empresas siempre encuentran cómo compensarlo."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "Es un problema de calidad de la ganancia: una venta de un activo suma una vez y no se repite. El negocio que va a generar las ganancias futuras (el resultado operativo) empeoró. Le pasó algo parecido a MELI en el tercer trimestre de 2026 con un impuesto más bajo, y lo contrario a Vista, cuya ganancia neta bajó porque el año anterior había tenido una ganancia por única vez."
+  },
+  {
+    "id": "EMP-MC-005",
+    "categoria": "Renta Variable",
+    "subtema": "P/E sobre ganancias futuras",
+    "dificultad": "basica",
+    "tipo": "multiple_choice",
+    "enunciado": "Una acción cotiza a USD 90. Se espera que la empresa gane USD 6 por acción este año y USD 9 el año próximo. ¿Qué P/E estás pagando sobre la ganancia del año próximo?",
+    "opciones": [
+      "15 veces, porque siempre se divide el precio por la ganancia de este año, que es el único dato conocido.",
+      "6 veces, porque la ganancia del próximo año es 50% mayor y eso reduce el múltiplo actual a la mitad.",
+      "10 veces (90 ÷ 9). Sobre la ganancia de este año serían 15: es el mismo precio, leído de otra forma.",
+      "No se puede calcular sin conocer también la deuda de la empresa y su valor libros por acción."
+    ],
+    "respuesta_correcta": 2,
+    "explicacion": "P/E = precio ÷ ganancia por acción. Sobre la ganancia esperada del año próximo: 90 ÷ 9 = 10 veces. Sobre la de este año: 90 ÷ 6 = 15. Por eso, cuando alguien dice 'el P/E es X', siempre hay que preguntar sobre qué ganancia. Para MELI, a USD 1.490 en noviembre de 2026, eran unas 39 veces la ganancia esperada de 2026 y unas 27 veces la de 2027."
+  },
+  {
+    "id": "EMP-MC-006",
+    "categoria": "Renta Variable",
+    "subtema": "Crecimiento vs. cambio de múltiplo",
+    "dificultad": "avanzada",
+    "tipo": "multiple_choice",
+    "enunciado": "En cuatro años, la ganancia por acción de una empresa se duplica, pero el mercado pasa de pagarle un P/E de 40 a uno de 20. Sin contar dividendos, ¿qué pasó con el precio de la acción?",
+    "opciones": [
+      "Se duplicó, porque en el largo plazo el precio de una acción siempre acompaña a la ganancia de la empresa.",
+      "Subió alrededor de 50%, porque la suba de la ganancia compensa solo una parte de la baja del múltiplo.",
+      "Bajó a la mitad, porque el múltiplo se redujo a la mitad y eso es lo que más pesa en el precio de una acción.",
+      "Quedó igual: la ganancia se duplicó y el múltiplo se redujo a la mitad, así que los dos efectos se cancelan."
+    ],
+    "respuesta_correcta": 3,
+    "explicacion": "Precio = ganancia × P/E. Si la ganancia se multiplica por 2 y el P/E por 0,5, el precio se multiplica por 2 × 0,5 = 1: queda igual. Es la trampa de comprar una gran empresa demasiado cara: el negocio puede cumplir todo lo prometido y el accionista no ganar nada en cuatro años."
+  },
+  {
+    "id": "EMP-MC-007",
+    "categoria": "Renta Variable",
+    "subtema": "CEDEAR: dólar implícito",
+    "dificultad": "avanzada",
+    "tipo": "multiple_choice",
+    "enunciado": "El CEDEAR de MELI (ratio 120:1) cotiza a $24.000. La acción en el Nasdaq vale USD 1.600 y el dólar CCL de mercado está en $1.650. ¿Qué te dicen estos números?",
+    "opciones": [
+      "Que el CEDEAR está caro: su dólar implícito es $1.800 (24.000 × 120 ÷ 1.600), muy por encima del CCL.",
+      "Que el CEDEAR está barato: como cotiza en pesos, conviene comprarlo antes de que se ajuste al dólar.",
+      "Nada importante: las diferencias entre el CEDEAR y la acción son normales y no hace falta revisarlas.",
+      "Que la acción en el Nasdaq está cara y probablemente baje para acomodarse al precio local del CEDEAR."
+    ],
+    "respuesta_correcta": 0,
+    "explicacion": "Dólar implícito = precio del CEDEAR × ratio ÷ precio de la acción = 24.000 × 120 ÷ 1.600 = $1.800, un 9% más que el CCL de mercado. Quien compra ese CEDEAR paga un sobreprecio que va a perder cuando el arbitraje lo corrija. Antes de comprar un CEDEAR, sobre todo en momentos de poca liquidez, conviene chequear este número."
+  },
+  {
+    "id": "EMP-MC-008",
+    "categoria": "Renta Variable",
+    "subtema": "Tesis de inversión: señal de salida",
+    "dificultad": "intermedia",
+    "tipo": "multiple_choice",
+    "enunciado": "Tu tesis sobre MELI es: 'el crédito de Mercado Pago se cobra y los márgenes van a recuperarse'. ¿Cuál es la mejor señal para revisar esa tesis?",
+    "opciones": [
+      "Que la acción caiga 15% desde el precio de compra, porque eso confirma que la tesis estaba equivocada.",
+      "Que la morosidad de 15 a 90 días suba de forma sostenida o que el margen operativo siga cayendo dos trimestres.",
+      "Que un competidor anuncie una promoción agresiva en Brasil para la temporada de fiestas de fin de año.",
+      "Que pasen seis meses sin que la acción suba, porque el mercado ya debería haber reconocido el valor."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "Una buena señal de salida mide el negocio que sostiene la tesis, no el precio. Si la tesis dice 'el crédito se cobra', el indicador es la morosidad (que estaba estable en 7% en el tercer trimestre de 2026). Si dice 'los márgenes se recuperan', el indicador es el margen operativo. Una caída de precio puede ser ruido o hasta una oportunidad; una promoción puntual de un competidor no alcanza para cambiar la tesis."
+  },
+  {
+    "id": "EMP-CASO-001",
+    "categoria": "Renta Variable",
+    "subtema": "Revisar una tesis cuando el negocio cambia (Globant)",
+    "dificultad": "avanzada",
+    "tipo": "caso_abierto",
+    "enunciado": "Un cliente tiene 12% de su cartera en Globant, comprada hace dos años. Leyó que las ventas no crecen, que la empresa bajó su proyección anual y que redujo personal. Te pregunta si vende todo. Escribí en 5 o 6 líneas cómo encararías la conversación.",
+    "respuesta_modelo": "Puntos a evaluar: (1) vuelve a la razón de compra: ¿cuál era la tesis y qué parte cambió? (el driver principal, la demanda de proyectos, se frenó); (2) separa el negocio del precio: la pregunta no es cuánto cayó la acción sino si la empresa puede volver a crecer, por ejemplo con su modelo de suscripción con IA; (3) define una señal concreta para decidir (si en los próximos trimestres las ventas siguen sin crecer o vuelve a bajar la proyección); (4) revisa el tamaño: 12% en una sola acción es mucho para la mayoría de los perfiles, así que reducir parte puede tener sentido aunque la tesis siga en pie; (5) evita prometer un rebote."
+  },
+  {
+    "id": "EMP-CASO-002",
+    "categoria": "Renta Variable",
+    "subtema": "Explicar un múltiplo alto al cliente (MELI)",
+    "dificultad": "intermedia",
+    "tipo": "caso_abierto",
+    "enunciado": "Un cliente te dice: 'Me dijeron que MercadoLibre está carísima porque cotiza a 40 veces sus ganancias. ¿Es verdad?'. Escribí en 4 o 5 líneas cómo se lo explicarías, sin jerga.",
+    "respuesta_modelo": "Puntos a evaluar: (1) traduce el P/E: pagar 40 veces es pagar hoy 40 años de la ganancia actual; (2) explica que un múltiplo alto puede tener sentido si la ganancia crece mucho (sobre la ganancia esperada para el año siguiente, el múltiplo baja a cerca de 27); (3) aclara que eso depende de que el crecimiento llegue, y que el riesgo concreto hoy son los márgenes que vienen bajando; (4) compara contra algo razonable (su propia historia o empresas parecidas), no contra una regla fija; (5) no da una respuesta de sí o no sin ese contexto."
   }
 ];

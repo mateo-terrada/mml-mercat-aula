@@ -52,9 +52,9 @@ AULA.modulos.bonos = {
       { t: "ej", id: "e2", tipo: "mc",
         enunciado: `Un bono amortiza en 10 cuotas semestrales iguales a partir del año 3. Un cliente pregunta: "¿Por qué cada vez cobro menos interés si la tasa es la misma?". ¿Qué le respondés?`,
         opciones: [
-          { txt: "Porque el emisor está teniendo problemas y paga menos.", ok: false, fb: "No hay ningún problema: es lo que dice el prospecto." },
-          { txt: "Porque con cada cuota te devuelven parte del capital, y el interés se calcula sobre lo que queda por devolver.", ok: true, fb: "Exacto. Menos capital vivo, menos interés, aunque la tasa sea la misma." },
-          { txt: "Porque la tasa del cupón baja con el tiempo.", ok: false, fb: "Hay bonos con cupón escalonado, pero acá la tasa es fija. El efecto viene de la amortización." }
+          { txt: "Porque el emisor está pagando menos de lo prometido, y eso suele anticipar problemas financieros.", ok: false, fb: "No hay ningún problema: es lo que dice el prospecto." },
+          { txt: "Porque cada cuota te devuelve capital, y el interés se calcula sobre lo que queda por devolver.", ok: true, fb: "Exacto. Menos capital vivo, menos interés, aunque la tasa sea la misma." },
+          { txt: "Porque en este bono la tasa del cupón va bajando año a año, como dice el prospecto.", ok: false, fb: "Hay bonos con cupón escalonado, pero acá la tasa es fija. El efecto viene de la amortización." }
         ],
         explicacion: `Con bonos que amortizan, cada pago tiene dos partes: interés y devolución de capital. Para el cliente que vive de la renta es importante aclararlo: parte de lo que cobra es su propia plata que vuelve.` },
       { t: "cliente", titulo: "Cómo se lo explicás al cliente", html: `"Comprar un bono es prestarle plata a alguien. A cambio te paga un interés cada tanto y te devuelve lo que prestaste en las fechas que dice el contrato. Lo primero que miramos es a quién le prestás y si te va a poder pagar."` }
@@ -82,9 +82,9 @@ AULA.modulos.bonos = {
       { t: "ej", id: "e2", tipo: "mc",
         enunciado: `Un cliente compró un bono a 100 cuando su TIR era 8%. Hoy la TIR de mercado es 10%. Te pregunta: "Si ahora rinde 10%, ¿yo gano más?". ¿Qué le respondés?`,
         opciones: [
-          { txt: "Sí, ahora tu bono rinde 10%.", ok: false, fb: "El 10% es para quien compra hoy, a un precio más bajo." },
-          { txt: "No: si lo mantenés hasta el vencimiento vas a obtener el 8% con el que compraste. Lo que cambió es que hoy tu bono vale menos en pantalla, porque quien lo compra hoy exige 10%.", ok: true, fb: "Exacto. La TIR de compra es la que se fija para quien mantiene hasta el final; el precio de hoy refleja la TIR de hoy." },
-          { txt: "Ganás más solo si vendés ahora.", ok: false, fb: "Al revés: si vende ahora, vende a un precio más bajo que el de compra." }
+          { txt: "Sí: ahora tu bono rinde 10%, así que vas a cobrar más intereses de los que esperabas.", ok: false, fb: "El 10% es para quien compra hoy, a un precio más bajo." },
+          { txt: "No: si lo mantenés al vencimiento ganás el 8% de tu compra; lo que bajó es el precio de hoy.", ok: true, fb: "Exacto. La TIR de compra es la que se fija para quien mantiene hasta el final; el precio de hoy refleja la TIR de hoy." },
+          { txt: "Ganás más solo si lo vendés ahora, porque el mercado está pagando una tasa más alta que antes.", ok: false, fb: "Al revés: si vende ahora, vende a un precio más bajo que el de compra." }
         ],
         explicacion: `Distinguir la <strong>TIR de compra</strong> (la tuya, fija si mantenés hasta el vencimiento y el emisor paga) de la <strong>TIR de mercado</strong> (la de hoy, que mueve el precio) resuelve la mitad de las dudas de los clientes.` },
       { t: "h", texto: "Los supuestos que hay detrás de la TIR" },
@@ -97,9 +97,9 @@ AULA.modulos.bonos = {
       { t: "ej", id: "e3", tipo: "mc",
         enunciado: `Dos ONs en dólares, mismo plazo. La de la empresa A rinde 7,5% y la de B, 14%. ¿Cuál es la lectura correcta?`,
         opciones: [
-          { txt: "B es mejor: rinde casi el doble por el mismo plazo.", ok: false, fb: "Rinde más porque el mercado le asigna más riesgo. No es gratis." },
-          { txt: "El mercado percibe a B como bastante más riesgosa (o menos líquida). Puede ser una oportunidad, pero primero hay que entender por qué paga esa diferencia.", ok: true, fb: "Exacto. La diferencia de TIR es información, no un regalo." },
-          { txt: "A es mejor porque menos TIR siempre significa más seguridad.", ok: false, fb: "Suele ir junto, pero no es una regla automática: también influyen la liquidez y la estructura." }
+          { txt: "B es mejor: por el mismo plazo rinde casi el doble, y esa diferencia compensa el riesgo extra.", ok: false, fb: "Rinde más porque el mercado le asigna más riesgo. No es gratis." },
+          { txt: "El mercado ve a B más riesgosa o menos líquida: antes de elegirla hay que entender por qué paga más.", ok: true, fb: "Exacto. La diferencia de TIR es información, no un regalo." },
+          { txt: "A es mejor: una TIR más baja siempre indica un emisor más seguro, así que es la opción más prudente.", ok: false, fb: "Suele ir junto, pero no es una regla automática: también influyen la liquidez y la estructura." }
         ],
         explicacion: `La pregunta profesional nunca es "¿cuál rinde más?" sino "¿qué riesgo estoy cobrando con ese rendimiento extra, y lo quiero para este cliente?".` }
     ]
@@ -122,9 +122,9 @@ AULA.modulos.bonos = {
       { t: "ej", id: "e1", tipo: "mc",
         enunciado: `Un cliente quiere comprar una ON "porque paga 9% de cupón, mucho más que el plazo fijo". La ON cotiza a 112. ¿Qué es lo más importante aclararle?`,
         opciones: [
-          { txt: "Que el cupón de 9% es lo que va a ganar por año.", ok: false, fb: "Es lo que paga sobre el nominal, pero él no paga 100: paga 112." },
-          { txt: "Que como paga 112 y al final le devuelven 100, su rendimiento real hasta el vencimiento es menor al 9%. El número para comparar es la TIR.", ok: true, fb: "Exacto. El cupón es el número de marketing; la TIR es el número de decisión." },
-          { txt: "Que no conviene comprar bonos sobre la par.", ok: false, fb: "No hay nada malo en comprar sobre la par si la TIR resultante es atractiva." }
+          { txt: "Que el 9% de cupón es exactamente lo que va a ganar por año si mantiene la ON hasta el final.", ok: false, fb: "Es lo que paga sobre el nominal, pero él no paga 100: paga 112." },
+          { txt: "Que paga 112 y le devuelven 100: rinde menos del 9%, y para comparar hay que usar la TIR.", ok: true, fb: "Exacto. El cupón es el número de marketing; la TIR es el número de decisión." },
+          { txt: "Que no conviene comprar bonos sobre la par, porque siempre terminan perdiendo plata.", ok: false, fb: "No hay nada malo en comprar sobre la par si la TIR resultante es atractiva." }
         ],
         explicacion: `La regla práctica: <strong>para comparar bonos, usá la TIR; el cupón sirve para saber cuánto vas a cobrar en cada pago</strong>.` },
       { t: "h", texto: "Precio sucio: la forma normal de cotizar en Argentina" },
@@ -172,9 +172,9 @@ AULA.modulos.bonos = {
       { t: "ej", id: "e2", tipo: "mc",
         enunciado: `Un cliente conservador pregunta por qué le recomendás un bono a 2 años que rinde 7% en lugar de uno a 10 años que rinde 9%, del mismo emisor.`,
         opciones: [
-          { txt: "Porque el de 10 años es de peor calidad.", ok: false, fb: "Es el mismo emisor: la calidad crediticia es la misma." },
-          { txt: "Porque el de 10 años tiene mucha más duration: ante una suba de tasas puede caer varias veces más que el corto. Para él, los 2 puntos extra no compensan ese riesgo de precio.", ok: true, fb: "Exacto. La diferencia de TIR paga el riesgo de tasa, y ese riesgo no encaja con su perfil." },
-          { txt: "Porque los bonos cortos siempre rinden más a largo plazo.", ok: false, fb: "No hay una regla así. Acá la clave es el riesgo de precio." }
+          { txt: "Porque al ser más largo, el bono a 10 años tiene peor calidad crediticia que el de 2 años.", ok: false, fb: "Es el mismo emisor: la calidad crediticia es la misma." },
+          { txt: "Porque el de 10 años cae mucho más si suben las tasas, y 2 puntos extra no le compensan ese riesgo.", ok: true, fb: "Exacto. La diferencia de TIR paga el riesgo de tasa, y ese riesgo no encaja con su perfil." },
+          { txt: "Porque los bonos cortos rinden más a largo plazo: al reinvertir seguido se captura más tasa.", ok: false, fb: "No hay una regla así. Acá la clave es el riesgo de precio." }
         ],
         explicacion: `Acortar duration es la herramienta más concreta para bajar el riesgo de precio de una cartera de renta fija. Alargarla es la forma de "apostar" a que las tasas bajen.` },
       { t: "h", texto: "La duration funciona para los dos lados" },
@@ -202,9 +202,9 @@ AULA.modulos.bonos = {
       { t: "ej", id: "e1", tipo: "mc",
         enunciado: `Una ON con opción de rescate anticipado (call) a favor de la empresa cotiza a 108. ¿Por qué el call es un riesgo para el inversor?`,
         opciones: [
-          { txt: "Porque si las tasas bajan, la empresa puede cancelar la deuda a un precio fijado (por ejemplo, 101), y el inversor pierde la suba que habría tenido.", ok: true, fb: "Exacto: el call le pone techo a la ganancia justo en el escenario bueno." },
-          { txt: "Porque la empresa puede no pagar el cupón.", ok: false, fb: "Eso es riesgo de crédito, no de rescate." },
-          { txt: "No es un riesgo: cobrar antes siempre es bueno.", ok: false, fb: "Cobrar antes a 101 un bono que compraste a 108 es una pérdida." }
+          { txt: "Porque si las tasas bajan, la empresa puede cancelar a un precio fijado (por ejemplo 101) y le quita la suba.", ok: true, fb: "Exacto: el call le pone techo a la ganancia justo en el escenario bueno." },
+          { txt: "Porque le da a la empresa el derecho de dejar de pagar cupones mientras el bono cotice sobre la par.", ok: false, fb: "No: el call no permite dejar de pagar. Eso sería un default, que es riesgo de crédito." },
+          { txt: "No es un riesgo: cobrar antes de tiempo siempre es bueno, porque te devuelven la plata más rápido.", ok: false, fb: "Cobrar antes a 101 un bono que compraste a 108 es una pérdida." }
         ],
         explicacion: `Si una ON con call cotiza bien arriba del precio de rescate, la TIR que importa es la calculada <em>hasta la fecha del call</em>, que puede ser bastante menor que la TIR hasta el vencimiento.` },
       { t: "ej", id: "e2", tipo: "multi",
@@ -213,9 +213,9 @@ AULA.modulos.bonos = {
           { txt: "Quién es el emisor y si la TIR es coherente con bonos parecidos.", ok: true, fb: "Es el primer filtro: riesgo de crédito." },
           { txt: "La duration, y si encaja con el horizonte y el perfil del cliente.", ok: true, fb: "Define cuánto puede moverse el precio." },
           { txt: "La moneda en la que paga y en la que conviene negociarlo.", ok: true, fb: "Clave en Argentina: no todos los bonos tienen liquidez en todas las monedas." },
-          { txt: "Que el ticker sea conocido por el cliente.", ok: false, fb: "Que lo conozca no lo hace adecuado." },
+          { txt: "Que el cliente conozca el ticker y se sienta cómodo con el emisor.", ok: false, fb: "Que lo conozca no lo hace adecuado." },
           { txt: "Cuántos compradores y vendedores hay en la caja de puntas.", ok: true, fb: "Si después necesita vender, la liquidez importa." },
-          { txt: "Si subió mucho en el último mes.", ok: false, fb: "El rendimiento pasado no dice si hoy es adecuado. Lo que importa es la TIR de hoy y el riesgo." }
+          { txt: "Cómo le fue al bono en el último mes, para ver si viene subiendo.", ok: false, fb: "El rendimiento pasado no dice si hoy es adecuado. Lo que importa es la TIR de hoy y el riesgo." }
         ],
         explicacion: `Un checklist de cinco preguntas (emisor, TIR contra pares, duration, moneda, liquidez) evita la mayoría de las malas recomendaciones de renta fija.` },
       { t: "ej", id: "e3", tipo: "caso",
