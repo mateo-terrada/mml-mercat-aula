@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<meta name="theme-color" content="#1C2B2D">
+<title>La cartera · El Escritorio</title>
+<meta name="description" content="Simulación de administración de carteras: doce meses, dos clientes y un mercado que se mueve.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/cartera.css">
+</head>
+<body>
+
+<header class="top"><div class="top-in">
+  <div class="brand"><small>El Escritorio · Simulación</small>La cartera</div>
+  <nav class="topnav" aria-label="Secciones">
+    <a href="index.html">Aula</a><a href="practica.html">Práctica diaria</a><a href="simulador.html">Simulador</a><a class="on" href="cartera.html">La cartera</a>
+  </nav>
+  <div class="mes" id="mes"></div>
+</div></header>
+<div class="tape"><div class="tape-in" id="tape"></div></div>
+
+<main class="shell">
+  <nav class="steps" id="steps" aria-label="Pasos del mes"></nav>
+  <section id="view" aria-live="polite"></section>
+</main>
+
+<footer class="foot"><div class="shell">
+  <div class="foot-in">
+    <p style="margin:0">El Escritorio · La cartera 5.0. Simulación de estudio, no constituye recomendación de inversión. La partida se guarda en este navegador.</p>
+    <button class="link-btn" id="btnReinicio" type="button">Empezar una partida nueva</button>
+  </div>
+  <div class="reinicio" id="reinicio" hidden>
+    <p><strong>¿Empezar de nuevo?</strong> Se borra la partida en curso.</p>
+    <div class="row">
+      <button type="button" class="btn" data-nueva="misma">El mismo año, con los mismos números</button>
+      <button type="button" class="btn" data-nueva="otra">Un año con otros números</button>
+      <button type="button" class="btn" id="btnCancelar">Cancelar</button>
+    </div>
+  </div>
+</div></footer>
+
+<script src="js/cartera/motor.js"></script>
+<script src="js/cartera/anio1.js"></script>
+<script src="js/cartera/app.js"></script>
+</body>
+</html>

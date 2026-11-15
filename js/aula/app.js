@@ -27,6 +27,31 @@
     const ev = P.evaluacion(m.id);
     return { total, hechas, pct: Math.round(hechas / total * 100), ev, aprobado: m.evaluacion ? !!(ev && ev.mejor >= 0.7) : hechas === total };
   }
+  /* La cartera (simulación): se habilita al terminar el Taller CER */
+  const REQ_CARTERA = ["mercado", "perfil", "bonos", "duration", "rfarg", "cer"];
+  function partidaCartera() {
+    try { const s = JSON.parse(localStorage.getItem("elEscritorio_cartera_v1") || "null"); return s && s.resumen ? s.resumen : null; } catch (e) { return null; }
+  }
+  function tarjetaCartera() {
+    const req = REQ_CARTERA.map(modulo).filter(Boolean);
+    const faltan = req.filter(m => { const a = avanceModulo(m); return a.hechas < a.total; });
+    const pc = partidaCartera();
+    if (faltan.length && !pc) return `
+      <section class="diag-card">
+        <div><span class="eyebrow">Simulación · La cartera</span>
+          <strong>Doce meses, dos clientes, un mercado que se mueve</strong>
+          <p>Se habilita al terminar el Taller del CER. Te falta: ${faltan.map(m => esc(m.titulo)).join(" · ")}.</p></div>
+        <div class="diag-card-act"><span class="tag">Bloqueada</span></div>
+      </section>`;
+    return `
+      <section class="diag-card ${pc ? "" : "is-new"}">
+        <div><span class="eyebrow">Simulación · La cartera</span>
+          <strong>${pc ? "Tu partida en curso" : "Doce meses, dos clientes, un mercado que se mueve"}</strong>
+          <p>${pc ? esc(pc.lineas[0]) + "." : "Administrás las carteras de dos clientes durante un año: leés los titulares, armás la propuesta y le explicás a cada uno. Unos 5 minutos por mes; se guarda sola."}</p></div>
+        <div class="diag-card-act"><a class="btn btn-primary" href="cartera.html">${pc ? "Seguir la partida" : "Empezar"} ${flecha}</a></div>
+      </section>`;
+  }
+
   function estadoModulo(m) {
     const a = avanceModulo(m);
     if (a.hechas === a.total && a.aprobado) return "completo";
@@ -141,7 +166,7 @@
     app.innerHTML = `
       <section class="hero">
         <div class="hero-main">
-          <p class="eyebrow">Aula · Versión 4.0</p>
+          <p class="eyebrow">Aula · Versión 5.0</p>
           <h1>Aprender el mercado, <em>de a una lección por vez.</em></h1>
           <p class="lede">Teoría explicada sin vueltas, ejemplos con instrumentos argentinos reales y ejercicios para fijar cada idea. Avanzá módulo por módulo, a tu ritmo.</p>
           <div class="hero-cta">${cta}</div>
@@ -178,6 +203,8 @@
           <p>22 preguntas, unos 15 minutos. Te muestra qué temas tenés firmes y cuáles conviene repasar primero.</p></div>
         <div class="diag-card-act"><a class="btn btn-primary" href="#/diagnostico">Hacer el diagnóstico ${flecha}</a></div>
       </section>`}
+
+      ${tarjetaCartera()}
 
       <section class="panel">
         <header class="section-head"><span class="eyebrow">Recorrido recomendado</span><h2>Por dónde seguir</h2></header>
@@ -855,7 +882,7 @@ ${m.evaluacion ? `        <section class="panel eval-card ${a.aprobado ? "is-ok"
         practica = { total: raw.totalRespondidas || 0, correctas: raw.totalCorrectas || 0, cats, fall, mejorRacha: raw.mejorRacha || 0 };
       }
     } catch (e) { /* sin datos de la práctica */ }
-    return { s, dias, mods, costaron, casos, evalFall, practica, diag: ultimoDiag(), diagPrev: P.diagnosticos().slice(-2, -1)[0] || null };
+    return { s, dias, mods, costaron, casos, evalFall, practica, cartera: partidaCartera(), diag: ultimoDiag(), diagPrev: P.diagnosticos().slice(-2, -1)[0] || null };
   }
 
   function textoInforme(d) {
@@ -886,6 +913,9 @@ ${m.evaluacion ? `        <section class="panel eval-card ${a.aprobado ? "is-ok"
       Object.entries(d.practica.cats).forEach(([c, v]) => L.push(`- ${c}: ${v.bien}/${v.vistas} preguntas bien la última vez`));
       if (d.practica.fall.length) L.push(`Temas que falló la última vez: ${d.practica.fall.slice(0, 20).map(q => q.subtema).join(" · ")}${d.practica.fall.length > 20 ? ` (y ${d.practica.fall.length - 20} más)` : ""}`);
     }
+    L.push("", "LA CARTERA (SIMULACIÓN)");
+    if (!d.cartera) L.push("Todavía no empezó una partida en este navegador.");
+    else d.cartera.lineas.forEach(x => L.push(x));
     return L.join("\n");
   }
 

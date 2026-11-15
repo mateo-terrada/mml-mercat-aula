@@ -1,10 +1,22 @@
-# El Escritorio 4.0 — Aula + Práctica diaria + Simulador
+# El Escritorio 5.0 — Aula + Práctica diaria + Simulador + La cartera
 
 ## Qué hay en cada página
 
 - `index.html` → **Aula**: plataforma de estudio por módulos (lecciones, herramientas interactivas, ejercicios y evaluación por módulo).
 - `practica.html` → **Práctica diaria**: el banco de preguntas de siempre (antes era `index.html`).
 - `simulador.html` → **Simulador**: curvas, caja de puntas, rotaciones y "¿Qué hago si...?".
+- `cartera.html` → **La cartera** (nuevo en 5.0): simulación de un año administrando las carteras de dos clientes, un turno por mes.
+
+## Archivos de La cartera
+
+```
+css/cartera.css        → diseño
+js/cartera/motor.js    → el mercado (factores, instrumentos, azar con semilla) y las reglas de criterio por perfil
+js/cartera/anio1.js    → el año 1: clientes, titulares de cada mes y lo que dice cada cliente
+js/cartera/app.js      → pantallas, guardado de la partida y repaso final
+```
+
+La partida se guarda en el navegador (clave `elEscritorio_cartera_v1`). En el Aula, la tarjeta de La cartera se habilita al terminar el Taller del CER, y el resumen de la partida se suma a "Mi informe". Para agregar otro año se escribe un archivo como `anio1.js`.
 
 ## Archivos del Aula
 
