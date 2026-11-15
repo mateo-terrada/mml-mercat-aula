@@ -192,7 +192,10 @@ tfoot td{font-weight:600;border-bottom:0;padding-top:16px}
 .cf{margin-top:20px;border:1px solid var(--rule);border-radius:12px;overflow:hidden}
 .cf h4{font-size:16px;padding:14px 16px 4px}
 .cf p{margin:0;padding:0 16px 10px;font-size:13.5px;color:var(--ink-soft)}
-.cf table{font-size:14px}
+.cf table{font-size:14px;table-layout:fixed;width:100%}
+.cf th:first-child,.cf td:first-child{width:34%}
+.cf th.n{white-space:normal;letter-spacing:.02em;line-height:1.4;overflow-wrap:anywhere;vertical-align:bottom}
+.cf th.n small{display:block;white-space:nowrap;margin-top:2px}
 .cf th,.cf td{padding:10px 16px}
 .cf th{background:var(--paper-raised);border-top:1px solid var(--rule-soft)}
 .cf tr.mine td{font-weight:600}

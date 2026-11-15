@@ -14,7 +14,7 @@ AULA.modulos.cer = {
   fuente: "Taller práctico · complementa el módulo 04",
   practica: [
     { titulo: "¿Qué hago si...?", desc: "El escenario de cobertura en pesos: tasa fija vs. CER vs. dollar-linked.", href: "simulador.html" },
-    { titulo: "Curvas de bonos", desc: "La curva CER del simulador: el eje vertical es tasa real.", href: "simulador.html" }
+    { titulo: "Curvas de bonos", desc: "La curva CER de la mesa de operaciones: el eje vertical es tasa real.", href: "simulador.html" }
   ],
   lecciones: [
 

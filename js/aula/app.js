@@ -38,14 +38,14 @@
     const pc = partidaCartera();
     if (faltan.length && !pc) return `
       <section class="diag-card">
-        <div><span class="eyebrow">Simulación · La cartera</span>
+        <div><span class="eyebrow">Simulador de carteras</span>
           <strong>Doce meses, dos clientes, un mercado que se mueve</strong>
           <p>Se habilita al terminar el Taller del CER. Te falta: ${faltan.map(m => esc(m.titulo)).join(" · ")}.</p></div>
         <div class="diag-card-act"><span class="tag">Bloqueada</span></div>
       </section>`;
     return `
       <section class="diag-card ${pc ? "" : "is-new"}">
-        <div><span class="eyebrow">Simulación · La cartera</span>
+        <div><span class="eyebrow">Simulador de carteras</span>
           <strong>${pc ? "Tu partida en curso" : "Doce meses, dos clientes, un mercado que se mueve"}</strong>
           <p>${pc ? esc(pc.lineas[0]) + "." : "Administrás las carteras de dos clientes durante un año: leés los titulares, armás la propuesta y le explicás a cada uno. Unos 5 minutos por mes; se guarda sola."}</p></div>
         <div class="diag-card-act"><a class="btn btn-primary" href="cartera.html">${pc ? "Seguir la partida" : "Empezar"} ${flecha}</a></div>
@@ -186,7 +186,7 @@
       <section class="metodo">
         <div class="metodo-step"><span>1</span><strong>Leer</strong><p>Lecciones cortas, de 7 a 13 minutos, con el concepto y cómo explicárselo a un cliente.</p></div>
         <div class="metodo-step"><span>2</span><strong>Probar</strong><p>Herramientas interactivas para mover los números y ver qué pasa.</p></div>
-        <div class="metodo-step"><span>3</span><strong>Practicar</strong><p>Ejercicios dentro de cada lección y casos aplicados en el simulador.</p></div>
+        <div class="metodo-step"><span>3</span><strong>Practicar</strong><p>Ejercicios dentro de cada lección y casos aplicados en la mesa de operaciones y en el simulador de carteras.</p></div>
         <div class="metodo-step"><span>4</span><strong>Evaluar</strong><p>Una evaluación por módulo con preguntas del banco. Se aprueba con 70%.</p></div>
       </section>
 
@@ -256,7 +256,7 @@
         <section class="panel">
           <header class="section-head"><span class="eyebrow">Paso 3</span><h2>Práctica aplicada</h2></header>
           <div class="practica-list">${m.practica.map(p => `
-            <a class="practica-card" href="${p.href}"><strong>${esc(p.titulo)}</strong><p>${esc(p.desc)}</p><span class="link">Abrir el simulador ${flecha}</span></a>`).join("")}
+            <a class="practica-card" href="${p.href}"><strong>${esc(p.titulo)}</strong><p>${esc(p.desc)}</p><span class="link">Abrir la mesa de operaciones ${flecha}</span></a>`).join("")}
           </div>
         </section>
 ${m.evaluacion ? `        <section class="panel eval-card ${a.aprobado ? "is-ok" : ""}">
@@ -813,7 +813,7 @@ ${m.evaluacion ? `        <section class="panel eval-card ${a.aprobado ? "is-ok"
         <div>
           <p class="eyebrow">${recien ? "Resultado del diagnóstico" : "Diagnóstico del " + fechaLarga(r.fecha)}</p>
           <h1>${r.aciertos} de ${r.total} bien</h1>
-          <p class="lede">${previo ? `La vez anterior (${fechaLarga(previo.fecha)}) fueron ${previo.aciertos} de ${previo.total}. ` : ""}${r.nose ? `Marcaste "No sé" en ${r.nose} ${r.nose === 1 ? "pregunta" : "preguntas"}: eso también es información útil. ` : ""}${orden.length ? `Te sugerimos empezar por <strong>${esc(orden[0].titulo)}</strong>.` : "Tenés todos los temas firmes: usá el Aula para repasar y los casos del simulador para seguir practicando."}</p>
+          <p class="lede">${previo ? `La vez anterior (${fechaLarga(previo.fecha)}) fueron ${previo.aciertos} de ${previo.total}. ` : ""}${r.nose ? `Marcaste "No sé" en ${r.nose} ${r.nose === 1 ? "pregunta" : "preguntas"}: eso también es información útil. ` : ""}${orden.length ? `Te sugerimos empezar por <strong>${esc(orden[0].titulo)}</strong>.` : "Tenés todos los temas firmes: usá el Aula para repasar y los casos de la mesa de operaciones para seguir practicando."}</p>
           <div class="result-actions">
             ${orden.length ? `<a class="btn btn-primary" href="#/m/${orden[0].id}">Empezar por ahí ${flecha}</a>` : `<a class="btn btn-primary" href="#/">Volver al aula ${flecha}</a>`}
             <button type="button" class="btn btn-ghost" data-action="diag-copiar">Copiar resumen para compartir</button>
@@ -913,7 +913,7 @@ ${m.evaluacion ? `        <section class="panel eval-card ${a.aprobado ? "is-ok"
       Object.entries(d.practica.cats).forEach(([c, v]) => L.push(`- ${c}: ${v.bien}/${v.vistas} preguntas bien la última vez`));
       if (d.practica.fall.length) L.push(`Temas que falló la última vez: ${d.practica.fall.slice(0, 20).map(q => q.subtema).join(" · ")}${d.practica.fall.length > 20 ? ` (y ${d.practica.fall.length - 20} más)` : ""}`);
     }
-    L.push("", "LA CARTERA (SIMULACIÓN)");
+    L.push("", "SIMULADOR DE CARTERAS");
     if (!d.cartera) L.push("Todavía no empezó una partida en este navegador.");
     else d.cartera.lineas.forEach(x => L.push(x));
     return L.join("\n");

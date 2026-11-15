@@ -14,7 +14,7 @@ AULA.modulos.duration = {
   bajada: "Ver, más que calcular, por qué un bono largo se mueve más cuando cambian las tasas, y aprender a estimar el efecto en el precio sin calculadora.",
   fuente: "Taller práctico · complementa el módulo 03",
   practica: [
-    { titulo: "Curvas de bonos", desc: "En las curvas del simulador, el eje horizontal es la duration: practicá leerlo como 'cuánto se mueve'.", href: "simulador.html" }
+    { titulo: "Curvas de bonos", desc: "En las curvas de la mesa de operaciones, el eje horizontal es la duration: practicá leerlo como 'cuánto se mueve'.", href: "simulador.html" }
   ],
   lecciones: [
 

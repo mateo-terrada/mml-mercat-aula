@@ -1,13 +1,13 @@
-# El Escritorio 5.0 — Aula + Práctica diaria + Simulador + La cartera
+# El Escritorio 5.0 — Aula + Práctica diaria + Mesa de operaciones + Simulador de carteras
 
 ## Qué hay en cada página
 
 - `index.html` → **Aula**: plataforma de estudio por módulos (lecciones, herramientas interactivas, ejercicios y evaluación por módulo).
 - `practica.html` → **Práctica diaria**: el banco de preguntas de siempre (antes era `index.html`).
-- `simulador.html` → **Simulador**: curvas, caja de puntas, rotaciones y "¿Qué hago si...?".
-- `cartera.html` → **La cartera** (nuevo en 5.0): simulación de un año administrando las carteras de dos clientes, un turno por mes.
+- `simulador.html` → **Mesa de operaciones** (antes "Simulador"; el archivo conserva el nombre): curvas, caja de puntas, rotaciones y "¿Qué hago si...?".
+- `cartera.html` → **Simulador de carteras** (nuevo en 5.0): simulación de un año administrando las carteras de dos clientes, un turno por mes.
 
-## Archivos de La cartera
+## Archivos del Simulador de carteras
 
 ```
 css/cartera.css        → diseño
@@ -16,7 +16,7 @@ js/cartera/anio1.js    → el año 1: clientes, titulares de cada mes y lo que d
 js/cartera/app.js      → pantallas, guardado de la partida y repaso final
 ```
 
-La partida se guarda en el navegador (clave `elEscritorio_cartera_v1`). En el Aula, la tarjeta de La cartera se habilita al terminar el Taller del CER, y el resumen de la partida se suma a "Mi informe". Para agregar otro año se escribe un archivo como `anio1.js`.
+La partida se guarda en el navegador (clave `elEscritorio_cartera_v1`). En el Aula, la tarjeta del Simulador de carteras se habilita al terminar el Taller del CER, y el resumen de la partida se suma a "Mi informe". Para agregar otro año se escribe un archivo como `anio1.js`.
 
 ## Archivos del Aula
 

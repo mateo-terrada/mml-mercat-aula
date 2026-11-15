@@ -91,7 +91,7 @@
     const X = C.X(i), cf = X.M.cf, mia = C.held(c, i), her = c.cart, iguales = C.ORDEN.every(k => pct(mia, k) === pct(her, k));
     const fila = (n, w, mine) => { const a = C.R(w, X.ret), b = C.R(w, X.alt); return `<tr class="${mine ? "mine" : ""}"><td>${n}</td><td class="n ${cls(a)}">${sg(a)}%</td><td class="n ${cls(b)}">${sg(b)}%</td></tr>`; };
     return `<div class="cf"><h4>Lo que pasó y lo que podía pasar</h4><p>${cf.p}</p>
-      <table><thead><tr><th>Cartera durante ${X.M.corto}</th><th class="n">${cf.a(X)}<br><small>(lo que pasó)</small></th><th class="n">${cf.b(X)}<br><small>(lo que podía pasar)</small></th></tr></thead>
+      <table><thead><tr><th>Cartera durante ${X.M.corto}</th><th class="n">${cf.a(X)}<small>(lo que pasó)</small></th><th class="n">${cf.b(X)}<small>(lo que podía pasar)</small></th></tr></thead>
       <tbody>${iguales ? fila("La heredada (nunca la tocaste)", her, true) : fila("La que dejaste en " + C.MESES[i - 1].corto, mia, true) + fila("La heredada, sin tocar nunca", her, false)}</tbody></table></div>`;
   }
 

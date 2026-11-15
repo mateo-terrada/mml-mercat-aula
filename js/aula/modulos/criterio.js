@@ -11,7 +11,7 @@ AULA.modulos.criterio = {
   bajada: "Todo junto, frente a un cliente real: comparar tasas que no se comparan, responderle al que viene con su idea, enseñarle al que recién empieza y armar una cartera mirando riesgo, retorno y escenarios.",
   fuente: "Cap. 13 del Book · casos de asesoramiento",
   practica: [
-    { titulo: "¿Qué hago si...?", desc: "Los escenarios del simulador son la mejor práctica para este módulo.", href: "simulador.html" },
+    { titulo: "¿Qué hago si...?", desc: "Los escenarios de la mesa de operaciones son la mejor práctica para este módulo.", href: "simulador.html" },
     { titulo: "Práctica diaria · Portafolios y Asesoramiento", desc: "Preguntas de criterio, perfiles y armado de carteras.", href: "practica.html" }
   ],
   evaluacion: {
