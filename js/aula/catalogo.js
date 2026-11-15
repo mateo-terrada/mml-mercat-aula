@@ -9,8 +9,8 @@ AULA.catalogo = [
     bloque: "Fundamentos",
     descripcion: "Cómo funciona el mercado y cómo se piensa una inversión.",
     modulos: [
-      { id: "mercado", numero: "01", titulo: "El mercado de capitales", bajada: "Quién es quién, para qué sirve el mercado y dónde encaja el asesor.", capitulos: "Cap. 1", disponible: false },
-      { id: "perfil", numero: "02", titulo: "Perfil, riesgo y carteras", capitulos: "Cap. 2, 3 y 7", disponible: true }
+      { id: "mercado", numero: "01", titulo: "El mercado de capitales", bajada: "Primario y secundario, qué dice la norma sobre el agente productor y cómo está protegido el cliente.", capitulos: "Cap. 1", disponible: true },
+      { id: "perfil", numero: "02", titulo: "Perfil, riesgo y carteras", capitulos: "Cap. 2, 3, 7 y 8", disponible: true }
     ]
   },
   {
@@ -20,7 +20,7 @@ AULA.catalogo = [
       { id: "bonos", numero: "03", titulo: "Bonos: precio, TIR y duration", capitulos: "Cap. 4", disponible: true },
       { id: "duration", numero: "T1", titulo: "Taller: duration a ojo", capitulos: "Taller práctico", disponible: true },
       { id: "rfarg", numero: "04", titulo: "Renta fija argentina", capitulos: "Cap. 12", disponible: true },
-      { id: "cer", numero: "T2", titulo: "Taller: entender el CER", bajada: "Tasa real, rendimiento nominal esperado y qué protege (y qué no) un bono CER.", capitulos: "Taller práctico", disponible: false }
+      { id: "cer", numero: "T2", titulo: "Taller: entender el CER", capitulos: "Taller práctico", disponible: true }
     ]
   },
   {
@@ -28,27 +28,41 @@ AULA.catalogo = [
     descripcion: "Acciones, CEDEARs, ETFs y vehículos colectivos.",
     modulos: [
       { id: "empresas", numero: "05", titulo: "Analizar una empresa", capitulos: "Cap. 5 y 11", disponible: true },
-      { id: "fci", numero: "06", titulo: "Fondos comunes de inversión", bajada: "Money market, renta fija, mixtos: cómo elegir y explicar un FCI.", capitulos: "Cap. 6", disponible: false }
+      { id: "fci", numero: "06", titulo: "Fondos comunes de inversión", bajada: "Un fondo es lo que tiene adentro: leer el factsheet, medir la comisión y elegir el fondo para cada necesidad.", capitulos: "Cap. 6", disponible: true }
     ]
   },
   {
     bloque: "Operatoria",
     descripcion: "De la decisión a la orden: cómo se ejecuta bien.",
     modulos: [
-      { id: "operatoria", numero: "07", titulo: "Cómo se opera", bajada: "Tipos de órdenes, costos y el circuito de una operación.", capitulos: "Cap. 9", disponible: false },
-      { id: "opargentina", numero: "08", titulo: "Operar desde Argentina", bajada: "MEP, cable, parking, plazos de liquidación y caja de puntas.", capitulos: "Cap. 10", disponible: false }
+      { id: "operar", numero: "07", titulo: "Operar desde Argentina", capitulos: "Cap. 9 y 10", disponible: true }
     ]
   },
   {
     bloque: "Criterio profesional",
     descripcion: "Unir todo para asesorar con juicio propio.",
     modulos: [
-      { id: "mpt", numero: "09", titulo: "Teoría moderna de portafolios", bajada: "Correlación, frontera eficiente y por qué diversificar funciona.", capitulos: "Cap. 8", disponible: false },
-      { id: "macro", numero: "10", titulo: "Macro argentina para asesores", bajada: "Inflación, tasas, reservas y riesgo país: qué mirar y cómo conectarlo con la cartera.", capitulos: "Contenido nuevo", disponible: false },
-      { id: "criterio", numero: "11", titulo: "Integración y criterio", bajada: "La hoja de decisión del asesor y casos integradores.", capitulos: "Cap. 13", disponible: false }
+      { id: "macro", numero: "08", titulo: "Macro argentina para asesores", bajada: "Del titular a la cartera: riesgo país, dólar, inflación, tasas y el mundo, con las elecciones de 2027 como eje.", capitulos: "Contenido nuevo", disponible: true },
+      { id: "criterio", numero: "09", titulo: "Integración y criterio", bajada: "Todo junto frente a un cliente real: tasas que no se comparan, clientes con ideas propias y una cartera armada con riesgo y retorno a la vista.", capitulos: "Cap. 13", disponible: true }
     ]
   }
 ];
 
 /* Recorrido sugerido: el orden en que conviene hacer los módulos disponibles. */
-AULA.recorrido = ["perfil", "bonos", "duration", "rfarg", "empresas"];
+AULA.recorrido = ["mercado", "perfil", "bonos", "duration", "rfarg", "cer", "empresas", "fci", "operar", "macro", "criterio"];
+
+/* Diagnóstico: 2 preguntas del banco por módulo o taller, en orden del recorrido.
+   Fijas a propósito, para poder comparar un diagnóstico con el siguiente. */
+AULA.diagnostico = {
+  mercado: ["MERC-MC-001", "MERC-MC-003"],
+  perfil: ["PORT-MC-016", "TRAMPA-MC-021"],
+  bonos: ["RF-MC-001", "RF-MC-022"],
+  duration: ["RF-MC-002", "RF-MC-015"],
+  rfarg: ["RF-MC-017", "RF-MC-019"],
+  cer: ["TRAMPA-MC-004", "MACRO-MC-009"],
+  empresas: ["EMP-MC-001", "EMP-MC-004"],
+  fci: ["FCI-MC-002", "FCI-MC-005"],
+  operar: ["OP-MC-001", "OP-MC-007"],
+  macro: ["MACRO-MC-017", "MACRO-MC-013"],
+  criterio: ["CRIT-MC-001", "CRIT-MC-007"]
+};

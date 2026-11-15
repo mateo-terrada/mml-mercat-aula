@@ -77,18 +77,26 @@
      ====================================================== */
   function vistaInicio() {
     const s = statsGlobales();
-    const sig = siguientePaso();
+    let sig = siguientePaso();
+    const dgc = ultimoDiag();
+    if (dgc && dgc.mod) {
+      const pend = m => estadoModulo(m) !== "completo";
+      const pri = modsDiag().find(m => (dgc.mod[m.id] || 0) === 0 && pend(m)) || modsDiag().find(m => (dgc.mod[m.id] || 0) === 1 && pend(m));
+      if (pri) { const l = pri.lecciones.find(x => !P.leccionCompleta(claveLec(pri.id, x.id))); sig = l ? { m: pri, l } : { m: pri, eval: true }; }
+    }
     const empezado = s.lecOk > 0 || s.ejResp > 0;
     let cta;
     if (!sig) cta = `<a class="btn btn-primary btn-lg" href="#/m/${AULA.recorrido[0]}">Repasar los módulos ${flecha}</a>`;
     else if (sig.eval) cta = `<a class="btn btn-primary btn-lg" href="#/m/${sig.m.id}/evaluacion"><span>Evaluación: ${esc(sig.m.titulo)}</span>${flecha}</a>`;
     else cta = `<a class="btn btn-primary btn-lg" href="#/m/${sig.m.id}/${sig.l.id}"><span><small>${empezado ? "Continuar" : "Empezar por"}</small>${esc(sig.l.titulo)}</span>${flecha}</a>`;
 
+    const dg = ultimoDiag();
     const recorrido = disponibles().map((m, i) => {
       const a = avanceModulo(m), st = estadoModulo(m);
+      const nv = dg && dg.mod && AULA.diagnostico[m.id] && st !== "completo" ? NIVEL(dg.mod[m.id] || 0) : null;
       return `<a class="journey-step st-${st}" href="#/m/${m.id}">
         <span class="journey-dot">${st === "completo" ? check : i + 1}</span>
-        <span class="journey-num">${etiqueta(m)}</span>
+        <span class="journey-num">${etiqueta(m)}</span>${nv ? `<span class="diag-tag t-${nv[0]} journey-diag">${nv[1]}</span>` : ""}
         <strong>${esc(m.titulo)}</strong>
         <span class="journey-meta">${a.hechas}/${a.total} lecciones${a.ev ? " · eval. " + Math.round(a.ev.mejor * 100) + "%" : ""}</span>
         <span class="journey-bar"><i style="width:${a.pct}%"></i></span>
@@ -146,6 +154,7 @@
             <div><dt>Módulos aprobados</dt><dd>${s.aprob}<small>/${disponibles().length}</small></dd></div>
             <div><dt>Racha de días</dt><dd>${s.racha}</dd></div>
           </dl>
+          <a class="hero-inf" href="#/informe">Exportar mi informe ${flecha}</a>
         </aside>
       </section>
 
@@ -156,6 +165,20 @@
         <div class="metodo-step"><span>4</span><strong>Evaluar</strong><p>Una evaluación por módulo con preguntas del banco. Se aprueba con 70%.</p></div>
       </section>
 
+      ${dg ? `
+      <section class="diag-card">
+        <div><span class="eyebrow">Tu diagnóstico · ${fechaLarga(dg.fecha)}</span>
+          <strong>${dg.aciertos} de ${dg.total} bien</strong>
+          <p>${(() => { const pr = modsDiag().filter(m => (dg.mod[m.id] || 0) === 0); return pr.length ? "Prioridad: " + pr.map(m => esc(m.titulo)).join(" · ") : "Sin temas en prioridad."; })()}</p></div>
+        <div class="diag-card-act"><a class="btn btn-ghost btn-sm" href="#/diagnostico?ver=1">Ver resultado</a><a class="btn btn-ghost btn-sm" href="#/diagnostico">Repetirlo</a></div>
+      </section>` : `
+      <section class="diag-card is-new">
+        <div><span class="eyebrow">Diagnóstico</span>
+          <strong>¿Por dónde empezar?</strong>
+          <p>22 preguntas, unos 15 minutos. Te muestra qué temas tenés firmes y cuáles conviene repasar primero.</p></div>
+        <div class="diag-card-act"><a class="btn btn-primary" href="#/diagnostico">Hacer el diagnóstico ${flecha}</a></div>
+      </section>`}
+
       <section class="panel">
         <header class="section-head"><span class="eyebrow">Recorrido recomendado</span><h2>Por dónde seguir</h2></header>
         <div class="journey">${recorrido}</div>
@@ -165,7 +188,7 @@
 
       <section class="panel">
         <header class="section-head"><span class="eyebrow">Plan de estudio</span><h2>Todos los módulos</h2>
-          <p class="section-lede">Once módulos basados en el Book y ampliados con coyuntura. Se van habilitando a medida que están listos.</p></header>
+          <p class="section-lede">Los capítulos del Book convertidos en módulos y talleres, ampliados con coyuntura.</p></header>
         ${mapa}
       </section>`;
   }
@@ -181,7 +204,7 @@
       return `<a class="lec-row ${ok ? "is-done" : ""}" href="#/m/${m.id}/${l.id}">
         <span class="lec-idx">${ok ? check : i + 1}</span>
         <span class="lec-body"><strong>${esc(l.titulo)}</strong><small>${esc(l.objetivo)}</small></span>
-        <span class="lec-meta">${l.minutos} min · ${ejs} ejercicios</span>
+        <span class="lec-meta">${l.minutos} min · ${ejs} ${ejs === 1 ? "ejercicio" : "ejercicios"}</span>
       </a>`;
     }).join("");
     const ev = a.ev;
@@ -543,7 +566,9 @@ ${m.evaluacion ? `        <section class="panel eval-card ${a.aprobado ? "is-ok"
     const elegidas = pool.map(id => [id, peso(id)]).sort((a, b) => b[1] - a[1]).slice(0, m.evaluacion.cantidad).map(x => x[0]);
     // casos abiertos al final
     elegidas.sort((a, b) => (BANCO[a].tipo === "caso_abierto") - (BANCO[b].tipo === "caso_abierto"));
-    return { m, ids: elegidas, i: 0, res: {} };
+    const orden = {};
+    elegidas.forEach(id => { const n = (BANCO[id].opciones || []).length; const idx = Array.from({ length: n }, (_, i) => i); for (let i = n - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [idx[i], idx[j]] = [idx[j], idx[i]]; } orden[id] = idx; });
+    return { m, ids: elegidas, i: 0, res: {}, orden };
   }
 
   function vistaEvaluacion(m) {
@@ -581,7 +606,7 @@ ${m.evaluacion ? `        <section class="panel eval-card ${a.aprobado ? "is-ok"
         <div class="eval-enunciado">${esc(q.enunciado)}</div>
         ${esCaso ? `<textarea class="ej-texto" rows="6" placeholder="Escribí tu respuesta…" id="evalTexto"></textarea>
           <button class="btn btn-primary btn-sm" data-action="eval-caso">Ver qué se espera</button>`
-        : `<div class="ej-ops">${q.opciones.map((o, i) => `<button type="button" class="ej-op" data-q="${i}"><span class="ej-mark"></span><span class="ej-txt">${esc(o)}</span></button>`).join("")}</div>`}
+        : `<div class="ej-ops">${E.orden[q.id].map(i => `<button type="button" class="ej-op" data-q="${i}"><span class="ej-mark"></span><span class="ej-txt">${esc(q.opciones[i])}</span></button>`).join("")}</div>`}
         <div class="ej-feedback" hidden style="display:none"></div>
         <div class="eval-next" hidden style="display:none"><button class="btn btn-primary" data-action="eval-next">${E.i + 1 === E.ids.length ? "Ver resultado" : "Siguiente pregunta"} ${flecha}</button></div>
       </section>`;
@@ -592,7 +617,7 @@ ${m.evaluacion ? `        <section class="panel eval-card ${a.aprobado ? "is-ok"
       const b = ev.target.closest("[data-q]");
       if (b && !b.disabled) {
         const i = +b.dataset.q, ok = i === q.respuesta_correcta;
-        sec.querySelectorAll("[data-q]").forEach((x, j) => { x.disabled = true; if (j === q.respuesta_correcta) x.classList.add("op-ok"); if (j === i) x.classList.add("op-chosen"); if (j === i && !ok) x.classList.add("op-bad"); });
+        sec.querySelectorAll("[data-q]").forEach(x => { const j = +x.dataset.q; x.disabled = true; if (j === q.respuesta_correcta) x.classList.add("op-ok"); if (j === i) x.classList.add("op-chosen"); if (j === i && !ok) x.classList.add("op-bad"); });
         E.res[q.id] = ok;
         mostrar(`<p class="fb-lead ${ok ? "ok" : "bad"}">${ok ? "Correcto." : "Incorrecto."}</p><div class="fb-exp">${esc(q.explicacion)}</div>`);
         return;
@@ -642,6 +667,277 @@ ${m.evaluacion ? `        <section class="panel eval-card ${a.aprobado ? "is-ok"
       </section>
       ${falladas.length ? `<section class="panel"><header class="section-head"><span class="eyebrow">Para repasar</span><h2>Preguntas a revisar</h2></header>
         <ol class="review-list">${falladas.map(id => `<li><p>${esc(BANCO[id].enunciado)}</p><small>${esc(BANCO[id].subtema)}</small></li>`).join("")}</ol></section>` : ""}`;
+    window.scrollTo(0, 0);
+  }
+
+
+  /* ======================================================
+     DIAGNÓSTICO
+     ====================================================== */
+  let diagActual = null;
+  const NIVEL = n => n >= 2 ? ["dominado", "Dominado"] : n === 1 ? ["repasar", "Repasar"] : ["prioridad", "Prioridad"];
+  const mezclarArr = a => { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; };
+  const fechaLarga = f => { const [y, mo, d] = f.split("-"); return `${+d}/${+mo}/${y}`; };
+  const modsDiag = () => disponibles().filter(m => AULA.diagnostico && AULA.diagnostico[m.id]);
+  const ultimoDiag = () => { const l = P.diagnosticos(); return l.length ? l[l.length - 1] : null; };
+
+  function vistaDiagnostico(ver) {
+    const ult = ultimoDiag();
+    if (ver && ult) return pintarDiagResultado(ult, P.diagnosticos().slice(-2, -1)[0] || null, false);
+    if (diagActual) return pintarDiagPregunta();
+    const total = modsDiag().reduce((s, m) => s + AULA.diagnostico[m.id].filter(id => BANCO[id]).length, 0);
+    app.innerHTML = `
+      <nav class="crumbs"><a href="#/">Aula</a><span>/</span><span>Diagnóstico</span></nav>
+      <section class="panel eval-intro diag-intro">
+        <p class="eyebrow">Diagnóstico</p>
+        <h1>¿Dónde estás parada hoy?</h1>
+        <p class="lede">${total} preguntas, dos por cada módulo y taller del Aula. Unos 15 minutos. Al final ves qué temas tenés firmes, cuáles conviene repasar y por dónde empezar.</p>
+        <ul class="eval-rules">
+          <li>Si no sabés una respuesta, tocá <strong>"No sé"</strong>: es mejor que adivinar, porque el resultado te muestra lo que sabés de verdad.</li>
+          <li>Las respuestas correctas las ves recién al final, con la explicación de cada una.</li>
+          <li>Con dos preguntas por tema, el resultado es orientativo. Repetilo cada dos o tres meses para ver cómo avanzás.</li>
+        </ul>
+        ${ult ? `<p class="hint">Tu último diagnóstico fue el ${fechaLarga(ult.fecha)}: <strong>${Math.round(ult.aciertos / ult.total * 100)}%</strong>. <a href="#/diagnostico?ver=1">Ver ese resultado</a></p>` : ""}
+        <button class="btn btn-primary btn-lg" data-action="diag-start">Empezar ${flecha}</button>
+      </section>`;
+    app.querySelector("[data-action=diag-start]").addEventListener("click", () => {
+      const items = [];
+      modsDiag().forEach(m => AULA.diagnostico[m.id].forEach(id => { if (BANCO[id]) items.push({ mid: m.id, id }); }));
+      diagActual = { items: mezclarArr(items).map(it => Object.assign(it, { orden: mezclarArr(BANCO[it.id].opciones.map((_, i) => i)) })), i: 0, resp: {} };
+      pintarDiagPregunta();
+    });
+  }
+
+  function pintarDiagPregunta() {
+    const D = diagActual;
+    if (D.i >= D.items.length) return cerrarDiagnostico();
+    const it = D.items[D.i], q = BANCO[it.id];
+    const elegido = D.resp[it.id];
+    app.innerHTML = `
+      <nav class="crumbs"><a href="#/">Aula</a><span>/</span><span>Diagnóstico</span></nav>
+      <section class="eval-q panel diag-q">
+        <div class="eval-progress"><span>Pregunta ${D.i + 1} de ${D.items.length}</span><div class="bar"><i style="width:${Math.round(D.i / D.items.length * 100)}%"></i></div></div>
+        <div class="eval-enunciado">${esc(q.enunciado)}</div>
+        <div class="ej-ops">${it.orden.map(i => `<button type="button" class="ej-op ${elegido === i ? "op-chosen" : ""}" data-d="${i}"><span class="ej-mark"></span><span class="ej-txt">${esc(q.opciones[i])}</span></button>`).join("")}</div>
+        <div class="diag-foot">
+          <button type="button" class="btn btn-ghost diag-nose ${elegido === "nose" ? "is-on" : ""}" data-d="nose">No sé</button>
+          <div class="diag-nav">
+            ${D.i > 0 ? `<button type="button" class="btn btn-ghost" data-action="diag-prev">← Anterior</button>` : ""}
+            <button type="button" class="btn btn-primary" data-action="diag-next" ${elegido === undefined ? "disabled" : ""}>${D.i + 1 === D.items.length ? "Ver resultado" : "Siguiente"} ${flecha}</button>
+          </div>
+        </div>
+      </section>`;
+    const sec = app.querySelector(".diag-q");
+    sec.addEventListener("click", ev => {
+      const b = ev.target.closest("[data-d]");
+      if (b) {
+        D.resp[it.id] = b.dataset.d === "nose" ? "nose" : +b.dataset.d;
+        sec.querySelectorAll(".ej-op").forEach(x => x.classList.toggle("op-chosen", x === b));
+        sec.querySelector(".diag-nose").classList.toggle("is-on", b.dataset.d === "nose");
+        sec.querySelector("[data-action=diag-next]").disabled = false;
+        return;
+      }
+      const a = ev.target.closest("[data-action]");
+      if (!a) return;
+      if (a.dataset.action === "diag-next") { D.i++; pintarDiagPregunta(); window.scrollTo(0, 0); }
+      if (a.dataset.action === "diag-prev") { D.i--; pintarDiagPregunta(); window.scrollTo(0, 0); }
+    });
+  }
+
+  function cerrarDiagnostico() {
+    const D = diagActual, mod = {}, resp = {};
+    let aciertos = 0, nose = 0;
+    D.items.forEach(it => {
+      const r = D.resp[it.id], ok = r === BANCO[it.id].respuesta_correcta;
+      mod[it.mid] = (mod[it.mid] || 0) + (ok ? 1 : 0);
+      if (ok) aciertos++; if (r === "nose") nose++;
+      resp[it.id] = r;
+    });
+    const previo = ultimoDiag();
+    const r = { mod, resp, aciertos, nose, total: D.items.length };
+    P.registrarDiagnostico(r);
+    diagActual = null;
+    pintarDiagResultado(ultimoDiag(), previo, true);
+  }
+
+  function resumenTexto(r, previo) {
+    const mods = modsDiag();
+    const linea = n => mods.filter(m => NIVEL(r.mod[m.id] || 0)[0] === n).map(m => m.titulo).join(", ") || "ninguno";
+    return `Diagnóstico del Aula (${fechaLarga(r.fecha)}): ${r.aciertos} de ${r.total} (${Math.round(r.aciertos / r.total * 100)}%)` +
+      (previo ? `, antes ${previo.aciertos} de ${previo.total}` : "") + `. "No sé": ${r.nose}.\n` +
+      `Prioridad: ${linea("prioridad")}.\nRepasar: ${linea("repasar")}.\nDominado: ${linea("dominado")}.`;
+  }
+
+  function pintarDiagResultado(r, previo, recien) {
+    const mods = modsDiag(), pct = Math.round(r.aciertos / r.total * 100);
+    const orden = [...mods.filter(m => (r.mod[m.id] || 0) === 0), ...mods.filter(m => (r.mod[m.id] || 0) === 1)];
+    const filas = mods.map(m => {
+      const n = r.mod[m.id] || 0, [cls, txt] = NIVEL(n), antes = previo && previo.mod ? (previo.mod[m.id] || 0) : null;
+      const delta = antes === null ? "" : n > antes ? `<span class="diag-d up">↑</span>` : n < antes ? `<span class="diag-d down">↓</span>` : "";
+      return `<a class="diag-row" href="#/m/${m.id}"><span class="diag-mn">${etiqueta(m)}</span><strong>${esc(m.titulo)}</strong>
+        <span class="diag-dots">${[0, 1].map(i => `<i class="${i < n ? "on" : ""}"></i>`).join("")}</span>${delta}<span class="diag-tag t-${cls}">${txt}</span></a>`;
+    }).join("");
+    const revisar = Object.keys(r.resp || {}).filter(id => BANCO[id] && r.resp[id] !== BANCO[id].respuesta_correcta);
+    const texto = resumenTexto(r, previo);
+    app.innerHTML = `
+      <nav class="crumbs"><a href="#/">Aula</a><span>/</span><span>Diagnóstico</span></nav>
+      <section class="panel eval-result diag-res">
+        <div class="result-ring">${anillo(pct, 140)}</div>
+        <div>
+          <p class="eyebrow">${recien ? "Resultado del diagnóstico" : "Diagnóstico del " + fechaLarga(r.fecha)}</p>
+          <h1>${r.aciertos} de ${r.total} bien</h1>
+          <p class="lede">${previo ? `La vez anterior (${fechaLarga(previo.fecha)}) fueron ${previo.aciertos} de ${previo.total}. ` : ""}${r.nose ? `Marcaste "No sé" en ${r.nose} ${r.nose === 1 ? "pregunta" : "preguntas"}: eso también es información útil. ` : ""}${orden.length ? `Te sugerimos empezar por <strong>${esc(orden[0].titulo)}</strong>.` : "Tenés todos los temas firmes: usá el Aula para repasar y los casos del simulador para seguir practicando."}</p>
+          <div class="result-actions">
+            ${orden.length ? `<a class="btn btn-primary" href="#/m/${orden[0].id}">Empezar por ahí ${flecha}</a>` : `<a class="btn btn-primary" href="#/">Volver al aula ${flecha}</a>`}
+            <button type="button" class="btn btn-ghost" data-action="diag-copiar">Copiar resumen para compartir</button>
+          </div>
+        </div>
+      </section>
+      <section class="panel">
+        <header class="section-head"><span class="eyebrow">Tema por tema</span><h2>Qué tenés firme y qué no</h2>
+          <p class="section-lede">Dos puntos por módulo: <span class="diag-tag t-dominado">Dominado</span> las dos bien, <span class="diag-tag t-repasar">Repasar</span> una, <span class="diag-tag t-prioridad">Prioridad</span> ninguna.${previo ? " Las flechas comparan con el diagnóstico anterior." : ""}</p></header>
+        <div class="diag-list">${filas}</div>
+      </section>
+      ${orden.length ? `<section class="panel"><header class="section-head"><span class="eyebrow">Orden sugerido</span><h2>Por dónde seguir</h2></header>
+        <ol class="diag-orden">${orden.map(m => `<li><a href="#/m/${m.id}">${esc(m.titulo)}</a> <span class="diag-tag t-${NIVEL(r.mod[m.id] || 0)[0]}">${NIVEL(r.mod[m.id] || 0)[1]}</span></li>`).join("")}</ol></section>` : ""}
+      ${revisar.length ? `<section class="panel"><header class="section-head"><span class="eyebrow">Para aprender</span><h2>Las que no salieron</h2></header>
+        <ol class="review-list diag-rev">${revisar.map(id => { const q = BANCO[id], a = r.resp[id]; return `<li>
+          <p>${esc(q.enunciado)}</p>
+          ${a === "nose" ? `<p class="diag-yo">Marcaste "No sé".</p>` : a !== undefined ? `<p class="diag-yo">Tu respuesta: ${esc(q.opciones[a])}</p>` : ""}
+          <p class="diag-ok"><strong>Correcta:</strong> ${esc(q.opciones[q.respuesta_correcta])}</p>
+          <p class="diag-exp">${esc(q.explicacion)}</p></li>`; }).join("")}</ol></section>` : ""}
+      <section class="panel diag-share"><header class="section-head"><span class="eyebrow">Resumen</span><h2>Para compartir</h2></header>
+        <textarea class="ej-texto" rows="5" readonly data-resumen>${esc(texto)}</textarea>
+        <p class="hint"><a href="#/diagnostico">Hacer un diagnóstico nuevo</a></p></section>`;
+    app.querySelector("[data-action=diag-copiar]").addEventListener("click", () => {
+      const ta = app.querySelector("[data-resumen]");
+      const ok = () => toast("Resumen copiado");
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(texto).then(ok, () => { ta.select(); document.execCommand("copy"); ok(); });
+      else { ta.select(); document.execCommand("copy"); ok(); }
+    });
+    window.scrollTo(0, 0);
+  }
+
+
+  /* ======================================================
+     MI INFORME (exportar progreso)
+     ====================================================== */
+  const corto = (t, n = 110) => { const x = textoPlano(t).replace(/\s+/g, " ").trim(); return x.length > n ? x.slice(0, n - 1) + "…" : x; };
+  const AUTO = { ok: "La cubrió bien", medio: "A medias", mal: "Le faltó bastante" };
+
+  function datosInforme() {
+    const s = statsGlobales(), dias = (P.estado.dias || []).slice().sort();
+    const mods = disponibles().map(m => {
+      const a = avanceModulo(m); let resp = 0, bien = 0;
+      m.lecciones.forEach(l => ejerciciosDe(l).forEach(e => { const r = P.ejercicio(claveLec(m.id, l.id) + "." + e.id); if (r) { resp++; if (r.ok) bien++; } }));
+      const ejTot = m.lecciones.reduce((t, l) => t + ejerciciosDe(l).length, 0);
+      return { m, a, resp, bien, ejTot };
+    });
+    const costaron = [], casos = [];
+    disponibles().forEach(m => m.lecciones.forEach(l => ejerciciosDe(l).forEach(e => {
+      const r = P.ejercicio(claveLec(m.id, l.id) + "." + e.id);
+      if (!r) return;
+      if (e.tipo === "caso") { casos.push({ m, l, e, r }); return; }
+      if (!r.ok || r.intentos > 1) costaron.push({ m, l, e, r });
+    })));
+    const evalFall = disponibles().filter(m => m.evaluacion).map(m => ({ m, ev: P.evaluacion(m.id) }))
+      .filter(x => x.ev && x.ev.falladas && x.ev.falladas.length);
+    let practica = null;
+    try {
+      const raw = JSON.parse(localStorage.getItem("elEscritorio_progreso_v1") || "null");
+      if (raw && raw.respuestas && Object.keys(raw.respuestas).length) {
+        const cats = {}, fall = [];
+        Object.entries(raw.respuestas).forEach(([id, r]) => {
+          const q = BANCO[id]; if (!q) return;
+          const c = cats[q.categoria] = cats[q.categoria] || { vistas: 0, bien: 0 };
+          c.vistas++; if (r.correcta) c.bien++; else fall.push(q);
+        });
+        practica = { total: raw.totalRespondidas || 0, correctas: raw.totalCorrectas || 0, cats, fall, mejorRacha: raw.mejorRacha || 0 };
+      }
+    } catch (e) { /* sin datos de la práctica */ }
+    return { s, dias, mods, costaron, casos, evalFall, practica, diag: ultimoDiag(), diagPrev: P.diagnosticos().slice(-2, -1)[0] || null };
+  }
+
+  function textoInforme(d) {
+    const L = [], hoyTxt = new Date().toLocaleDateString("es-AR");
+    L.push(`INFORME DEL AULA · ${hoyTxt}`, "");
+    L.push(`Días con actividad: ${d.dias.length}${d.dias.length ? ` (desde el ${fechaLarga(d.dias[0])}, última el ${fechaLarga(d.dias[d.dias.length - 1])})` : ""} · Racha actual: ${d.s.racha}`);
+    L.push(`Lecciones: ${d.s.lecOk}/${d.s.lecTot} · Ejercicios respondidos: ${d.s.ejResp}/${d.s.ejTot} (bien: ${d.s.ejOk}) · Módulos aprobados: ${d.s.aprob}/${disponibles().length}`, "");
+    L.push("DIAGNÓSTICO");
+    L.push(d.diag ? resumenTexto(d.diag, d.diagPrev) : "Todavía no hizo el diagnóstico.", "");
+    L.push("POR MÓDULO");
+    d.mods.forEach(x => {
+      const ev = x.a.ev ? `evaluación: mejor ${Math.round(x.a.ev.mejor * 100)}%, última ${Math.round(x.a.ev.ultimo * 100)}% (${x.a.ev.intentos} ${x.a.ev.intentos === 1 ? "intento" : "intentos"})` : x.m.evaluacion ? "evaluación: sin hacer" : "taller sin evaluación";
+      L.push(`- ${x.m.taller ? x.m.titulo : etiqueta(x.m) + " · " + x.m.titulo}: ${x.a.hechas}/${x.a.total} lecciones · ejercicios ${x.resp}/${x.ejTot} respondidos (${x.bien} bien) · ${ev}`);
+    });
+    L.push("", "EJERCICIOS QUE LE COSTARON");
+    if (!d.costaron.length) L.push("Ninguno por ahora.");
+    d.costaron.forEach(x => L.push(`- [${x.m.titulo} · ${x.l.titulo}] ${corto(x.e.enunciado)} → ${x.r.ok ? `bien después de ${x.r.intentos} intentos` : `todavía mal (${x.r.intentos} ${x.r.intentos === 1 ? "intento" : "intentos"})`}`));
+    L.push("", "CASOS ESCRITOS");
+    if (!d.casos.length) L.push("Todavía no respondió casos.");
+    d.casos.forEach(x => { L.push(`- [${x.m.titulo} · ${x.l.titulo}] ${corto(x.e.enunciado, 140)}`); L.push(`  Su respuesta: "${(x.r.texto || "(sin texto)").trim()}"`); L.push(`  Autoevaluación: ${AUTO[x.r.r] || "-"}`); });
+    L.push("", "EVALUACIONES · PREGUNTAS FALLADAS EN EL ÚLTIMO INTENTO");
+    if (!d.evalFall.length) L.push("Ninguna.");
+    d.evalFall.forEach(x => L.push(`- ${x.m.titulo}: ${x.ev.falladas.map(id => BANCO[id] ? BANCO[id].subtema : id).join(" · ")}`));
+    L.push("", "PRÁCTICA DIARIA");
+    if (!d.practica) L.push("Sin actividad registrada en este navegador.");
+    else {
+      L.push(`Respondidas: ${d.practica.total} (bien: ${d.practica.correctas}) · Mejor racha: ${d.practica.mejorRacha}`);
+      Object.entries(d.practica.cats).forEach(([c, v]) => L.push(`- ${c}: ${v.bien}/${v.vistas} preguntas bien la última vez`));
+      if (d.practica.fall.length) L.push(`Temas que falló la última vez: ${d.practica.fall.slice(0, 20).map(q => q.subtema).join(" · ")}${d.practica.fall.length > 20 ? ` (y ${d.practica.fall.length - 20} más)` : ""}`);
+    }
+    return L.join("\n");
+  }
+
+  function vistaInforme() {
+    const d = datosInforme(), texto = textoInforme(d);
+    const blk = (titulo, html) => `<section class="inf-blk"><h3>${titulo}</h3>${html}</section>`;
+    const pct = d.s.lecTot ? Math.round(d.s.lecOk / d.s.lecTot * 100) : 0;
+    app.innerHTML = `
+      <nav class="crumbs"><a href="#/">Aula</a><span>/</span><span>Mi informe</span></nav>
+      <section class="panel inf-head">
+        <div><p class="eyebrow">Mi informe</p><h1>Tu progreso, en un resumen para compartir</h1>
+          <p class="lede">Incluye tu avance por módulo, los ejercicios que te costaron, tus respuestas a los casos, el diagnóstico y la práctica diaria. Mandalo cuando quieras recibir una devolución.</p></div>
+        <div class="inf-act">
+          ${navigator.share ? `<button type="button" class="btn btn-primary" data-act="share">Compartir ${flecha}</button>` : ""}
+          <button type="button" class="btn ${navigator.share ? "btn-ghost" : "btn-primary"}" data-act="copy">Copiar el informe</button>
+          <button type="button" class="btn btn-ghost" data-act="dl">Descargar (.txt)</button>
+        </div>
+      </section>
+      <section class="panel inf-body">
+        <div class="inf-kpis">
+          <div class="kpi"><span>Recorrido</span><b>${pct}%</b></div>
+          <div class="kpi"><span>Lecciones</span><b>${d.s.lecOk}/${d.s.lecTot}</b></div>
+          <div class="kpi"><span>Ejercicios bien</span><b>${d.s.ejOk}/${d.s.ejResp}</b></div>
+          <div class="kpi"><span>Días con actividad</span><b>${d.dias.length}</b></div>
+        </div>
+        ${blk("Por módulo", `<div class="inf-mods">${d.mods.map(x => `<div class="inf-mod"><span>${etiqueta(x.m)}</span><strong>${esc(x.m.titulo)}</strong>
+          <span class="inf-bar"><i style="width:${x.a.pct}%"></i></span>
+          <small>${x.a.hechas}/${x.a.total} lecciones · ${x.resp}/${x.ejTot} ejercicios (${x.bien} bien)${x.a.ev ? ` · eval. ${Math.round(x.a.ev.mejor * 100)}%` : ""}</small></div>`).join("")}</div>`)}
+        ${blk("Ejercicios que te costaron", d.costaron.length ? `<ul class="inf-list">${d.costaron.map(x => `<li><span class="${x.r.ok ? "ok" : "bad"}">${x.r.ok ? "✓" : "✗"}</span><div><small>${esc(x.m.titulo)} · ${esc(x.l.titulo)}</small>${esc(corto(x.e.enunciado))}<em>${x.r.ok ? `Bien después de ${x.r.intentos} intentos` : `Todavía a repasar`}</em></div></li>`).join("")}</ul>` : `<p class="hint">Ninguno por ahora.</p>`)}
+        ${blk("Tus casos escritos", d.casos.length ? `<ul class="inf-list">${d.casos.map(x => `<li><span>✎</span><div><small>${esc(x.m.titulo)} · ${esc(x.l.titulo)}</small>${esc(corto(x.e.enunciado, 140))}<blockquote>${esc((x.r.texto || "(sin texto)").trim())}</blockquote><em>Tu autoevaluación: ${AUTO[x.r.r] || "-"}</em></div></li>`).join("")}</ul>` : `<p class="hint">Todavía no respondiste casos.</p>`)}
+        ${blk("Diagnóstico", d.diag ? `<p>${d.diag.aciertos} de ${d.diag.total} bien el ${fechaLarga(d.diag.fecha)}. <a href="#/diagnostico?ver=1">Ver el detalle</a></p>` : `<p class="hint">Todavía no lo hiciste. <a href="#/diagnostico">Hacerlo ahora</a></p>`)}
+        ${blk("Práctica diaria", d.practica ? `<p>${d.practica.total} preguntas respondidas, ${d.practica.correctas} bien.</p>` : `<p class="hint">Sin actividad en este navegador.</p>`)}
+      </section>
+      <section class="panel"><header class="section-head"><span class="eyebrow">Vista previa</span><h2>El texto que se comparte</h2></header>
+        <textarea class="ej-texto inf-txt" rows="14" readonly data-txt>${esc(texto)}</textarea></section>`;
+    const ok = msg => toast(msg);
+    app.querySelector(".inf-act").addEventListener("click", ev => {
+      const b = ev.target.closest("[data-act]"); if (!b) return;
+      if (b.dataset.act === "share") navigator.share({ title: "Informe del Aula", text: texto }).catch(() => {});
+      if (b.dataset.act === "copy") {
+        const ta = app.querySelector("[data-txt]");
+        if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(texto).then(() => ok("Informe copiado"), () => { ta.select(); document.execCommand("copy"); ok("Informe copiado"); });
+        else { ta.select(); document.execCommand("copy"); ok("Informe copiado"); }
+      }
+      if (b.dataset.act === "dl") {
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(new Blob([texto], { type: "text/plain;charset=utf-8" }));
+        a.download = "informe-aula-" + new Date().toISOString().slice(0, 10) + ".txt";
+        document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+        ok("Informe descargado");
+      }
+    });
     window.scrollTo(0, 0);
   }
 
@@ -715,6 +1011,8 @@ ${m.evaluacion ? `        <section class="panel eval-card ${a.aprobado ? "is-ok"
     const partes = path.split("/").filter(Boolean);
     const params = new URLSearchParams(qs || "");
     if (partes[0] === "glosario") return { tipo: "glosario" };
+    if (partes[0] === "informe") return { tipo: "informe" };
+    if (partes[0] === "diagnostico") return { tipo: "diagnostico", ver: params.get("ver") === "1" };
     if (partes[0] === "m" && modulo(partes[1])) {
       const m = modulo(partes[1]);
       if (!partes[2]) return { tipo: "modulo", m };
@@ -729,13 +1027,16 @@ ${m.evaluacion ? `        <section class="panel eval-card ${a.aprobado ? "is-ok"
     const r = ruta();
     document.querySelectorAll(".nav-link").forEach(a => a.classList.toggle("is-active", a.dataset.nav === (r.tipo === "glosario" ? "glosario" : "aula")));
     if (r.tipo !== "evaluacion") evalActual = null;
+    if (r.tipo !== "diagnostico") diagActual = null;
     if (r.tipo === "inicio") vistaInicio();
     else if (r.tipo === "modulo") vistaModulo(r.m);
     else if (r.tipo === "leccion") vistaLeccion(r.m, r.l, r.foco);
     else if (r.tipo === "evaluacion") vistaEvaluacion(r.m);
     else if (r.tipo === "glosario") vistaGlosario();
+    else if (r.tipo === "diagnostico") vistaDiagnostico(r.ver);
+    else if (r.tipo === "informe") vistaInforme();
     if (r.tipo !== "leccion") window.scrollTo(0, 0);
-    document.title = (r.l ? r.l.titulo + " — " : r.m ? r.m.titulo + " — " : "") + "Aula · El Escritorio";
+    document.title = (r.l ? r.l.titulo + " — " : r.m ? r.m.titulo + " — " : r.tipo === "diagnostico" ? "Diagnóstico — " : r.tipo === "informe" ? "Mi informe — " : "") + "Aula · El Escritorio";
   }
 
   // Borrar progreso (con confirmación propia, sin diálogos del navegador)

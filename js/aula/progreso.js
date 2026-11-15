@@ -6,7 +6,7 @@ window.AULA = window.AULA || { modulos: {} };
 
 AULA.progreso = (function () {
   const CLAVE = "elEscritorio_aula_v1";
-  const vacio = () => ({ lecciones: {}, ejercicios: {}, evaluaciones: {}, ultimaLeccion: null, dias: [] });
+  const vacio = () => ({ lecciones: {}, ejercicios: {}, evaluaciones: {}, diagnosticos: [], ultimaLeccion: null, dias: [] });
   let estado;
 
   function cargar() {
@@ -54,6 +54,11 @@ AULA.progreso = (function () {
       marcarDia(); guardar();
     },
     evaluacion(modulo) { return estado.evaluaciones[modulo] || null; },
+    registrarDiagnostico(r) {
+      estado.diagnosticos = (estado.diagnosticos || []).concat([Object.assign({ fecha: hoy() }, r)]).slice(-12);
+      marcarDia(); guardar();
+    },
+    diagnosticos() { return estado.diagnosticos || []; },
     racha() {
       const set = new Set(estado.dias);
       let n = 0; const d = new Date();

@@ -10,16 +10,18 @@
 
 ```
 css/aula.css               → diseño del aula
-js/aula/catalogo.js        → los 12 módulos y cuáles están disponibles
+js/aula/catalogo.js        → los módulos y cuáles están disponibles
 js/aula/modulos/*.js       → el contenido de cada módulo (lecciones y ejercicios)
 js/aula/mercado.js         → la "foto de mercado" (riesgo país, fecha)
 js/aula/glosario.js        → definiciones de términos
-js/aula/herramientas.js    → calculadoras y gráficos interactivos
+js/aula/herramientas*.js   → calculadoras y gráficos interactivos (uno general y uno por taller/módulo)
 js/aula/progreso.js        → guardado del avance en el navegador
 js/aula/app.js             → navegación y pantallas
 ```
 
 Las evaluaciones de cada módulo usan preguntas de `js/preguntas.js`.
+
+El módulo 08 (Macro) tiene datos de coyuntura fijados a noviembre de 2026 en `js/aula/modulos/macro.js` y `js/aula/herramientas-macro.js`. No se actualizan solos.
 
 ---
 

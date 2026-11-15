@@ -246,6 +246,46 @@ AULA.modulos.perfil = {
         ],
         explicacion: `En una caída, el orden es: contener, separar lo urgente de lo que puede esperar, volver al objetivo y recién después hablar de instrumentos.` }
     ]
+  },
+
+  /* ------------------------------------------------------------ */
+  {
+    id: "p6",
+    titulo: "Correlación: por qué diversificar funciona",
+    minutos: 9,
+    objetivo: "Entender qué es la correlación, por qué combinar activos que no se mueven juntos baja el riesgo de la cartera, y por qué en las crisis esa protección se achica.",
+    bloques: [
+      { t: "p", html: `En la lección 2 viste que diez activos argentinos no son una cartera diversificada. La razón tiene nombre: <strong>correlación</strong>. Mide qué tanto se mueven juntos dos activos, en una escala de −1 a +1.` },
+      { t: "tabla", cab: ["Correlación", "Qué significa", "Qué pasa al combinarlos"], filas: [
+        ["+1", "Se mueven siempre juntos", "No hay beneficio: es como tener uno solo"],
+        ["0", "Se mueven por razones distintas", "La cartera oscila bastante menos que cada uno"],
+        ["−1", "Cuando uno sube, el otro baja", "En teoría, se puede eliminar casi toda la oscilación"]
+      ]},
+      { t: "herramienta", id: "correlacion" },
+      { t: "idea", titulo: "Lo que muestra la herramienta", html: `Con dos activos que rinden lo mismo y oscilan lo mismo, mezclarlos <strong>no cambia el rendimiento esperado</strong>, pero sí baja la volatilidad, salvo que la correlación sea +1. Es lo más parecido a algo gratis que hay en finanzas: menos riesgo sin resignar retorno.` },
+      { t: "ej", id: "e1", tipo: "estimar",
+        enunciado: `Dos activos con volatilidad de 20% cada uno y correlación 0. Una cartera 50% y 50%: ¿qué volatilidad tiene, aproximadamente? Respondé en %.`,
+        unidad: "%", respuesta: 14.1, tolerancia: 0.8,
+        explicacion: `Con correlación 0, la volatilidad de la mezcla es 20% ÷ √2 ≈ <strong>14,1%</strong>. Con correlación +1 seguiría en 20%. Probalo en la herramienta.` },
+      { t: "h", texto: "Correlaciones típicas en una cartera argentina" },
+      { t: "tabla", cab: ["Par de activos", "Correlación típica", "Por qué"], filas: [
+        ["Soberanos en dólares y acciones argentinas", "Alta", "Los dos dependen del riesgo país"],
+        ["Soberanos y ONs de buenas empresas", "Media a alta", "Comparten riesgo argentino, pero las empresas sólidas sufren menos"],
+        ["LECAPs y bonos CER", "Media a alta", "Los dos dependen de las tasas en pesos y del dólar"],
+        ["CEDEARs y activos argentinos", "Baja", "Los CEDEARs dependen sobre todo del mercado de EE.UU."],
+        ["Fondo Latam sin Argentina y soberanos argentinos", "Baja", "Emisores y riesgos distintos"]
+      ], nota: "Son relaciones típicas, no números fijos: cambian con el tiempo." },
+      { t: "ojo", titulo: "En las crisis, las correlaciones suben", html: `Cuando hay pánico, muchos activos caen juntos, aunque en tiempos normales se muevan distinto. Entre julio y noviembre de 2026, con el riesgo país pasando de 430 a más de 900 puntos, bajaron juntos bonos, ONs y acciones argentinas. Por eso la diversificación que sirve es la que combina <strong>riesgos distintos</strong> (país, moneda, sector), no solo instrumentos distintos.` },
+      { t: "ej", id: "e2", tipo: "mc",
+        enunciado: `Un cliente tiene GGAL, BMA y un Global largo. Quiere sumar un activo para diversificar. ¿Cuál baja más el riesgo de la cartera?`,
+        opciones: [
+          { txt: "Acciones de Supervielle: suma un tercer banco y reparte el riesgo entre más empresas del sector.", ok: false, fb: "Otro banco argentino: correlación alta con lo que ya tiene." },
+          { txt: "Un CEDEAR diversificado, como SPY: depende de otros factores y casi no se mueve con Argentina.", ok: true, fb: "Exacto: suma un riesgo distinto." },
+          { txt: "Otro Global de distinto plazo: al cambiar la duration, cambia también la correlación con el resto.", ok: false, fb: "Sigue dependiendo del riesgo país: se mueve casi igual." }
+        ],
+        explicacion: `Diversificar es sumar algo que reaccione distinto ante el mismo evento. La pregunta es siempre: "¿qué haría caer esto, y es lo mismo que haría caer lo que ya tengo?".` },
+      { t: "cliente", titulo: "Cómo se lo explicás al cliente", html: `"No alcanza con tener muchas cosas: tienen que depender de cosas distintas. Si todo lo que tenés cae cuando Argentina anda mal, tenés una sola apuesta repetida varias veces. Sumar algo que dependa de otra cosa baja el riesgo sin bajar lo que esperás ganar."` }
+    ]
   }
   ]
 };

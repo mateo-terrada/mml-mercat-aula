@@ -18,6 +18,7 @@
     "Operatoria de Mercado",
     "Portafolios y Asesoramiento",
     "Macro Argentina",
+    "Fondos Comunes",
     "Preguntas Trampa"
   ];
 
@@ -27,6 +28,7 @@
     "Operatoria de Mercado": "OP",
     "Portafolios y Asesoramiento": "PF",
     "Macro Argentina": "MA",
+    "Fondos Comunes": "FCI",
     "Preguntas Trampa": "★"
   };
 

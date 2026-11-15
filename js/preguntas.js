@@ -217,13 +217,13 @@ const BANCO_PREGUNTAS = [
     "tipo": "multiple_choice",
     "enunciado": "Un cliente nuevo ve en la calculadora de bonos un precio de 'USD 67' para un bono y se asusta: '¿pero entonces compro el bono por 67 dólares en total?' ¿Cómo le explicás la confusión?",
     "opciones": [
-      "Los bonos siempre cuestan exactamente su valor nominal, así que un precio de 67 en pantalla no debería ser posible bajo ninguna circunstancia dentro del sistema de cotización",
-      "Es un error del sistema, hay que ignorar ese número y conviene cargar la orden usando el valor nominal completo del bono en su lugar, para evitar confusiones en la operación",
-      "Tiene razón, ese es el precio total del bono y por lo tanto puede comprarlo completo pagando apenas 67 dólares en la operación, sin importar el valor nominal que figure en la lámina",
-      "Ese precio está expresado como porcentaje del valor nominal (convención x100): USD 67 significa que el bono cotiza al 67% de su valor nominal, no que cueste 67 dólares en total"
+      "Los bonos siempre cuestan su valor nominal, así que un precio de 67 en pantalla no debería ser posible",
+      "Es un error del sistema: hay que ignorar ese número y cargar la orden usando el valor nominal completo",
+      "Tiene razón: ese es el precio total, y puede comprar el bono completo pagando apenas 67 dólares",
+      "El precio se expresa cada 100 de valor nominal: 67 significa USD 67 por cada 100 nominales"
     ],
     "respuesta_correcta": 3,
-    "explicacion": "Esta confusión es de las más frecuentes con clientes nuevos. La convención de mostrar el precio como si fuera 'sobre 100' (paridad) hace que un bono que cotiza al 67% del nominal aparezca como '67' en pantalla, lo cual no significa 67 dólares de costo total. Conviene siempre aclarar la unidad antes de que el cliente cargue una orden, para evitar errores de carga por mal entendido de magnitud."
+    "explicacion": "Esta confusión es de las más frecuentes con clientes nuevos. En Argentina los bonos cotizan cada 100 de valor nominal original: un bono que aparece a '67' en pantalla cuesta USD 67 por cada 100 nominales, lo cual no significa 67 dólares de costo total. Conviene siempre aclarar la unidad antes de que el cliente cargue una orden, para evitar errores de carga por mal entendido de magnitud."
   },
   {
     "id": "RF-MC-014",
@@ -231,15 +231,15 @@ const BANCO_PREGUNTAS = [
     "subtema": "Paridad de bonos",
     "dificultad": "basica",
     "tipo": "multiple_choice",
-    "enunciado": "¿Qué significa que un bono cotice con una paridad de 40?",
+    "enunciado": "En su versión simplificada (precio contra valor nominal, sin considerar amortizaciones ni intereses corridos), ¿qué significa que un bono cotice con una paridad de 40?",
     "opciones": [
-      "Que el bono vale 40 dólares fijos, sin importar cuántos nominales decida comprar el cliente en la operación",
-      "Que paga un cupón del 40% anual, una tasa fija que se mantiene igual durante toda la vida del instrumento",
-      "Que tiene 40 años hasta el vencimiento, calculados desde la fecha de emisión original del bono",
+      "Que el bono vale 40 dólares fijos, sin importar cuántos nominales compre el cliente",
+      "Que paga un cupón del 40% anual durante toda la vida del bono",
+      "Que le quedan 40 años hasta el vencimiento desde su emisión",
       "Que el precio de mercado equivale al 40% de su valor nominal"
     ],
     "respuesta_correcta": 3,
-    "explicacion": "La paridad es un atajo rápido para hablar de 'caro o barato' en términos de precio relativo al nominal. Pero ojo: dos bonos con la misma paridad pueden tener TIR y riesgos completamente distintos según su cupón, plazo y estructura. Es útil como primera referencia, no como única variable de decisión."
+    "explicacion": "Esta es la versión simplificada. La definición técnica compara el precio con el valor técnico (valor residual más intereses corridos), no con el nominal: en un bono que ya amortizó parte del capital, las dos cifras pueden ser muy distintas. Lo viste en el módulo de bonos. Como atajo, la paridad sirve para hablar de 'caro o barato' en términos de precio relativo. Pero ojo: dos bonos con la misma paridad pueden tener TIR y riesgos completamente distintos según su cupón, plazo y estructura. Es útil como primera referencia, no como única variable de decisión."
   },
   {
     "id": "RF-MC-015",
@@ -2221,5 +2221,423 @@ const BANCO_PREGUNTAS = [
     "tipo": "caso_abierto",
     "enunciado": "Un cliente te dice: 'Me dijeron que MercadoLibre está carísima porque cotiza a 40 veces sus ganancias. ¿Es verdad?'. Escribí en 4 o 5 líneas cómo se lo explicarías, sin jerga.",
     "respuesta_modelo": "Puntos a evaluar: (1) traduce el P/E: pagar 40 veces es pagar hoy 40 años de la ganancia actual; (2) explica que un múltiplo alto puede tener sentido si la ganancia crece mucho (sobre la ganancia esperada para el año siguiente, el múltiplo baja a cerca de 27); (3) aclara que eso depende de que el crecimiento llegue, y que el riesgo concreto hoy son los márgenes que vienen bajando; (4) compara contra algo razonable (su propia historia o empresas parecidas), no contra una regla fija; (5) no da una respuesta de sí o no sin ese contexto."
+  },
+  {
+    "id": "FCI-MC-001",
+    "categoria": "Fondos Comunes",
+    "subtema": "Cuotaparte y rendimiento neto",
+    "dificultad": "basica",
+    "tipo": "multiple_choice",
+    "enunciado": "Un cliente pregunta por qué en su resumen no aparece ningún cobro de comisión del fondo común que tiene hace un año. ¿Qué le explicás?",
+    "opciones": [
+      "Que ese fondo en particular no cobra comisiones, porque es de renta fija y esos fondos están exentos.",
+      "Que la comisión se cobra recién cuando rescata, como un único cargo sobre el total de lo que retire.",
+      "Que la comisión se descuenta día a día de la cuotaparte: el rendimiento que ve ya es neto.",
+      "Que la comisión la paga la sociedad depositaria, por eso no se refleja en la cuenta de ningún cliente."
+    ],
+    "respuesta_correcta": 2,
+    "explicacion": "Los factsheets lo aclaran: los rendimientos publicados son netos de honorarios de la sociedad gerente y de la depositaria. Por eso la comisión es un costo 'invisible' que conviene mostrarle al cliente."
+  },
+  {
+    "id": "FCI-MC-002",
+    "categoria": "Fondos Comunes",
+    "subtema": "Leer la TIR de un fondo",
+    "dificultad": "intermedia",
+    "tipo": "multiple_choice",
+    "enunciado": "El factsheet de un fondo de renta fija en pesos dice 'TIR 25,5%' y la clase del cliente cobra 2,45% anual. ¿Cuál es la lectura más razonable?",
+    "opciones": [
+      "Que el cliente tiene asegurado un 25,5% anual mientras mantenga las cuotapartes en el fondo.",
+      "Que hoy la cartera rinde cerca de 25,5% y, sin la comisión, al cliente le queda cerca de 23%.",
+      "Que la TIR ya tiene descontada la comisión, así que el cliente va a recibir exactamente 25,5%.",
+      "Que la TIR es lo que el fondo rindió en los últimos doce meses, medido en la clase más barata."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "La TIR es lo que rinde hoy la cartera si los activos se mantienen: no es una promesa ni un dato histórico, y en general está calculada antes de las comisiones del fondo."
+  },
+  {
+    "id": "FCI-MC-003",
+    "categoria": "Fondos Comunes",
+    "subtema": "Duration de un fondo",
+    "dificultad": "intermedia",
+    "tipo": "multiple_choice",
+    "enunciado": "Un fondo de bonos en dólares sin riesgo argentino tiene duration 1. Un cliente se sorprende porque el fondo cerró un año con −0,6%. ¿Cuál es la explicación más probable?",
+    "opciones": [
+      "Que subieron las tasas de los bonos que tiene el fondo y, por la duration, bajó un poco su precio.",
+      "Que la gestora cometió un error, porque un fondo sin riesgo argentino no debería tener años negativos.",
+      "Que el dólar se devaluó contra el peso y eso redujo el valor de la cuotaparte medido en dólares.",
+      "Que el fondo cobró una comisión extraordinaria ese año para compensar los rescates de otros clientes."
+    ],
+    "respuesta_correcta": 0,
+    "explicacion": "Es lo que le pasó al Balanz Sudamericano en 2021 y 2022. Baja duration significa poca sensibilidad a las tasas, no cero. Un fondo 'conservador' en dólares puede tener años levemente negativos."
+  },
+  {
+    "id": "FCI-MC-004",
+    "categoria": "Fondos Comunes",
+    "subtema": "Nombre del fondo contra composición",
+    "dificultad": "intermedia",
+    "tipo": "multiple_choice",
+    "enunciado": "Un fondo se llama 'Lecaps', pero su factsheet muestra 74% en Lecaps, 13% en plazos fijos y 10,5% en bonos CER. ¿Qué conclusión es la correcta?",
+    "opciones": [
+      "Que el fondo está violando su reglamento y conviene rescatar de inmediato hasta que se aclare.",
+      "Que la composición no importa, porque lo que define el riesgo de un fondo es su nombre comercial.",
+      "Que hay que avisarle a la CNV, porque un fondo solo puede tener los activos que figuran en su nombre.",
+      "Que el nombre es una etiqueta comercial: el riesgo real se ve en la composición."
+    ],
+    "respuesta_correcta": 3,
+    "explicacion": "Los reglamentos suelen dar margen al gestor. No es necesariamente un problema, pero el asesor tiene que saber qué hay adentro: un 10% en CER no se comporta igual que una Lecap."
+  },
+  {
+    "id": "FCI-MC-005",
+    "categoria": "Fondos Comunes",
+    "subtema": "Latam con y sin Argentina",
+    "dificultad": "intermedia",
+    "tipo": "multiple_choice",
+    "enunciado": "Un cliente quiere dólares rindiendo, pero sin ningún riesgo de crédito argentino. Le ofrecen un fondo llamado 'Latam'. ¿Qué verificás antes de recomendarlo?",
+    "opciones": [
+      "Que tenga calificación AAA, porque eso garantiza que no tiene bonos argentinos en la cartera.",
+      "Que la composición confirme que excluye Argentina: hay fondos 'Latam' que incluyen bonos argentinos.",
+      "Que rinda más de 5%, porque un fondo regional sin Argentina nunca rinde menos que eso.",
+      "Que tenga rescate en el día, porque los fondos regionales con rescate más largo tienen bonos locales."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "En Balanz, por ejemplo, conviven el Latam (Estrategia III), con Argentina, y el Sudamericano, sin Argentina. La palabra 'Latam' sola no alcanza: hay que verlo en la composición."
+  },
+  {
+    "id": "FCI-MC-006",
+    "categoria": "Fondos Comunes",
+    "subtema": "Comisión relativa al rendimiento",
+    "dificultad": "avanzada",
+    "tipo": "multiple_choice",
+    "enunciado": "El fondo A rinde 25,5% con 2,45% de comisión; el fondo B rinde 5,3% con 1,1% de comisión. ¿En cuál se lleva la comisión una parte mayor del rendimiento?",
+    "opciones": [
+      "En el A, porque su comisión de 2,45% es más del doble que la del fondo B en términos absolutos.",
+      "En ninguno: en los dos casos la comisión representa una proporción parecida del rendimiento total.",
+      "En el B: 1,1 sobre 5,3 es cerca de 20% del rendimiento; en el A, 2,45 sobre 25,5 es cerca de 10%.",
+      "No se puede saber sin el patrimonio de cada fondo, porque la comisión depende del monto administrado."
+    ],
+    "respuesta_correcta": 2,
+    "explicacion": "La comisión hay que compararla con lo que rinde el fondo. Una comisión 'baja' sobre un rendimiento bajo puede pesar más que una 'alta' sobre un rendimiento alto."
+  },
+  {
+    "id": "FCI-MC-007",
+    "categoria": "Fondos Comunes",
+    "subtema": "Clases de cuotaparte",
+    "dificultad": "intermedia",
+    "tipo": "multiple_choice",
+    "enunciado": "Un mismo fondo tiene clase A con 2,45% de comisión y clase D con 1,60%. Un cliente pregunta si la clase D tiene activos de menor calidad. ¿Qué le respondés?",
+    "opciones": [
+      "Que no: las clases comparten la cartera; cambia la comisión según monto o tipo de inversor.",
+      "Que sí: la clase más barata invierte en activos más riesgosos para compensar la menor comisión.",
+      "Que sí: cada clase tiene su propia cartera, y la D suele estar más concentrada en pocos emisores.",
+      "Que no se sabe: cada clase publica su propio factsheet y hay que compararlos activo por activo."
+    ],
+    "respuesta_correcta": 0,
+    "explicacion": "Las clases son una forma de cobrar distinto por el mismo fondo. Por eso conviene averiguar a qué clase accede el cliente: la diferencia es rendimiento extra sin más riesgo."
+  },
+  {
+    "id": "FCI-MC-008",
+    "categoria": "Fondos Comunes",
+    "subtema": "Plazo de rescate y necesidad",
+    "dificultad": "basica",
+    "tipo": "multiple_choice",
+    "enunciado": "Una empresa necesita pagar sueldos dentro de dos días hábiles y tiene los pesos disponibles hoy. ¿Qué fondo encaja mejor?",
+    "opciones": [
+      "Un fondo de ONs en pesos, que rinde más y tiene rescate en 24 horas, alcanza para pagar a tiempo.",
+      "Un fondo dollar linked, para cubrir los sueldos en caso de que el dólar oficial suba en estos días.",
+      "Un fondo de renta fija de mediano plazo, porque rinde más y el rescate igual llega antes del pago.",
+      "Un money market en pesos: rescate en el día y casi sin oscilaciones para un plazo tan corto."
+    ],
+    "respuesta_correcta": 3,
+    "explicacion": "Para plata con fecha de uso cercana, lo primero es disponibilidad y estabilidad. Los fondos con más duration o riesgo de crédito pueden bajar justo antes del pago."
+  },
+  {
+    "id": "FCI-MC-009",
+    "categoria": "Fondos Comunes",
+    "subtema": "Rendimiento pasado",
+    "dificultad": "intermedia",
+    "tipo": "multiple_choice",
+    "enunciado": "Un fondo de Lecaps rindió 35% en 2025, pero su TIR actual es 25,5%. Un cliente quiere entrar 'porque rinde 35%'. ¿Qué le aclarás?",
+    "opciones": [
+      "Que el 35% es lo mínimo que puede esperar, porque los fondos de renta fija suelen repetir su rendimiento.",
+      "Que el 35% fue con tasas más altas que las de hoy: lo que rinde hoy la cartera es cerca de 25,5%.",
+      "Que la TIR no importa en fondos de corto plazo, porque el gestor puede cambiar la cartera todos los días.",
+      "Que el 35% es neto y el 25,5% es bruto, así que en la práctica las dos cifras significan lo mismo."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "El rendimiento pasado refleja un contexto que ya no está. En 2026 hasta septiembre ese fondo rindió 21,97%, porque bajaron las tasas en pesos."
+  },
+  {
+    "id": "FCI-MC-010",
+    "categoria": "Fondos Comunes",
+    "subtema": "Fondos en dólares: MEP o cable",
+    "dificultad": "avanzada",
+    "tipo": "multiple_choice",
+    "enunciado": "Un cliente tiene dólares MEP en su cuenta y quiere suscribir un fondo de acciones del exterior que opera en dólar cable. ¿Qué tenés que tener en cuenta?",
+    "opciones": [
+      "Nada: un fondo en dólares acepta cualquier tipo de dólar y la conversión la hace la depositaria sin costo.",
+      "Que primero tiene que vender sus dólares contra pesos y suscribir el fondo en pesos al tipo de cambio oficial.",
+      "Que hay que pasar los dólares de MEP a cable, y si hay diferencia entre los dos, eso tiene un costo.",
+      "Que no puede suscribirlo, porque los fondos en dólar cable solo están habilitados para personas jurídicas."
+    ],
+    "respuesta_correcta": 2,
+    "explicacion": "Antes de suscribir un fondo en dólares, chequeá en la ficha si opera en MEP o en cable. Si no coincide con los dólares del cliente, hay un paso extra y un posible costo."
+  },
+  {
+    "id": "FCI-CASO-001",
+    "categoria": "Fondos Comunes",
+    "subtema": "Leer un factsheet para un cliente",
+    "dificultad": "intermedia",
+    "tipo": "caso_abierto",
+    "enunciado": "Un cliente te reenvía la descripción comercial de un fondo (\"Diversificá tus riesgos invirtiendo en Latam\") y te pregunta si le conviene. Escribí en 4 o 5 líneas qué mirarías en el factsheet antes de responderle y por qué.",
+    "respuesta_modelo": "Puntos a evaluar: (1) no responde a partir de la descripción comercial; (2) revisa la estrategia y confirma si incluye o excluye Argentina; (3) mira la TIR y la compara con alternativas, aclarando que no es una promesa; (4) mira la duration para saber cuánto puede oscilar si cambian las tasas; (5) revisa composición y top 10 (concentración, países, emisores); (6) revisa comisiones de la clase a la que accede el cliente, plazo de rescate y si opera en MEP o cable; (7) relaciona todo con el objetivo y el horizonte del cliente."
+  },
+  {
+    "id": "FCI-MC-011",
+    "categoria": "Fondos Comunes",
+    "subtema": "Rendimiento histórico contra esperado",
+    "dificultad": "avanzada",
+    "tipo": "multiple_choice",
+    "enunciado": "Dos fondos de bonos largos en dólares, con la misma cartera y duration 6. El A muestra +12% en los últimos 12 meses (bajaron las tasas) y el B, −6% (subieron). Hoy el A tiene TIR de 6% y el B, de 10%. ¿Qué lectura es correcta?",
+    "opciones": [
+      "Conviene el A: un rendimiento de 12% muestra que su gestor elige mejor los bonos de la cartera.",
+      "El B hoy rinde más hacia adelante: su caída vino de la misma suba de tasas que subió su TIR.",
+      "Conviene el A: cuando un fondo cae 6% en un año, suele seguir cayendo durante el año siguiente.",
+      "Son equivalentes: si tienen la misma cartera, el rendimiento futuro va a ser idéntico en ambos."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "En renta fija larga, el rendimiento pasado y el esperado pueden ir en sentidos opuestos. Una suba de tasas hace caer el precio (pasado malo) y a la vez sube la TIR (futuro mejor), siempre que los emisores paguen."
+  },
+  {
+    "id": "CRIT-MC-001",
+    "categoria": "Portafolios y Asesoramiento",
+    "subtema": "CER + 7% contra dólar 7%",
+    "dificultad": "intermedia",
+    "tipo": "multiple_choice",
+    "enunciado": "Un bono CER rinde CER + 7% y un bono en dólares rinde 7%. ¿En qué caso el bono CER termina rindiendo más medido en dólares?",
+    "opciones": [
+      "Siempre, porque además de la tasa de 7% le suma la inflación del período, que en Argentina es alta.",
+      "Si el dólar sube menos que la inflación en el período: el peso se fortalece en términos reales.",
+      "Nunca, porque un bono en pesos no puede ganarle a un bono en dólares cuando se lo mide en dólares.",
+      "Solo si el bono CER tiene más duration que el bono en dólares y bajan las tasas de los dos mercados."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "El 7% del CER es por encima de la inflación en pesos; el 7% del bono en dólares es en dólares. Gana el CER si el dólar sube menos que la inflación (como en 2026) y gana el bono en dólares si sube más."
+  },
+  {
+    "id": "CRIT-MC-002",
+    "categoria": "Portafolios y Asesoramiento",
+    "subtema": "Atraso cambiario y año electoral",
+    "dificultad": "avanzada",
+    "tipo": "multiple_choice",
+    "enunciado": "En 2026 el dólar subió mucho menos que la inflación y en 2027 hay elecciones. Un cliente con gastos en pesos tiene todo en CER. ¿Qué riesgo conviene señalarle?",
+    "opciones": [
+      "Ninguno: el CER lo protege de la inflación, y para alguien que gasta en pesos esa es la única protección necesaria.",
+      "Que el CER deja de ajustar en los años electorales, y por eso conviene pasar todo a bonos a tasa fija en pesos.",
+      "Que si el dólar se corrige y sube más que la inflación, lo que tenga para objetivos en dólares va a quedar corto.",
+      "Que en un año electoral los bonos CER se suspenden, y no va a poder vender hasta que termine la elección."
+    ],
+    "respuesta_correcta": 2,
+    "explicacion": "Con el dólar atrasado y un año electoral por delante, aumenta la probabilidad de que el dólar suba más que la inflación. Para gastos en pesos, el CER sigue siendo buena cobertura; para objetivos en dólares, no alcanza."
+  },
+  {
+    "id": "CRIT-MC-003",
+    "categoria": "Portafolios y Asesoramiento",
+    "subtema": "Cliente con idea propia: petróleo",
+    "dificultad": "intermedia",
+    "tipo": "multiple_choice",
+    "enunciado": "Un cliente quiere comprar XOM \"porque el petróleo está alto\". ¿Cuál es la advertencia más importante?",
+    "opciones": [
+      "Que el crudo caro ya está en el precio: para ganar tiene que subir más, y es muy volátil.",
+      "Que las petroleras no ganan más cuando sube el petróleo, porque sus costos suben en la misma proporción.",
+      "Que no se pueden comprar acciones de petroleras de Estados Unidos desde Argentina por las regulaciones.",
+      "Que XOM solo sube cuando baja el petróleo, porque se beneficia de los menores costos de refinación."
+    ],
+    "respuesta_correcta": 0,
+    "explicacion": "La idea tiene lógica, pero el mercado ya sabe que el petróleo está alto. La acción reacciona a lo que cambia. Y el crudo es muy volátil: el Brent bajó de unos 116 a 92 dólares en dos semanas a fines de octubre de 2026."
+  },
+  {
+    "id": "CRIT-MC-004",
+    "categoria": "Portafolios y Asesoramiento",
+    "subtema": "Concentración en una acción de moda",
+    "dificultad": "intermedia",
+    "tipo": "multiple_choice",
+    "enunciado": "Una clienta agresiva quiere poner toda su cartera en NVDA. ¿Cuál es la mejor respuesta?",
+    "opciones": [
+      "Ejecutar sin comentarios: si su perfil es agresivo, cualquier decisión de concentración es aceptable.",
+      "Negarte a hacerlo, porque concentrar en una sola acción no es aceptable para ningún perfil de cliente.",
+      "Recomendarle comprar NVDA, pero solo después de esperar una caída de 20% para entrar a mejor precio.",
+      "Validar la idea, mostrarle cuánto puede caer y proponer que sea solo una parte."
+    ],
+    "respuesta_correcta": 3,
+    "explicacion": "El rol del asesor con un cliente que trae su idea no es prohibir ni ejecutar sin pensar: es advertir el riesgo concreto y dimensionar la apuesta para que sea una que pueda soportar."
+  },
+  {
+    "id": "CRIT-MC-005",
+    "categoria": "Portafolios y Asesoramiento",
+    "subtema": "Riesgo electoral: diferenciar activos",
+    "dificultad": "intermedia",
+    "tipo": "multiple_choice",
+    "enunciado": "Un cliente quiere vender todo lo argentino por las elecciones. Tiene Globales largos, ONs de empresas sólidas y LECAPs para sus gastos. ¿Qué es lo más expuesto al riesgo electoral?",
+    "opciones": [
+      "Las LECAPs, porque son deuda del Tesoro y el riesgo electoral afecta sobre todo al Estado nacional.",
+      "Los Globales largos: mucha duration y riesgo país. Las ONs y LECAPs se mueven menos.",
+      "Las ONs, porque las empresas privadas son siempre las primeras en dejar de pagar en una crisis argentina.",
+      "Todos por igual, porque el riesgo electoral afecta de la misma forma a cualquier activo argentino."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "El riesgo argentino no es parejo. Los Globales largos son lo más sensible. Diferenciar permite bajar la exposición donde más pega sin desarmar todo."
+  },
+  {
+    "id": "CRIT-MC-006",
+    "categoria": "Portafolios y Asesoramiento",
+    "subtema": "Volatilidad y rango de resultados",
+    "dificultad": "intermedia",
+    "tipo": "multiple_choice",
+    "enunciado": "Una cartera tiene retorno esperado de 8% y volatilidad de 15%. ¿Qué le decís al cliente antes de invertir?",
+    "opciones": [
+      "Que va a ganar 8% por año, con una variación de 15% que se compensa entre los años buenos y los malos.",
+      "Que la volatilidad de 15% significa que nunca puede perder más de 15% en un año calendario cualquiera.",
+      "Que en 2 de cada 3 años debería quedar entre −7% y +23%, y que algún año puede ser peor que −7%.",
+      "Que la volatilidad solo importa en carteras agresivas; con 8% esperado la cartera es conservadora."
+    ],
+    "respuesta_correcta": 2,
+    "explicacion": "Retorno esperado ± volatilidad da el rango de 2 de cada 3 años. Decirlo antes de invertir evita que el cliente se asuste cuando llega el año malo."
+  },
+  {
+    "id": "CRIT-MC-007",
+    "categoria": "Portafolios y Asesoramiento",
+    "subtema": "Sacar todo de Argentina no es eliminar riesgo",
+    "dificultad": "avanzada",
+    "tipo": "multiple_choice",
+    "enunciado": "Un cliente pasa toda su cartera a CEDEARs para \"no tener riesgo\". ¿Qué le falta entender?",
+    "opciones": [
+      "Que los CEDEARs tienen riesgo argentino igual que un bono, porque cotizan en BYMA y están en pesos.",
+      "Nada: sin riesgo argentino, una cartera de CEDEARs es la opción más segura para cualquier perfil.",
+      "Que los CEDEARs no se pueden vender en un año electoral, así que pierde liquidez justo cuando la necesita.",
+      "Que cambió de riesgo, no lo eliminó: las acciones del exterior pueden caer fuerte en un año malo global."
+    ],
+    "respuesta_correcta": 3,
+    "explicacion": "Salir de Argentina protege del año malo local, pero concentrar en acciones del exterior deja la cartera expuesta a una caída global. 'Sin riesgo argentino' no es 'sin riesgo'."
+  },
+  {
+    "id": "CRIT-MC-008",
+    "categoria": "Portafolios y Asesoramiento",
+    "subtema": "Explicarle a un cliente nuevo",
+    "dificultad": "basica",
+    "tipo": "multiple_choice",
+    "enunciado": "Un cliente nuevo, que no sabe de finanzas, ve que su bono bajó 4% en la semana. ¿Qué explicación le das?",
+    "opciones": [
+      "Que el mercado está nervioso y paga menos, pero si lo mantiene cobra lo mismo al vencer.",
+      "Que subió el riesgo país, aumentó la TIR y por la duration modificada bajó el precio del bono.",
+      "Que no se preocupe porque son movimientos normales que no tienen importancia para su cartera.",
+      "Que conviene venderlo antes de que siga bajando y volver a comprar cuando el mercado se calme."
+    ],
+    "respuesta_correcta": 0,
+    "explicacion": "Con un cliente nuevo, la explicación tiene que ser cierta, simple y decirle qué significa para él. La versión técnica es correcta, pero le tira cuatro conceptos nuevos de golpe."
+  },
+  {
+    "id": "CRIT-CASO-001",
+    "categoria": "Portafolios y Asesoramiento",
+    "subtema": "Cliente con idea propia y advertencia de riesgo",
+    "dificultad": "avanzada",
+    "tipo": "caso_abierto",
+    "enunciado": "Un cliente moderado te dice: \"Vendé todos mis bonos y ONs argentinos y comprame CEDEARs de tecnológicas, que en 2027 acá se pudre todo\". Escribí en 4 o 5 líneas cómo le responderías.",
+    "respuesta_modelo": "Puntos a evaluar: (1) valida la preocupación electoral sin discutir la predicción política; (2) diferencia los riesgos: soberanos largos muy expuestos, ONs de buenas empresas y bonos que vencen dentro del mandato mucho menos; (3) advierte que pasar todo a tecnológicas cambia de riesgo, no lo elimina: concentra en acciones volátiles del exterior; (4) propone una salida parcial y diversificada (por ejemplo, reducir soberanos largos, sumar CEDEARs variados o un fondo Latam sin Argentina); (5) recuerda que si no pasa nada malo, salir de todo también tiene un costo; (6) deja registro de la advertencia."
+  },
+  {
+    "id": "MERC-MC-001",
+    "categoria": "Operatoria de Mercado",
+    "subtema": "Primario y secundario",
+    "dificultad": "basica",
+    "tipo": "multiple_choice",
+    "enunciado": "Un cliente compra AL30 en la pantalla de BYMA. ¿Quién recibe la plata que paga?",
+    "opciones": [
+      "El Tesoro, porque es el emisor del bono y toda compra de un bono suyo lo financia.",
+      "El inversor que le vendió el bono: es una operación del mercado secundario.",
+      "La Caja de Valores, que retiene la plata hasta que el bono vence y paga al final.",
+      "El ALyC, que se queda con el pago como contraparte y le entrega los títulos."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "En el secundario los inversores operan entre ellos: el emisor no recibe nada. Solo en el primario (licitación o colocación) la plata va al emisor."
+  },
+  {
+    "id": "MERC-MC-002",
+    "categoria": "Operatoria de Mercado",
+    "subtema": "Tasa de corte",
+    "dificultad": "intermedia",
+    "tipo": "multiple_choice",
+    "enunciado": "En una licitación, un cliente ofreció en el tramo competitivo una tasa de 6%. La tasa de corte fue 6,8%. ¿Qué tasa recibe?",
+    "opciones": [
+      "6%, porque es la tasa que ofreció y en el tramo competitivo cada uno recibe la suya.",
+      "Un promedio entre su oferta y la tasa de corte, ponderado por el monto que ofreció.",
+      "6,8%: todos los adjudicados reciben la tasa de corte, aunque hayan ofrecido menos.",
+      "No le adjudican nada, porque su oferta quedó por debajo de la tasa de corte final."
+    ],
+    "respuesta_correcta": 2,
+    "explicacion": "Las ofertas con tasa igual o menor a la de corte se adjudican, y todas reciben la tasa de corte. Ofrecer una tasa baja asegura entrar, no recibir esa tasa."
+  },
+  {
+    "id": "MERC-MC-003",
+    "categoria": "Operatoria de Mercado",
+    "subtema": "Rol del agente productor",
+    "dificultad": "basica",
+    "tipo": "multiple_choice",
+    "enunciado": "Según la normativa de la CNV (RG 709), ¿cuál de estas actividades le está prohibida a un agente productor?",
+    "opciones": [
+      "Captar clientes para que los dé de alta el ALyC con el que tiene contrato firmado.",
+      "Informarle a un potencial cliente cuáles son los servicios que ofrece su ALyC.",
+      "Entregarle al cliente la documentación del ALyC para abrir su cuenta comitente.",
+      "Recibir en su propia cuenta los fondos de un cliente para invertirlos por él."
+    ],
+    "respuesta_correcta": 3,
+    "explicacion": "El AP no puede recibir ni custodiar fondos o títulos de clientes: eso lo hace siempre el ALyC. Captar, informar y entregar documentación son sus actividades permitidas."
+  },
+  {
+    "id": "MERC-MC-004",
+    "categoria": "Operatoria de Mercado",
+    "subtema": "Claves del cliente",
+    "dificultad": "basica",
+    "tipo": "multiple_choice",
+    "enunciado": "Un cliente le ofrece a su agente productor su usuario y clave de la plataforma para que opere por él. ¿Qué dice la norma?",
+    "opciones": [
+      "Que el agente productor no puede usar contraseñas ni firmas electrónicas de clientes.",
+      "Que está permitido si el cliente lo autoriza por escrito y el monto es menor al mínimo fijado.",
+      "Que está permitido para clientes mayores de 70 años que no manejan la plataforma por sí mismos.",
+      "Que la norma no dice nada al respecto, así que queda a criterio del asesor en cada caso."
+    ],
+    "respuesta_correcta": 0,
+    "explicacion": "La RG 709 lo prohíbe expresamente. Para clientes que no manejan la plataforma, el ALyC suele tener otras formas de recibir sus órdenes."
+  },
+  {
+    "id": "MERC-MC-005",
+    "categoria": "Operatoria de Mercado",
+    "subtema": "Dónde están los títulos del cliente",
+    "dificultad": "intermedia",
+    "tipo": "multiple_choice",
+    "enunciado": "Un cliente pregunta qué pasa con sus bonos si el ALyC donde tiene la cuenta tiene problemas. ¿Cuál es la base de la respuesta?",
+    "opciones": [
+      "Que los bonos pasan a ser del ALyC hasta que el cliente los venda, así que depende de su solvencia.",
+      "Que los títulos están registrados en Caja de Valores en una subcuenta a nombre del cliente.",
+      "Que el Banco Central garantiza las tenencias de bonos de cualquier cliente hasta un monto fijo.",
+      "Que el agente productor responde con su patrimonio por los títulos de los clientes que trajo."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "Los títulos se registran a nombre del cliente, separados del patrimonio del ALyC. Y el cliente puede verificar sus tenencias en Caja de Valores."
+  },
+  {
+    "id": "MERC-MC-006",
+    "categoria": "Operatoria de Mercado",
+    "subtema": "Señales de estafa",
+    "dificultad": "basica",
+    "tipo": "multiple_choice",
+    "enunciado": "Un cliente recibe por redes una oferta: \"4% mensual en dólares garantizado, transferí hoy a esta cuenta personal\". ¿Qué le decís?",
+    "opciones": [
+      "Que puede probar con un monto chico, porque si el rendimiento es real conviene no perder la oportunidad.",
+      "Que tiene todas las señales de una estafa: rendimiento garantizado, urgencia y cuenta personal.",
+      "Que está bien si la cuenta personal es de un agente registrado en la CNV, porque eso lo vuelve seguro.",
+      "Que primero espere a ver si a sus conocidos les pagan durante algunos meses antes de entrar él."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "Ningún rendimiento alto está garantizado, y la plata nunca va a una cuenta personal: va a una cuenta a nombre del cliente en una entidad registrada."
   }
 ];

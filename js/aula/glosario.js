@@ -5,6 +5,9 @@
 window.AULA = window.AULA || { modulos: {} };
 
 AULA.glosario = {
+  spread:        { termino: "Spread", def: "Diferencia entre la mejor punta compradora y la mejor vendedora. Es el costo de comprar y vender en el acto." },
+  alyc:          { termino: "ALyC", def: "Agente de liquidación y compensación: abre la cuenta del cliente, recibe sus fondos, ejecuta las órdenes, liquida y custodia los activos." },
+  ap:            { termino: "Agente productor", def: "Persona registrada en la CNV que difunde, capta y asesora clientes para un ALyC. No recibe ni custodia fondos o títulos de clientes." },
   fundamental:   { termino: "Análisis fundamental", def: "Estudiar el negocio de una empresa y sus números para formarse una opinión sobre cuánto vale y compararla con su precio. Entra al elegir qué empresas comprar y en el seguimiento de cada resultado trimestral." },
   ebitda:        { termino: "EBITDA", def: "Resultado operativo antes de intereses, impuestos, depreciaciones y amortizaciones. Aproxima lo que genera la operación; muy usado en empresas con mucha inversión en equipos." },
   fcf:           { termino: "Flujo de caja libre", def: "La plata que genera la empresa después de pagar sus gastos e inversiones. Es lo que realmente puede usar para pagar deuda, dividendos o recomprar acciones." },
@@ -32,6 +35,12 @@ AULA.glosario = {
   curva:         { termino: "Curva de rendimientos", def: "Gráfico de bonos comparables con su TIR en el eje vertical y su plazo o duration en el horizontal." },
   riesgopais:    { termino: "Riesgo país", def: "Rendimiento extra que se exige a los bonos de un país en dólares sobre los bonos del Tesoro de EE.UU. Se mide en puntos básicos (100 pb = 1%). Referencia: EMBI de JP Morgan." },
   lecap:         { termino: "LECAP / BONCAP", def: "Letras y bonos del Tesoro en pesos a tasa fija. Se compran con descuento y pagan un monto de pesos conocido al vencimiento." },
+  cuotaparte:    { termino: "Cuotaparte", def: "Cada una de las partes iguales en que se divide un fondo común. Su valor se publica todos los días y sube o baja con los activos del fondo." },
+  factsheet:     { termino: "Factsheet", def: "Informe mensual de una página que publica cada fondo: estrategia, TIR, duration, composición, principales activos, comisiones y rendimientos." },
+  clase:         { termino: "Clase de cuotaparte", def: "Variante de un mismo fondo con la misma cartera pero distinta comisión, según el monto o el tipo de inversor." },
+  rem:           { termino: "REM", def: "Relevamiento de Expectativas de Mercado: encuesta mensual del BCRA a consultoras y bancos sobre inflación, dólar, tasas y actividad. Es la referencia de 'lo que se esperaba'." },
+  rollover:      { termino: "Rollover", def: "Porcentaje de los títulos que vencen que el Tesoro logra renovar en una licitación. Más de 100%: consigue más pesos de los que paga; menos de 100%: devuelve pesos al mercado." },
+  forward:       { termino: "Tasa forward", def: "Tasa implícita entre dos fechas futuras que surge de comparar un bono corto con uno largo. Ejemplo: la que debería rendir el AO27 reinvertido para empatar al AO28." },
   carry:         { termino: "Carry trade", def: "Estrategia de quedarse en pesos ganando tasa, apostando a que el dólar suba menos que esa tasa en el período." },
   cer:           { termino: "CER", def: "Coeficiente de Estabilización de Referencia: índice diario del BCRA basado en la inflación del INDEC, con un rezago de alrededor de un mes y medio. Ajusta el capital de los bonos CER." },
   breakeven:     { termino: "Breakeven", def: "Nivel que hace indiferentes dos alternativas. Inflación breakeven: la que iguala tasa fija y CER. Dólar breakeven: el que iguala estar en pesos y en dólares." },
