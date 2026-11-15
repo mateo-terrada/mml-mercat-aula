@@ -8,7 +8,7 @@ AULA.modulos.fci = {
   id: "fci",
   numero: "06",
   titulo: "Fondos comunes de inversión",
-  bajada: "Un fondo es lo que tiene adentro, no lo que dice su nombre. Cómo leer un factsheet en cinco puntos, cuánto se lleva la comisión y cómo elegir el fondo para cada necesidad.",
+  bajada: "Un fondo es lo que tiene adentro, no lo que dice su nombre. Cómo leer un factsheet en cinco claves, cuánto se lleva la comisión y cómo elegir el fondo para cada necesidad.",
   fuente: "Cap. 6 del Book · factsheets de Balanz al 30/09/2026",
   practica: [
     { titulo: "Práctica diaria · Fondos Comunes", desc: "Preguntas nuevas sobre factsheets, clases, comisiones y elección de fondos.", href: "practica.html" }
@@ -101,7 +101,7 @@ AULA.modulos.fci = {
   /* ------------------------------------------------------------ */
   {
     id: "f3",
-    titulo: "Leer el factsheet: los cinco puntos",
+    titulo: "Leer el factsheet: las cinco claves",
     minutos: 12,
     objetivo: "Usar siempre la misma rutina para leer un factsheet: estrategia, TIR, duration, composición y top 10, y comisiones.",
     bloques: [
@@ -117,9 +117,9 @@ AULA.modulos.fci = {
         ["Comisiones", "Saber cuánto del rendimiento queda para el cliente", "Mirar solo la clase más barata, que el cliente quizás no tiene"]
       ]},
       { t: "ej", id: "e1", tipo: "estimar",
-        enunciado: `El fondo Sudamericano tiene duration 1. Si las tasas de los bonos que tiene suben 1,5 puntos, ¿cuánto caería aproximadamente la cuotaparte? Respondé en % (como número positivo).`,
+        enunciado: `El fondo Sudamericano tiene duration 1. Si las tasas de los bonos que tiene suben 1,5 p.p., ¿cuánto caería aproximadamente la cuotaparte? Respondé en % (como número positivo).`,
         unidad: "%", respuesta: 1.5, tolerancia: 0.3,
-        explicacion: `Duration 1 × 1,5 puntos ≈ <strong>1,5%</strong>. Es poco, pero alcanza para que un fondo "conservador" en dólares tenga un año negativo, como le pasó en 2021 y 2022.` },
+        explicacion: `Duration 1 × 1,5 p.p. ≈ <strong>1,5%</strong>. Es poco, pero alcanza para que un fondo "conservador" en dólares tenga un año negativo, como le pasó en 2021 y 2022.` },
       { t: "ej", id: "e2", tipo: "mc",
         enunciado: `El factsheet de Balanz Lecaps dice TIR 25,5% y el cuadro muestra que en 2025 el fondo rindió 35,15%. Un cliente pregunta cuánto va a ganar el año que viene. ¿Qué dato usás como referencia?`,
         opciones: [
@@ -195,7 +195,7 @@ AULA.modulos.fci = {
           { txt: "Comprar Lecaps directo o, si prefiere el fondo, ver si su monto le da una clase más barata.", ok: true, fb: "Exacto: con monto grande y plazo fijo, el costo del fondo pesa." },
           { txt: "Pasarlo a un money market, que tiene comisiones más bajas y rinde prácticamente lo mismo que el fondo.", ok: false, fb: "Rinde menos que una Lecap: cambia la inversión, no solo el costo." }
         ],
-        explicacion: `Con $80 millones, 0,85 puntos de diferencia entre la clase A y la D son unos $680.000 por año. Para plata que no se toca, el fondo no está agregando mucho valor por esa diferencia.` }
+        explicacion: `Con $80 millones, 0,85 p.p. de diferencia entre la clase A y la D son unos $680.000 por año. Para plata que no se toca, el fondo no está agregando mucho valor por esa diferencia.` }
     ]
   },
 
@@ -213,7 +213,7 @@ AULA.modulos.fci = {
       { t: "p", html: `Es fácil asumir que "si rindió bien, va a rendir bien" y "si rindió mal, va a rendir mal". En renta fija, sobre todo en la larga, muchas veces pasa lo contrario. Cuando las tasas suben fuerte, los bonos bajan de precio y el fondo muestra un rendimiento negativo. Pero esos mismos bonos, ahora más baratos, rinden más de acá en adelante: la TIR sube.` },
       { t: "herramienta", id: "pasado-futuro" },
       { t: "idea", titulo: "Dos números, dos preguntas", html: `El <strong>cuadro de rentabilidad</strong> responde "¿qué pasó?". La <strong>TIR</strong> responde "¿qué rinde hoy la cartera?". Después de una suba fuerte de tasas, el primero se ve feo y el segundo se ve mejor que nunca. Después de una baja, al revés. Por eso los dos números no se reemplazan: se leen juntos.` },
-      { t: "mercado", titulo: "Lo que pasó en 2026", html: `Entre julio y noviembre el riesgo país pasó de unos 430 a más de 900 puntos. Un fondo de bonos soberanos argentinos en dólares muestra en esos meses un rendimiento negativo, pero su TIR hoy es bastante más alta que en julio. Ojo con la diferencia: acá la tasa subió por <strong>riesgo de crédito</strong>, no solo por tasas internacionales. La recuperación depende de que se despejen esas dudas (lo viste en el módulo de macro).`, fuente: "Módulo 08 · datos de riesgo país de 2026" },
+      { t: "mercado", titulo: "Lo que pasó en 2026", html: `Entre julio y noviembre el riesgo país pasó de unos 430 a más de 900 puntos básicos. Un fondo de bonos soberanos argentinos en dólares muestra en esos meses un rendimiento negativo, pero su TIR hoy es bastante más alta que en julio. Ojo con la diferencia: acá la tasa subió por <strong>riesgo de crédito</strong>, no solo por tasas internacionales. La recuperación depende de que se despejen esas dudas (lo viste en el módulo de macro).`, fuente: "Módulo 08 · datos de riesgo país de 2026" },
       { t: "ej", id: "e3", tipo: "mc",
         enunciado: `Un fondo de bonos en dólares con duration 5 cayó 8% en el año porque subieron las tasas; su TIR pasó de 7% a 10%. El cliente quiere rescatar "antes de que siga cayendo". ¿Qué es lo más importante que tiene que entender?`,
         opciones: [
@@ -232,7 +232,7 @@ AULA.modulos.fci = {
       { t: "ej", id: "e1", tipo: "mc",
         enunciado: `Dos fondos en dólares: el A rinde 5,3% de TIR con duration 1, sin riesgo argentino; el B rinde 8,5% con duration 3 e incluye bonos argentinos. Un cliente pregunta cuál es mejor. ¿Qué le respondés?`,
         opciones: [
-          { txt: "El B, porque rinde 3 puntos más con un riesgo parecido: los dos son renta fija en dólares de la región.", ok: false, fb: "El riesgo no es parecido: más duration y riesgo argentino." },
+          { txt: "El B, porque rinde 3 p.p. más con un riesgo parecido: los dos son renta fija en dólares de la región.", ok: false, fb: "El riesgo no es parecido: más duration y riesgo argentino." },
           { txt: "El A, porque los fondos sin riesgo argentino son siempre la opción correcta para cualquier cliente.", ok: false, fb: "No siempre: depende de qué riesgo quiere y puede asumir el cliente." },
           { txt: "Depende del objetivo: el B paga más porque tiene más duration y riesgo argentino.", ok: true, fb: "Exacto: la diferencia de TIR es el pago por un riesgo distinto." }
         ],

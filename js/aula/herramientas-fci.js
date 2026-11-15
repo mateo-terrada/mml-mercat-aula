@@ -52,11 +52,11 @@
         pregunta: "Con 1% de comisión en la clase A, ¿cuánto le queda? (Spoiler: alrededor de 4,2%.)" } },
     dur: { n: "3 · Duration", lecaps: {
         dice: "Duration de 0,2 años.",
-        lee: "Muy baja: si las tasas en pesos suben 1 punto, la cuotaparte cae cerca de 0,2%. Por eso casi no tiene días malos.",
+        lee: "Muy baja: si las tasas en pesos suben 1 p.p., la cuotaparte cae cerca de 0,2%. Por eso casi no tiene días malos.",
         pregunta: "¿Es coherente con 'corto plazo'? Sí. ¿Podría tener un mal día? Sí, pero chico: el peor fue −0,89%." },
       sudam: {
         dice: "Duration de 1 año.",
-        lee: "Baja para un fondo de 'mediano plazo': si las tasas suben 1 punto, la cuotaparte cae cerca de 1%. Aun así tuvo dos años negativos (2021 y 2022), cuando subieron las tasas en el mundo.",
+        lee: "Baja para un fondo de 'mediano plazo': si las tasas suben 1 p.p., la cuotaparte cae cerca de 1%. Aun así tuvo dos años negativos (2021 y 2022), cuando subieron las tasas en el mundo.",
         pregunta: "¿El cliente entiende que un fondo en dólares conservador también puede terminar un año en negativo?" } },
     comp: { n: "4 · Composición y top 10", lecaps: {
         dice: "74% en Lecaps, 13% en plazos fijos, 10,5% en bonos CER, 2% de liquidez.",
@@ -68,7 +68,7 @@
         pregunta: "Si al cliente le preocupa Brasil (como pasó con la elección de Lula), ¿cuánto de este fondo es Brasil? Sumando: alrededor de 23%." } },
     fees: { n: "5 · Comisiones", lecaps: {
         dice: "Clase A 2,45%, clase D 1,60%, depositaria 0,095% + IVA. Sin comisión de entrada ni de salida.",
-        lee: "Con una TIR de 25,5%, la clase A se lleva cerca de un décimo del rendimiento. La diferencia entre A y D es 0,85 puntos por año, para el mismo fondo.",
+        lee: "Con una TIR de 25,5%, la clase A se lleva cerca de un décimo del rendimiento. La diferencia entre A y D es 0,85 p.p. por año, para el mismo fondo.",
         pregunta: "¿En qué clase está tu cliente? Depende del monto o del tipo de inversor: averiguá a cuál accede." },
       sudam: {
         dice: "Clase A 1,00%, clase D 0,60%, depositaria 0,08% + IVA.",
@@ -80,7 +80,7 @@
     render() {
       return `
         <div class="tool tool-fs">
-          <div class="tool-head"><span class="tool-kicker">Herramienta</span><h4>Leer un factsheet en cinco puntos</h4></div>
+          <div class="tool-head"><span class="tool-kicker">Herramienta</span><h4>Leer un factsheet en cinco claves</h4></div>
           <p class="tool-hint">Elegí el fondo y tocá cada número. Es la misma rutina para cualquier fondo de cualquier gestora.</p>
           <div class="fs-switch">${Object.entries(FONDOS).map(([k, f], i) => `<button type="button" class="chip ${i === 0 ? "is-on" : ""}" data-f="${k}">${f.nombre}</button>`).join("")}</div>
           <div class="fs-grid"><div class="fs-sheet" data-sheet></div><div class="fs-panel" data-panel></div></div>

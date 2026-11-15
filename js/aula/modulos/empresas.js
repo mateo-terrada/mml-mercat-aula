@@ -136,7 +136,7 @@ AULA.modulos.empresas = {
       { t: "ej", id: "e1", tipo: "estimar",
         enunciado: `MercadoLibre facturó USD 10.750 millones en el trimestre y su resultado operativo fue de USD 676 millones. ¿Cuál fue su margen operativo? Respondé en %.`,
         unidad: "%", respuesta: 6.3, tolerancia: 0.2,
-        explicacion: `676 ÷ 10.750 = <strong>6,3%</strong>. De cada 100 dólares que factura, le quedan unos 6 después de operar. La empresa informó que el margen bajó 0,4 puntos respecto del trimestre anterior por mayores costos de envío y de marketing. En una empresa que factura cerca de 40.000 millones por año, cada punto de margen son cientos de millones de dólares.` },
+        explicacion: `676 ÷ 10.750 = <strong>6,3%</strong>. De cada 100 dólares que factura, le quedan unos 6 después de operar. La empresa informó que el margen bajó 0,4 p.p. respecto del trimestre anterior por mayores costos de envío y de marketing. En una empresa que factura cerca de 40.000 millones por año, cada punto porcentual de margen son cientos de millones de dólares.` },
       { t: "ojo", titulo: "Un margen bajo no es automáticamente malo", html: `MELI tiene un margen mucho menor que Vista o JPMorgan, pero crece 45% por año y está invirtiendo para ganar participación de mercado. Vista tiene un margen altísimo porque vende un commodity con costos muy bajos, pero no controla el precio. <strong>Los márgenes se comparan contra la misma empresa en el tiempo y contra empresas parecidas</strong>, no entre negocios distintos.` },
       { t: "h", texto: "La calidad de la ganancia" },
       { t: "ej", id: "e2", tipo: "mc",

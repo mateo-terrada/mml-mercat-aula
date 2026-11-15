@@ -107,7 +107,7 @@ AULA.modulos.perfil = {
       { t: "h", texto: "El riesgo que se puede diversificar y el que no" },
       { t: "p", html: `Si un cliente tiene toda su plata en una sola acción, está expuesto a todo lo que le pase a esa empresa. Si la reparte entre 20 empresas de distintos sectores, que le vaya mal a una pesa poco. Ese riesgo "propio de cada empresa" se llama <strong>riesgo específico</strong>, y la diversificación lo reduce muchísimo.` },
       { t: "p", html: `Pero hay un riesgo que la diversificación no toca: el <strong>riesgo de mercado o sistémico</strong>. Cuando sube fuerte el riesgo país, caen juntos los bonos soberanos, las ONs y las acciones argentinas. Tener diez activos argentinos distintos no protege contra un shock argentino.` },
-      { t: "mercado", titulo: "Lo que pasó en estos meses", html: `El riesgo país pasó de unos <strong>430 puntos en julio</strong> a <strong>939 el 6 de noviembre</strong>, su nivel más alto en más de un año, con dudas sobre los vencimientos de deuda de 2027 y 2028. Un cliente "diversificado" solo en activos argentinos lo sintió en toda la cartera a la vez. Esa es la diferencia entre diversificar <em>instrumentos</em> y diversificar <em>riesgos</em>.`, fuente: "Invecq / Forbes Argentina, noviembre 2026" },
+      { t: "mercado", titulo: "Lo que pasó en estos meses", html: `El riesgo país pasó de unos <strong>430 puntos básicos en julio</strong> a <strong>939 el 6 de noviembre</strong>, su nivel más alto en más de un año, con dudas sobre los vencimientos de deuda de 2027 y 2028. Un cliente "diversificado" solo en activos argentinos lo sintió en toda la cartera a la vez. Esa es la diferencia entre diversificar <em>instrumentos</em> y diversificar <em>riesgos</em>.`, fuente: "Invecq / Forbes Argentina, noviembre 2026" },
       { t: "ej", id: "e2", tipo: "mc",
         enunciado: `Un cliente tiene AL30, GD35, una ON de YPF y acciones de Pampa. Te dice: "Estoy bien diversificado, tengo cuatro cosas distintas". ¿Qué le falta entender?`,
         opciones: [
@@ -223,7 +223,7 @@ AULA.modulos.perfil = {
       { t: "h", texto: "Cuándo rebalancear" },
       { t: "lista", items: [
         `<strong>Por calendario:</strong> cada 6 o 12 meses, se revisa y se vuelve a los pesos acordados.`,
-        `<strong>Por desvío:</strong> cuando un bloque se aleja más de 5 puntos de su peso objetivo.`,
+        `<strong>Por desvío:</strong> cuando un bloque se aleja más de 5 p.p. de su peso objetivo.`,
         `<strong>Por cambio de vida:</strong> si cambió el objetivo, el horizonte o la situación del cliente, no es un rebalanceo: es una cartera nueva.`
       ]},
       { t: "h", texto: "El cliente que llama asustado" },
@@ -275,7 +275,7 @@ AULA.modulos.perfil = {
         ["CEDEARs y activos argentinos", "Baja", "Los CEDEARs dependen sobre todo del mercado de EE.UU."],
         ["Fondo Latam sin Argentina y soberanos argentinos", "Baja", "Emisores y riesgos distintos"]
       ], nota: "Son relaciones típicas, no números fijos: cambian con el tiempo." },
-      { t: "ojo", titulo: "En las crisis, las correlaciones suben", html: `Cuando hay pánico, muchos activos caen juntos, aunque en tiempos normales se muevan distinto. Entre julio y noviembre de 2026, con el riesgo país pasando de 430 a más de 900 puntos, bajaron juntos bonos, ONs y acciones argentinas. Por eso la diversificación que sirve es la que combina <strong>riesgos distintos</strong> (país, moneda, sector), no solo instrumentos distintos.` },
+      { t: "ojo", titulo: "En las crisis, las correlaciones suben", html: `Cuando hay pánico, muchos activos caen juntos, aunque en tiempos normales se muevan distinto. Entre julio y noviembre de 2026, con el riesgo país pasando de 430 a más de 900 puntos básicos, bajaron juntos bonos, ONs y acciones argentinas. Por eso la diversificación que sirve es la que combina <strong>riesgos distintos</strong> (país, moneda, sector), no solo instrumentos distintos.` },
       { t: "ej", id: "e2", tipo: "mc",
         enunciado: `Un cliente tiene GGAL, BMA y un Global largo. Quiere sumar un activo para diversificar. ¿Cuál baja más el riesgo de la cartera?`,
         opciones: [

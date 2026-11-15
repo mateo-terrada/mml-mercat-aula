@@ -140,7 +140,7 @@
         };
         $(raiz, "[data-read]").innerHTML = `<div class="kpi"><span>Plazo</span><strong>${b.anios} años</strong></div>
           <div class="kpi kpi-accent"><span>Duration</span><strong>${fmt(mac, 1)} años</strong></div>
-          <div class="kpi"><span>Si la tasa sube 1 punto</span><strong class="neg">≈ ${fmtSigno(-md)}%</strong></div>
+          <div class="kpi"><span>Si la tasa sube 1 p.p.</span><strong class="neg">≈ ${fmtSigno(-md)}%</strong></div>
           <p>${lecturas[k]}</p>`;
       }
       $$(raiz, "[data-k]").forEach(b => b.addEventListener("click", () => {
@@ -155,29 +155,29 @@
      ====================================================== */
   H["tabla-bolsillo"] = {
     render() {
-      const durs = [1, 2, 3, 4, 5, 6, 8, 10], shocks = [-200, -100, -50, 50, 100, 200, 300];
+      const durs = [1, 2, 3, 4, 5, 6, 8, 10], shocks = [-2, -1, -0.5, 0.5, 1, 2, 3];
       const max = 30;
       const celda = (d, s) => {
-        const v = -d * s / 100, a = Math.min(1, Math.abs(v) / max);
+        const v = -d * s, a = Math.min(1, Math.abs(v) / max);
         const bg = v < 0 ? `rgba(168,69,58,${0.08 + a * 0.75})` : `rgba(122,139,92,${0.08 + a * 0.75})`;
-        return `<td style="background:${bg};color:${a > 0.45 ? "#fff" : "var(--ink)"}" data-d="${d}" data-s="${s}">${fmtSigno(v, Math.abs(v) < 1 ? 1 : 0)}%</td>`;
+        return `<td style="background:${bg};color:${a > 0.45 ? "#fff" : "var(--ink)"}" data-d="${d}" data-s="${s}">${fmtSigno(v, v % 1 ? 1 : 0)}%</td>`;
       };
       return `
         <div class="tool tool-bolsillo">
           <div class="tool-head"><span class="tool-kicker">Herramienta</span><h4>Tabla de bolsillo: cuánto se mueve el precio</h4></div>
           <div class="tabla-wrap"><table class="bolsillo">
-            <thead><tr><th>Duration ↓ · Cambio de TIR →</th>${shocks.map(s => `<th>${s > 0 ? "+" : "−"}${Math.abs(s)} pb</th>`).join("")}</tr></thead>
+            <thead><tr><th>Duration ↓ · TIR (p.p.) →</th>${shocks.map(s => `<th>${s > 0 ? "+" : "−"}${fmt(Math.abs(s), s % 1 ? 1 : 0)}</th>`).join("")}</tr></thead>
             <tbody>${durs.map(d => `<tr><th>${d}</th>${shocks.map(s => celda(d, s)).join("")}</tr>`).join("")}</tbody>
           </table></div>
           <div class="bolsillo-read" data-read>Tocá una celda para leerla.</div>
-          <p class="tool-foot">Regla: cambio de precio ≈ − duration × cambio de TIR (en puntos). 100 puntos básicos (pb) = 1 punto. Con movimientos grandes el resultado real es un poco mejor que la tabla (la caída es algo menor y la suba algo mayor).</p>
+          <p class="tool-foot">Regla: cambio de precio ≈ − duration × cambio de TIR en puntos porcentuales, p.p. (si la TIR pasa de 8% a 9%, subió 1 p.p.). Con movimientos grandes el resultado real es un poco mejor que la tabla: la caída es algo menor y la suba algo mayor.</p>
         </div>`;
     },
     init(raiz) {
       $$(raiz, "td[data-d]").forEach(td => td.addEventListener("click", () => {
         $$(raiz, "td.is-sel").forEach(x => x.classList.remove("is-sel")); td.classList.add("is-sel");
-        const d = +td.dataset.d, s = +td.dataset.s, v = -d * s / 100;
-        $(raiz, "[data-read]").innerHTML = `Un bono con <strong>duration ${d}</strong>, si su TIR ${s > 0 ? "sube" : "baja"} <strong>${Math.abs(s)} puntos básicos</strong> (${fmt(Math.abs(s) / 100, Math.abs(s) % 100 ? 1 : 0)} ${Math.abs(s) === 100 ? "punto" : "puntos"}), ${v < 0 ? "pierde" : "gana"} aproximadamente <strong>${fmt(Math.abs(v), Math.abs(v) < 1 ? 1 : 0)}%</strong> de precio. Sobre USD 10.000 invertidos, son unos <strong>USD ${fmt(Math.abs(v) * 100, 0)}</strong>.`;
+        const d = +td.dataset.d, s = +td.dataset.s, v = -d * s;
+        $(raiz, "[data-read]").innerHTML = `Un bono con <strong>duration ${d}</strong>, si su TIR ${s > 0 ? "sube" : "baja"} <strong>${fmt(Math.abs(s), s % 1 ? 1 : 0)} p.p.</strong> (por ejemplo, de 8% a ${fmt(8 + s, s % 1 ? 1 : 0)}%), ${v < 0 ? "pierde" : "gana"} aproximadamente <strong>${fmt(Math.abs(v), v % 1 ? 1 : 0)}%</strong> de precio. Sobre USD 10.000 invertidos, son unos <strong>USD ${fmt(Math.abs(v) * 100, 0)}</strong>.`;
       }));
     }
   };
@@ -190,14 +190,14 @@
       return `
         <div class="tool tool-juego">
           <div class="tool-head"><span class="tool-kicker">Juego</span><h4>Estimá a ojo: ¿cuánto se mueve?</h4></div>
-          <div class="juego-top"><span data-ronda>Ronda 1 de 8</span><span data-pts>0 puntos</span></div>
+          <div class="juego-top"><span data-ronda>Ronda 1 de 8</span><span data-pts>0 ★</span></div>
           <div class="juego-card" data-card></div>
           <label class="tool-field tool-field-strong">Tu estimación del cambio de precio <output data-o="g">0%</output>
             <input type="range" min="-40" max="40" step="0.5" value="0" data-i="g"></label>
           <div class="juego-acc"><button type="button" class="btn btn-primary btn-sm" data-a="ver">Ver resultado</button>
             <button type="button" class="btn btn-ghost btn-sm" data-a="sig" hidden style="display:none">Siguiente ronda →</button></div>
           <div class="juego-res" data-res></div>
-          <p class="tool-foot">Puntaje: 3 puntos si quedás a menos de 1,5 puntos porcentuales de la respuesta, 1 punto si quedás a menos de 4. Cada partida tiene bonos y movimientos distintos.</p>
+          <p class="tool-foot">Puntaje: 3 ★ si quedás a menos de 1,5% de la respuesta, 1 ★ si quedás a menos de 4%. Cada partida tiene bonos y movimientos distintos.</p>
         </div>`;
     },
     init(raiz) {
@@ -211,9 +211,10 @@
       ];
       function nueva() {
         const d = [1, 1.5, 2, 3, 4, 4.5, 5, 5.5, 6, 7, 8][Math.floor(Math.random() * 11)];
-        let s; do { s = [-300, -200, -150, -100, -50, 50, 100, 150, 200, 300, 400][Math.floor(Math.random() * 11)]; } while (Math.abs(d * s / 100) > 38);
-        actual = { d, s, txt: ctx[Math.floor(Math.random() * ctx.length)](d) };
-        $(raiz, "[data-card]").innerHTML = `${actual.txt}<br>La TIR del mercado <strong class="${s > 0 ? "neg" : "pos"}">${s > 0 ? "sube" : "baja"} ${Math.abs(s)} puntos básicos</strong>. ¿Cuánto cambia su precio?`;
+        let s; do { s = [-3, -2, -1.5, -1, -0.5, 0.5, 1, 1.5, 2, 3, 4][Math.floor(Math.random() * 11)]; } while (Math.abs(d * s) > 38);
+        const base = [6, 7, 8, 9, 10, 11][Math.floor(Math.random() * 6)];
+        actual = { d, s, base, txt: ctx[Math.floor(Math.random() * ctx.length)](d) };
+        $(raiz, "[data-card]").innerHTML = `${actual.txt}<br>Su TIR <strong class="${s > 0 ? "neg" : "pos"}">${s > 0 ? "sube" : "baja"} ${fmt(Math.abs(s), s % 1 ? 1 : 0)} p.p.</strong>: pasa de ${fmt(actual.base, 0)}% a ${fmt(actual.base + s, s % 1 ? 1 : 0)}%. ¿Cuánto cambia su precio?`;
         slider.value = 0; slider.disabled = false; pintarG();
         $(raiz, "[data-res]").innerHTML = "";
         $(raiz, "[data-a=ver]").style.display = ""; const sg = $(raiz, "[data-a=sig]"); sg.style.display = "none"; sg.hidden = true;
@@ -221,7 +222,7 @@
       }
       function pintarG() { $(raiz, "[data-o=g]").textContent = fmtSigno(+slider.value) + "%"; }
       function ver() {
-        const real = -actual.d * actual.s / 100, g = +slider.value, err = Math.abs(g - real);
+        const real = -actual.d * actual.s, g = +slider.value, err = Math.abs(g - real);
         const p = err <= 1.5 ? 3 : err <= 4 ? 1 : 0; pts += p; ronda++;
         slider.disabled = true;
         const W = 520, X = v => 20 + (v + 40) / 80 * (W - 40);
@@ -230,19 +231,19 @@
             <line class="zero-l" x1="${X(0)}" x2="${X(0)}" y1="12" y2="36"/>
             <circle class="j-real" cx="${X(real)}" cy="24" r="8"/><text class="pt-label" x="${X(real)}" y="50" text-anchor="middle">real ${fmtSigno(real)}%</text>
             <circle class="j-tuya" cx="${X(g)}" cy="24" r="6"/><text class="pt-label" x="${X(g)}" y="9" text-anchor="middle">vos ${fmtSigno(g)}%</text></svg>
-          <p class="${p === 3 ? "ok" : p ? "mid" : "bad"}"><strong>${p === 3 ? "¡Muy bien!" : p ? "Cerca." : "Lejos."}</strong> Duration ${fmt(actual.d, 1)} × ${fmt(Math.abs(actual.s) / 100, Math.abs(actual.s) % 100 ? 1 : 0)} ${Math.abs(actual.s) === 100 ? "punto" : "puntos"} = ${fmt(Math.abs(real), 1)}% ${real < 0 ? "de caída" : "de suba"}. ${p ? `+${p} ${p === 1 ? "punto" : "puntos"}.` : ""}</p>`;
-        $(raiz, "[data-pts]").textContent = pts + (pts === 1 ? " punto" : " puntos");
+          <p class="${p === 3 ? "ok" : p ? "mid" : "bad"}"><strong>${p === 3 ? "¡Muy bien!" : p ? "Cerca." : "Lejos."}</strong> Duration ${fmt(actual.d, 1)} × ${fmt(Math.abs(actual.s), actual.s % 1 ? 1 : 0)} p.p. = ${fmt(Math.abs(real), 1)}% ${real < 0 ? "de caída" : "de suba"}. ${p ? `+${p} ★` : ""}</p>`;
+        $(raiz, "[data-pts]").textContent = pts + " ★";
         $(raiz, "[data-a=ver]").style.display = "none";
         const sg = $(raiz, "[data-a=sig]"); sg.hidden = false; sg.style.display = "";
         sg.textContent = ronda >= N ? "Jugar de nuevo" : "Siguiente ronda →";
         if (ronda >= N) {
           if (pts > mejor) { mejor = pts; try { localStorage.setItem("aula_juego_duration", pts); } catch (e) {} }
-          $(raiz, "[data-res]").innerHTML += `<div class="juego-fin"><strong>${pts} de ${N * 3} puntos.</strong> ${pts >= 20 ? "Ya lo estimás a ojo." : pts >= 12 ? "Vas bien: una partida más y queda." : "Mirá la tabla de bolsillo y probá de nuevo."} <span>Tu mejor partida: ${mejor} puntos.</span></div>`;
+          $(raiz, "[data-res]").innerHTML += `<div class="juego-fin"><strong>${pts} de ${N * 3} ★.</strong> ${pts >= 20 ? "Ya lo estimás a ojo." : pts >= 12 ? "Vas bien: una partida más y queda." : "Mirá la tabla de bolsillo y probá de nuevo."} <span>Tu mejor partida: ${mejor} ★.</span></div>`;
         }
       }
       slider.addEventListener("input", pintarG);
       $(raiz, "[data-a=ver]").addEventListener("click", ver);
-      $(raiz, "[data-a=sig]").addEventListener("click", () => { if (ronda >= N) { ronda = 0; pts = 0; $(raiz, "[data-pts]").textContent = "0 puntos"; } nueva(); });
+      $(raiz, "[data-a=sig]").addEventListener("click", () => { if (ronda >= N) { ronda = 0; pts = 0; $(raiz, "[data-pts]").textContent = "0 ★"; } nueva(); });
       nueva();
     }
   };
@@ -256,7 +257,7 @@
     const filas = [1, 2, 3].map(s => ({ s, baja: (precio(fl, 6 - s) / p0 - 1) * 100, sube: (precio(fl, 6 + s) / p0 - 1) * 100 }));
     const max = 30, w = v => Math.abs(v) / max * 50;
     return `<figure class="figura"><div class="asim">${filas.map(f => `
-      <div class="asim-row"><span class="asim-l">±${f.s} ${f.s === 1 ? "punto" : "puntos"}</span>
+      <div class="asim-row"><span class="asim-l">±${f.s} p.p.</span>
         <div class="asim-bar"><i class="neg" style="width:${w(f.sube)}%;right:50%"></i><i class="pos" style="width:${w(f.baja)}%;left:50%"></i><b></b></div>
         <span class="asim-v"><em class="neg">${fmtSigno(f.sube)}%</em> / <em class="pos">${fmtSigno(f.baja)}%</em></span></div>`).join("")}</div>
       <figcaption>Bono a 10 años, cupón 6%, que arranca a la par. A la izquierda, cuánto cae si la tasa sube; a la derecha, cuánto sube si la tasa baja lo mismo.</figcaption></figure>`;

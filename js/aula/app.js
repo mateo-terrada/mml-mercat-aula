@@ -795,7 +795,7 @@ ${m.evaluacion ? `        <section class="panel eval-card ${a.aprobado ? "is-ok"
       </section>
       <section class="panel">
         <header class="section-head"><span class="eyebrow">Tema por tema</span><h2>Qué tenés firme y qué no</h2>
-          <p class="section-lede">Dos puntos por módulo: <span class="diag-tag t-dominado">Dominado</span> las dos bien, <span class="diag-tag t-repasar">Repasar</span> una, <span class="diag-tag t-prioridad">Prioridad</span> ninguna.${previo ? " Las flechas comparan con el diagnóstico anterior." : ""}</p></header>
+          <p class="section-lede">Dos círculos por módulo: <span class="diag-tag t-dominado">Dominado</span> las dos bien, <span class="diag-tag t-repasar">Repasar</span> una, <span class="diag-tag t-prioridad">Prioridad</span> ninguna.${previo ? " Las flechas comparan con el diagnóstico anterior." : ""}</p></header>
         <div class="diag-list">${filas}</div>
       </section>
       ${orden.length ? `<section class="panel"><header class="section-head"><span class="eyebrow">Orden sugerido</span><h2>Por dónde seguir</h2></header>

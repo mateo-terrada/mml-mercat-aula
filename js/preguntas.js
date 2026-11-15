@@ -263,7 +263,7 @@ const BANCO_PREGUNTAS = [
     "subtema": "Sensibilidad de precio con duration",
     "dificultad": "avanzada",
     "tipo": "caso_abierto",
-    "enunciado": "Tenés un bono con duration 4 y otro con duration 7, ambos con yield similar hoy. El mercado espera un shock de +50 puntos básicos (0,50%) en las tasas. Estimá (de forma aproximada, usando duration) qué bono va a sufrir una caída de precio mayor, y escribí un párrafo de cómo se lo explicarías a un cliente conservador versus uno agresivo.",
+    "enunciado": "Tenés un bono con duration 4 y otro con duration 7, ambos con yield similar hoy. El mercado espera un shock de +50 puntos básicos (0,5 p.p.) en las tasas. Estimá (de forma aproximada, usando duration) qué bono va a sufrir una caída de precio mayor, y escribí un párrafo de cómo se lo explicarías a un cliente conservador versus uno agresivo.",
     "respuesta_modelo": "El bono de duration 7 va a caer aproximadamente el doble que el de duration 4 ante el mismo shock de tasas (aprox. -3,5% vs -2%, usando duration como aproximación lineal: %cambio de precio ≈ -duration x cambio de yield). Para el cliente conservador: enfatizar que el bono más largo puede mostrar caídas de precio más marcadas en el corto plazo, aunque a largo plazo el efecto se diluye si se mantiene hasta el vencimiento; sugerir acortar duration si no tolera ver el número en rojo. Para el cliente agresivo: se puede plantear que la mayor sensibilidad también juega a favor si las tasas bajan, así que el bono largo puede ser una apuesta táctica si el escenario esperado es de compresión de tasas. La respuesta debe distinguir claramente 'riesgo de precio en el camino' de 'rendimiento si se sostiene hasta el final'."
   },
   {

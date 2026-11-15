@@ -30,7 +30,7 @@ AULA.glosario = {
   corridos:      { termino: "Intereses corridos", def: "Interés acumulado desde el último pago de cupón hasta hoy. En Argentina el precio de pantalla (precio sucio) ya los incluye." },
   valortecnico:  { termino: "Valor técnico", def: "Valor residual más intereses corridos: lo que el emisor pagaría si cancelara la deuda hoy." },
   paridad:       { termino: "Paridad", def: "Precio dividido valor técnico. Paridad 100% significa que el bono cotiza a lo que vale 'en los papeles'; menos de 100%, con descuento." },
-  duration:      { termino: "Duration modificada", def: "Cuánto cambia, en porcentaje, el precio de un bono si su TIR se mueve 1 punto. Duration 5: ≈ 5% de cambio de precio por cada punto de TIR." },
+  duration:      { termino: "Duration modificada", def: "Cuánto cambia, en porcentaje, el precio de un bono si su TIR se mueve 1 p.p.. Duration 5: ≈ 5% de cambio de precio por cada punto porcentual de TIR." },
   convexidad:    { termino: "Convexidad", def: "Corrección a la estimación por duration: la relación precio-TIR es curva, no recta, y con movimientos grandes la duration sola se equivoca." },
   curva:         { termino: "Curva de rendimientos", def: "Gráfico de bonos comparables con su TIR en el eje vertical y su plazo o duration en el horizontal." },
   riesgopais:    { termino: "Riesgo país", def: "Rendimiento extra que se exige a los bonos de un país en dólares sobre los bonos del Tesoro de EE.UU. Se mide en puntos básicos (100 pb = 1%). Referencia: EMBI de JP Morgan." },
@@ -49,6 +49,7 @@ AULA.glosario = {
   tem:           { termino: "TEM", def: "Tasa efectiva mensual: lo que rinde un instrumento por mes con interés compuesto." },
   tna:           { termino: "TNA", def: "Tasa nominal anual: TEM × 12, sin capitalizar. Es la que se informa en plazos fijos." },
   tea:           { termino: "TEA", def: "Tasa efectiva anual: (1 + TEM)^12 − 1. Muestra lo que rinde un año reinvirtiendo mes a mes." },
+  pp:            { termino: "Punto porcentual (p.p.)", def: "Diferencia absoluta entre dos porcentajes. Si la TIR pasa de 8% a 9%, subió 1 p.p. (no 1%: eso sería pasar de 8% a 8,08%). 1 p.p. = 100 puntos básicos." },
   pb:            { termino: "Punto básico", def: "Un centésimo de punto porcentual. 100 puntos básicos = 1%." },
   t1:            { termino: "T+1 y CI", def: "Plazos de liquidación. En Argentina el estándar es T+1 (se liquida al día hábil siguiente); contado inmediato (CI) se usa cuando hay urgencia." },
   mep:           { termino: "Dólar MEP y CCL", def: "Tipos de cambio que surgen de comprar un bono en pesos y venderlo en dólares (MEP, dólares en Argentina) o en dólares en el exterior (CCL o cable)." }

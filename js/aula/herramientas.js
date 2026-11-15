@@ -216,7 +216,7 @@ window.AULA = window.AULA || { modulos: {} };
           </div>
           <div class="shock-rows" data-rows></div>
           <div class="shock-legend"><span><i class="lg lg-est"></i>Estimación con duration</span><span><i class="lg lg-real"></i>Cambio exacto</span></div>
-          <p class="tool-foot">Los tres bonos parten de una TIR de 10%. 100 puntos básicos (pb) = 1 punto de TIR.</p>
+          <p class="tool-foot">Los tres bonos parten de una TIR de 10%. 100 puntos básicos (pb) = 1 p.p. de TIR.</p>
         </div>`;
     },
     init(raiz) {
@@ -280,7 +280,7 @@ window.AULA = window.AULA || { modulos: {} };
         if (k !== "tna") f("tna").value = (tem * 1200).toFixed(2);
         if (k !== "tea") f("tea").value = ((Math.pow(1 + tem, 12) - 1) * 100).toFixed(2);
         const tna = tem * 1200, tea = (Math.pow(1 + tem, 12) - 1) * 100;
-        $(raiz, "[data-nota]").textContent = `La diferencia entre TEA y TNA (${fmt(tea - tna, 1)} puntos) es el efecto de reinvertir los intereses todos los meses.`;
+        $(raiz, "[data-nota]").textContent = `La diferencia entre TEA y TNA (${fmt(tea - tna, 1)} p.p.) es el efecto de reinvertir los intereses todos los meses.`;
       }
       ["tem", "tna", "tea"].forEach(k => f(k).addEventListener("input", () => desde(k)));
       desde("tem");

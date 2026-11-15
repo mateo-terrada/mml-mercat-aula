@@ -65,7 +65,7 @@ AULA.modulos.cer = {
       { t: "ej", id: "e1", tipo: "estimar",
         enunciado: `Un BONCER rinde CER + 8%. Si esperás 20% de inflación para el año, a ojo, ¿cuánto rendiría en pesos? Respondé en %.`,
         unidad: "%", respuesta: 28, tolerancia: 2,
-        explicacion: `20 + 8 = <strong>28%</strong> a ojo (la cuenta exacta da 29,6%). Con 35% de inflación rendiría unos 43%, y con 10%, unos 18%: el número en pesos cambia, pero los 8 puntos por encima de los precios se mantienen.` },
+        explicacion: `20 + 8 = <strong>28%</strong> a ojo (la cuenta exacta da 29,6%). Con 35% de inflación rendiría unos 43%, y con 10%, unos 18%: el número en pesos cambia, pero los 8 p.p. por encima de los precios se mantienen.` },
       { t: "ej", id: "e2", tipo: "mc",
         enunciado: `En la pantalla, una LECAP muestra "TIR 30%" y un BONCER "TIR 7%". Un cliente dice: "La LECAP rinde cuatro veces más". ¿Qué le aclarás?`,
         opciones: [
@@ -149,7 +149,7 @@ AULA.modulos.cer = {
           { txt: "La tasa fija: la inflación que los empata es 26% (32 − 6) y vos esperás bastante menos.", ok: true, fb: "Exacto: esperás menos inflación que el empate." },
           { txt: "Da exactamente lo mismo, porque el mercado siempre pone las dos tasas para que rindan igual al final.", ok: false, fb: "El mercado iguala según su expectativa; si la tuya es distinta, una de las dos conviene más." }
         ],
-        explicacion: `32 − 6 = 26% de empate. Con 20% esperado, la BONCAP rinde unos 12 puntos reales y el CER, 6. Si te equivocás y la inflación termina en 35%, la que gana es el CER: por eso esta decisión también es una apuesta.` },
+        explicacion: `32 − 6 = 26% de empate. Con 20% esperado, la BONCAP rinde unos 12 p.p. reales y el CER, 6. Si te equivocás y la inflación termina en 35%, la que gana es el CER: por eso esta decisión también es una apuesta.` },
       { t: "ej", id: "e2", tipo: "estimar",
         enunciado: `Una LECAP rinde 28% y un CER del mismo plazo, CER + 3%. A ojo, ¿qué inflación los empata? Respondé en %.`,
         unidad: "%", respuesta: 25, tolerancia: 1.5,

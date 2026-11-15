@@ -46,7 +46,7 @@ AULA.modulos.macro = {
           { txt: "Los Globales largos y las acciones locales: mucha duration o mucha sensibilidad al riesgo argentino.", ok: true, fb: "Exacto: es donde más pega un aumento del riesgo país." },
           { txt: "Los CEDEARs, porque cotizan en BYMA y por lo tanto también dependen del riesgo argentino.", ok: false, fb: "Cotizan acá, pero el activo es del exterior: en dólares no los afecta el riesgo argentino." }
         ],
-        explicacion: `Es lo que pasó entre julio y noviembre de 2026: el riesgo país pasó de unos 430 a más de 900 puntos, y los que más sufrieron fueron los bonos largos y las acciones locales.` },
+        explicacion: `Es lo que pasó entre julio y noviembre de 2026: el riesgo país pasó de unos 430 a más de 900 puntos básicos, y los que más sufrieron fueron los bonos largos y las acciones locales.` },
       { t: "ej", id: "e2", tipo: "multi",
         enunciado: `El dato de inflación sale bastante por encima de lo esperado. Marcá <strong>todos</strong> los efectos típicos de primer orden.`,
         opciones: [
@@ -68,7 +68,7 @@ AULA.modulos.macro = {
     minutos: 11,
     objetivo: "Entender por qué subió el riesgo país en 2026, qué es el 'muro de vencimientos' de 2027 y qué señales podrían hacerlo bajar.",
     bloques: [
-      { t: "p", html: `El riesgo país resume en un número cuánto duda el mercado de que la Argentina pague su deuda en dólares. Después de bajar con fuerza, en 2026 volvió a subir: estaba en torno a <strong>430 puntos en julio</strong> y llegó a <strong>939 el 6 de noviembre</strong>.` },
+      { t: "p", html: `El riesgo país resume en un número cuánto duda el mercado de que la Argentina pague su deuda en dólares. Después de bajar con fuerza, en 2026 volvió a subir: estaba en torno a <strong>430 puntos básicos en julio</strong> y llegó a <strong>939 el 6 de noviembre</strong>.` },
       { t: "grafico", id: "riesgopais" },
       { t: "h", texto: "La razón de fondo: cuándo vence la deuda" },
       { t: "p", html: `Una parte importante de la explicación está en el calendario de pagos. En 2026 los vencimientos en dólares fueron manejables; en 2027 se multiplican, y coinciden con las elecciones presidenciales.` },
@@ -92,9 +92,9 @@ AULA.modulos.macro = {
         `<strong>Un contexto global más tranquilo:</strong> tasas más bajas en EE.UU., menos aversión al riesgo.`
       ]},
       { t: "ej", id: "e2", tipo: "estimar",
-        enunciado: `Si el riesgo país bajara 300 puntos básicos, ¿cuánto subiría aproximadamente un Global con duration 5,5? Respondé en %.`,
+        enunciado: `Si el riesgo país bajara 300 puntos básicos (o sea, unos 3 p.p. de TIR), ¿cuánto subiría aproximadamente un Global con duration 5,5? Respondé en %.`,
         unidad: "%", respuesta: 16.5, tolerancia: 1.5,
-        explicacion: `300 puntos básicos son 3 puntos. Duration 5,5 × 3 ≈ <strong>16,5%</strong> (algo más por la curvatura, como viste en el taller de duration). Por eso, cuando el mercado espera una baja del riesgo país, busca bonos largos.` },
+        explicacion: `300 puntos básicos de riesgo país son 3 p.p. de TIR. Duration 5,5 × 3 ≈ <strong>16,5%</strong> (algo más por la curvatura, como viste en el taller de duration). Por eso, cuando el mercado espera una baja del riesgo país, busca bonos largos.` },
       { t: "cliente", titulo: "Cómo se lo explicás al cliente", html: `"El año que viene la Argentina tiene que pagar mucho más de lo que pagó este año, y justo es año electoral. El mercado duda de que esté todo cubierto y por eso le pide más tasa al país. Si las dudas se despejan, los bonos pueden recuperarse; si no, pueden seguir volátiles."` }
     ]
   },
@@ -218,7 +218,7 @@ AULA.modulos.macro = {
       { t: "ej", id: "e2", tipo: "estimar",
         enunciado: `Si el REM espera 30,4% para 2026 y hasta octubre se acumuló 26,3%, ¿qué inflación mensual promedio aproximada están esperando para noviembre y diciembre? Respondé en %.`,
         unidad: "%", respuesta: 1.6, tolerancia: 0.3,
-        explicacion: `1,304 ÷ 1,263 ≈ 1,032: unos 3,2 puntos en dos meses, cerca de <strong>1,6% por mes</strong>. A ojo: 30,4 − 26,3 ≈ 4 puntos en dos meses, unos 2% por mes; la cuenta exacta da algo menos porque los porcentajes se acumulan. Si noviembre vuelve a salir arriba de 2%, el año va a cerrar por encima de lo esperado.` }
+        explicacion: `1,304 ÷ 1,263 ≈ 1,032: unos 3,2 p.p. en dos meses, cerca de <strong>1,6% por mes</strong>. A ojo: 30,4 − 26,3 ≈ 4 p.p. en dos meses, unos 2% por mes; la cuenta exacta da algo menos porque los porcentajes se acumulan. Si noviembre vuelve a salir arriba de 2%, el año va a cerrar por encima de lo esperado.` }
     ]
   },
 
@@ -299,7 +299,7 @@ AULA.modulos.macro = {
         `<strong>No traslades la recomendación tal cual</strong>: un informe no conoce el perfil de tu cliente.`
       ]},
       { t: "ej", id: "e2", tipo: "caso",
-        enunciado: `Titular del día: "El riesgo país sube 60 puntos y la inflación de noviembre se proyecta por encima de 2%". Tenés tres clientes: uno conservador con LECAP y AO27; uno moderado con Globales largos, ONs y CEDEARs; uno agresivo con acciones argentinas. Escribí en 5 o 6 líneas qué revisarías con cada uno.`,
+        enunciado: `Titular del día: "El riesgo país sube 60 puntos básicos y la inflación de noviembre se proyecta por encima de 2%". Tenés tres clientes: uno conservador con LECAP y AO27; uno moderado con Globales largos, ONs y CEDEARs; uno agresivo con acciones argentinas. Escribí en 5 o 6 líneas qué revisarías con cada uno.`,
         rubrica: [
           "Identifica las dos variables que se movieron (riesgo país e inflación).",
           "Conservador: poco impacto en el AO27 por plazo; revisa la tasa real de las LECAP frente a la inflación esperada y evalúa CER.",

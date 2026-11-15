@@ -107,6 +107,47 @@ AULA.modulos.bonos = {
 
   /* ------------------------------------------------------------ */
   {
+    id: "b6",
+    titulo: "El elástico: lo que rindió y lo que le queda",
+    minutos: 10,
+    objetivo: "Entender que el rendimiento hasta el vencimiento está atado: si el bono rindió de más en el camino, le queda menos; si rindió de menos, le queda más. Y usarlo para decidir cuándo rotar y cuándo esperar.",
+    bloques: [
+      { t: "p", html: `Cuando comprás un bono, la TIR te dice cuánto vas a ganar <strong>desde hoy hasta el vencimiento</strong>, si el emisor paga. El punto de llegada está atado: es lo que el bono paga. Lo que no está atado es el camino. En el medio, el precio sube y baja con las tasas, el riesgo país o las noticias de la empresa.` },
+      { t: "analogia", titulo: "Una forma de pensarlo", html: `Es como un elástico atado a la meta. El precio se puede alejar del camino esperado, para arriba o para abajo, pero el elástico lo vuelve a llevar al mismo punto final. Lo que ganó de más al principio, lo deja de ganar después. Lo que perdió al principio, lo recupera después.` },
+      { t: "herramienta", id: "elastico" },
+      { t: "idea", titulo: "La pregunta que importa no es cuánto rindió, sino cuánto le queda", html: `El rendimiento pasado ya está en el bolsillo (o ya se perdió). Para decidir si seguir con un bono, lo único que cuenta es <strong>cuánto rinde desde hoy</strong>, y eso es su TIR de hoy, no la del día que lo compró.` },
+      { t: "tabla", cab: ["Lo que pasó", "Lo que significa", "Qué hacer"], filas: [
+        ["El bono subió mucho (bajaron las tasas, mejoró la empresa)", "Adelantó rendimiento: lo que queda rinde poco (su TIR bajó)", "Comparar esa TIR con otros bonos parecidos. Si rinden más, evaluar tomar la ganancia y rotar"],
+        ["El bono cayó (subieron las tasas o el riesgo país)", "Se atrasó: lo que queda rinde más (su TIR subió)", "Si el emisor va a pagar y el cliente puede esperar, la caída se recupera sola. Antes, revisar por qué cayó"],
+        ["Va en línea", "Lo que queda rinde parecido a la TIR de compra", "Nada que corregir"]
+      ]},
+      { t: "ej", id: "e1", tipo: "estimar",
+        enunciado: `Un cliente compró un bono a 12 meses al 100, que paga 112 al vencimiento (TIR de 12%). A los 6 meses el bono ya vale 110. ¿Cuánto le queda por ganar en los 6 meses restantes? Respondé en %.`,
+        unidad: "%", respuesta: 1.8, tolerancia: 0.3,
+        explicacion: `Hoy vale 110 y al vencimiento paga 112: le quedan 112 ÷ 110 − 1 ≈ <strong>1,8%</strong> en 6 meses, cerca de 3,6% por año. Ya ganó 10% de los 12%: el elástico solo le deja 2 más.` },
+      { t: "ej", id: "e2", tipo: "mc",
+        enunciado: `Con ese mismo bono (vale 110 a 6 meses del vencimiento), el cliente dice: "Yo me quedo, porque al vencimiento rinde 12% anual". Hay otro bono parecido, del mismo riesgo, que hoy rinde 11% anual. ¿Qué le explicás?`,
+        opciones: [
+          { txt: "Que tiene razón: si lo compró con TIR de 12%, ese es el rendimiento que va a obtener hasta el final.", ok: false, fb: "El 12% era desde la compra. Desde hoy, lo que queda rinde cerca de 3,6% por año." },
+          { txt: "Que el 12% era desde la compra; desde hoy rinde cerca de 3,6% anual, y el otro bono paga 11%.", ok: true, fb: "Exacto: la decisión se toma con la TIR de hoy." },
+          { txt: "Que da lo mismo quedarse o rotar, porque los dos bonos tienen el mismo riesgo y vencen parecido.", ok: false, fb: "Mismo riesgo, pero uno rinde 3,6% por año desde hoy y el otro 11%." }
+        ],
+        explicacion: `Es el caso típico de tomar ganancia: el bono "adelantó" casi todo su rendimiento. Quedarse es aceptar un 3,6% anual por lo que falta. Rotar le permite volver a cobrar una TIR acorde al riesgo (descontando costos de operar).` },
+      { t: "ej", id: "e3", tipo: "mc",
+        enunciado: `Otro cliente compró el mismo tipo de bono al 100 (paga 112 al vencimiento). A los 6 meses cayó a 95 porque subieron las tasas, y quiere vender "antes de que siga cayendo". ¿Qué es lo más importante que tiene que entender?`,
+        opciones: [
+          { txt: "Que si el emisor paga, de 95 a 112 son casi 18% en 6 meses: la caída se recupera si espera.", ok: true, fb: "Exacto, siempre que el emisor pague." },
+          { txt: "Que el bono va a seguir cayendo, porque cuando un bono baja 5% suele bajar otro tanto después.", ok: false, fb: "No hay una regla así; y el punto final no cambió." },
+          { txt: "Que perdió 5% de manera definitiva, porque el bono ya no va a volver a valer lo que pagó.", ok: false, fb: "Al vencimiento paga 112, sin importar el precio de hoy, si el emisor paga." }
+        ],
+        explicacion: `La caída por suba de tasas es temporal si el emisor paga y el cliente puede esperar: el elástico lo lleva de vuelta. Pero si cayó porque aumentó el riesgo de que no pague, el rendimiento extra es el pago por ese riesgo, y ahí sí hay que revisar la decisión.` },
+      { t: "ojo", titulo: "El elástico se corta si el emisor no paga", html: `Todo esto supone que el bono paga lo prometido. Si el emisor entra en default o reestructura, el punto final cambia. Por eso, ante una caída fuerte, la primera pregunta es: <strong>¿cayó porque subieron las tasas en general, o porque el mercado duda de este emisor?</strong>` },
+      { t: "cliente", titulo: "Cómo se lo explicás al cliente", html: `"Este bono tiene una meta fija: al vencimiento paga lo mismo, pase lo que pase en el camino. Si en el medio sube mucho, lo que queda por ganar es poco, y quizás conviene pasarse a otro. Si en el medio baja, lo que queda por ganar es más, y si la empresa paga, lo recuperás esperando."` }
+    ]
+  },
+
+  /* ------------------------------------------------------------ */
+  {
     id: "b3",
     titulo: "Cupón, rendimiento corriente, precio sucio y paridad",
     minutos: 10,
@@ -154,8 +195,8 @@ AULA.modulos.bonos = {
     objetivo: "Usar la duration modificada para estimar cuánto puede ganar o perder un bono ante un cambio de TIR.",
     bloques: [
       { t: "p", html: `Dos bonos pueden tener la misma TIR y comportarse muy distinto cuando el mercado se mueve. Uno puede caer 2% y el otro 15% ante la misma noticia. Lo que los diferencia es la <span class="term" data-term="duration">duration</span>.` },
-      { t: "idea", titulo: "La duration en una frase", html: `La <strong>duration modificada</strong> te dice cuánto cambia el precio de un bono, en porcentaje, si su TIR se mueve 1 punto. Un bono con duration 5 cae aproximadamente 5% si su TIR sube 1 punto, y sube aproximadamente 5% si baja 1 punto.` },
-      { t: "formula", html: `Variación de precio ≈ − Duration modificada × Variación de TIR`, nota: `Ejemplo: duration 4, la TIR sube 0,5 puntos (50 puntos básicos) → el precio cae ≈ 4 × 0,5 = 2%.` },
+      { t: "idea", titulo: "La duration en una frase", html: `La <strong>duration modificada</strong> te dice cuánto cambia el precio de un bono, en porcentaje, si su TIR se mueve 1 p.p.. Un bono con duration 5 cae aproximadamente 5% si su TIR sube 1 p.p., y sube aproximadamente 5% si baja 1 p.p..` },
+      { t: "formula", html: `Variación de precio ≈ − Duration modificada × Variación de TIR`, nota: `Ejemplo: duration 4, la TIR sube 0,5 p.p. (50 puntos básicos) → el precio cae ≈ 4 × 0,5 = 2%.` },
       { t: "h", texto: "Qué hace que la duration sea más alta" },
       { t: "lista", items: [
         `<strong>Más plazo:</strong> los pagos están más lejos, y la plata lejana es más sensible a la tasa con que se descuenta.`,
@@ -166,19 +207,19 @@ AULA.modulos.bonos = {
       { t: "p", html: `Elegí cuánto se mueve la TIR del mercado y compará cómo reacciona un bono corto, uno medio y uno largo. La barra clara muestra la estimación con duration; la oscura, el cambio de precio exacto.` },
       { t: "herramienta", id: "sensibilidad" },
       { t: "ej", id: "e1", tipo: "estimar",
-        enunciado: `Un bono tiene duration modificada 5,5. Su TIR pasa de 8,5% a 12,4% (sube 3,9 puntos). Estimá cuánto cayó su precio, en %. (Respondé sin el signo menos.)`,
+        enunciado: `Un bono tiene duration modificada 5,5. Su TIR pasa de 8,5% a 12,4% (sube 3,9 p.p.). Estimá cuánto cayó su precio, en %. (Respondé sin el signo menos.)`,
         unidad: "%", respuesta: 21.5, tolerancia: 1.5,
-        explicacion: `La TIR subió 3,9 puntos. Con duration 5,5: 5,5 × 3,9 ≈ <strong>21,5%</strong> de caída. Un salto de TIR de ese tamaño es del orden de lo que vivieron los Globales largos entre julio y comienzos de noviembre de 2026, cuando el riesgo país pasó de unos 430 a más de 900 puntos. Con movimientos tan grandes, la caída real suele ser algo menor que la estimada por duration: eso es la <span class="term" data-term="convexidad">convexidad</span>.` },
+        explicacion: `La TIR subió 3,9 p.p.. Con duration 5,5: 5,5 × 3,9 ≈ <strong>21,5%</strong> de caída. Un salto de TIR de ese tamaño es del orden de lo que vivieron los Globales largos entre julio y comienzos de noviembre de 2026, cuando el riesgo país pasó de unos 430 a más de 900 puntos básicos. Con movimientos tan grandes, la caída real suele ser algo menor que la estimada por duration: eso es la <span class="term" data-term="convexidad">convexidad</span>.` },
       { t: "ej", id: "e2", tipo: "mc",
         enunciado: `Un cliente conservador pregunta por qué le recomendás un bono a 2 años que rinde 7% en lugar de uno a 10 años que rinde 9%, del mismo emisor.`,
         opciones: [
           { txt: "Porque al ser más largo, el bono a 10 años tiene peor calidad crediticia que el de 2 años.", ok: false, fb: "Es el mismo emisor: la calidad crediticia es la misma." },
-          { txt: "Porque el de 10 años cae mucho más si suben las tasas, y 2 puntos extra no le compensan ese riesgo.", ok: true, fb: "Exacto. La diferencia de TIR paga el riesgo de tasa, y ese riesgo no encaja con su perfil." },
+          { txt: "Porque el de 10 años cae mucho más si suben las tasas, y 2 p.p. extra no le compensan ese riesgo.", ok: true, fb: "Exacto. La diferencia de TIR paga el riesgo de tasa, y ese riesgo no encaja con su perfil." },
           { txt: "Porque los bonos cortos rinden más a largo plazo: al reinvertir seguido se captura más tasa.", ok: false, fb: "No hay una regla así. Acá la clave es el riesgo de precio." }
         ],
         explicacion: `Acortar duration es la herramienta más concreta para bajar el riesgo de precio de una cartera de renta fija. Alargarla es la forma de "apostar" a que las tasas bajen.` },
       { t: "h", texto: "La duration funciona para los dos lados" },
-      { t: "p", html: `La misma sensibilidad que duele cuando las tasas suben es la que hace ganar cuando bajan. Si un analista dice "el riesgo país puede comprimir 200 puntos", el bono que más gana es el de mayor duration. Por eso, en momentos de optimismo, el mercado busca bonos largos; en momentos de miedo, se refugia en los cortos.` },
+      { t: "p", html: `La misma sensibilidad que duele cuando las tasas suben es la que hace ganar cuando bajan. Si un analista dice "el riesgo país puede comprimir 200 puntos básicos", el bono que más gana es el de mayor duration. Por eso, en momentos de optimismo, el mercado busca bonos largos; en momentos de miedo, se refugia en los cortos.` },
       { t: "cliente", titulo: "Cómo se lo explicás al cliente", html: `"Pensalo como una palanca. Un bono corto tiene una palanca chiquita: se mueve poco para arriba y poco para abajo. Uno largo tiene una palanca grande: si las tasas bajan, ganás mucho; si suben, perdés mucho. La pregunta es cuánta palanca querés tener."` }
     ]
   },
