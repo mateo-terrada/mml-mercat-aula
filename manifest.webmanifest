@@ -1,0 +1,12 @@
+{
+  "name": "El Escritorio · Aula",
+  "short_name": "El Escritorio",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#F7F4EC",
+  "theme_color": "#1C2B2D",
+  "icons": [
+    { "src": "img/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "img/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}
