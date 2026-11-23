@@ -1132,3 +1132,34 @@ input[type=range]:focus-visible { outline: 2px solid var(--teal-wash); }
 .el-leg .l-esp { border-top: 2px dashed var(--ink-soft); } .el-leg .l-pas { border-image: linear-gradient(90deg, var(--olive) 50%, var(--terracotta) 50%) 1; } .el-leg .l-fut { border-color: var(--gold); }
 .el-kpis b.neg { color: var(--terracotta); } .el-kpis b.pos { color: var(--olive-deep); }
 @media (max-width: 640px) { .el-svg .tk { font-size: 17px; } .el-svg .lab-fin, .el-svg .lab-hoy { font-size: 19px; } .el-svg .hoy-t { font-size: 16px; } }
+
+/* ---- Taller de carteras de acciones ---- */
+.rv-bars { margin-top: 6px; }
+.rv-row { display: grid; grid-template-columns: 170px 1fr 92px; gap: 12px; align-items: center; padding: 7px 0; }
+.rv-l { font-size: 13.5px; color: var(--ink-soft); }
+.rv-track { height: 14px; background: var(--rule-soft, #ECE7D8); border-radius: 7px; overflow: hidden; }
+.rv-track i { display: block; height: 100%; border-radius: 7px; transition: width .25s; }
+.rv-track .rv-accent { background: var(--teal); }
+.rv-track .rv-neutral { background: var(--ink-faint); }
+.rv-track .rv-alert { background: var(--terracotta); }
+.rv-v { font: 600 13.5px var(--mono); text-align: right; }
+.rv-result { margin: 14px 0 0; padding: 11px 14px; border-radius: var(--radius-md); background: var(--paper); border-left: 3px solid var(--teal); font-size: 14px; color: var(--ink); }
+.rv-result.rv-warn { border-left-color: var(--terracotta); }
+.rv-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+.rv-grupo h5 { font: 600 11px var(--sans, var(--font-sans)); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-faint); margin: 4px 0 4px; }
+.rv-grupo .rv-row { grid-template-columns: 100px 1fr 44px; }
+@media (max-width: 640px) { .rv-row { grid-template-columns: 1fr 70px; } .rv-l { grid-column: 1 / -1; } .rv-cols { grid-template-columns: 1fr; } .rv-grupo .rv-row { grid-template-columns: 1fr 44px; } }
+
+/* ---- Pantalla de simulaciones ---- */
+.sim-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 22px; margin-top: 22px; }
+.sim-card { display: flex; flex-direction: column; gap: 10px; }
+.sim-card h3 { font: 600 24px/1.2 var(--serif); margin: 0; }
+.sim-card p { margin: 0; color: var(--ink-soft); }
+.sim-card .btn, .sim-card .tag { align-self: flex-start; margin-top: auto; }
+.sim-card.is-locked { opacity: .78; background: var(--paper); }
+
+.sim-igual { margin-top: 4px; font-size: 14px; }
+.sim-igual summary { cursor: pointer; color: var(--ink-soft); text-decoration: underline; text-underline-offset: 3px; width: fit-content; }
+.sim-igual[open] { padding: 12px 14px; border: 1px solid var(--line, #d9d3c5); border-radius: 10px; background: var(--paper, #fbf8f1); }
+.sim-igual p { margin: 8px 0 12px; }
+.sim-igual .btn { align-self: auto; margin-top: 0; }

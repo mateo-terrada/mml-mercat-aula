@@ -5,18 +5,20 @@
 - `index.html` → **Aula**: plataforma de estudio por módulos (lecciones, herramientas interactivas, ejercicios y evaluación por módulo).
 - `practica.html` → **Práctica diaria**: el banco de preguntas de siempre (antes era `index.html`).
 - `simulador.html` → **Mesa de operaciones** (antes "Simulador"; el archivo conserva el nombre): curvas, caja de puntas, rotaciones y "¿Qué hago si...?".
-- `cartera.html` → **Simulador de carteras** (nuevo en 5.0): simulación de un año administrando las carteras de dos clientes, un turno por mes.
+- `cartera.html` → **Simulaciones** (nuevo en 5.0): un año administrando las carteras de dos clientes, un turno por mes. `cartera.html` abre la de renta fija y dólar; `cartera.html?sim=rv`, la de renta variable. La pantalla con candados está en el Aula (`index.html#/simulaciones`).
 
 ## Archivos del Simulador de carteras
 
 ```
 css/cartera.css        → diseño
 js/cartera/motor.js    → el mercado (factores, instrumentos, azar con semilla) y las reglas de criterio por perfil
-js/cartera/anio1.js    → el año 1: clientes, titulares de cada mes y lo que dice cada cliente
-js/cartera/app.js      → pantallas, guardado de la partida y repaso final
+js/cartera/anio1.js    → renta fija y dólar: clientes, titulares de cada mes y lo que dice cada cliente
+js/cartera/motor-rv.js → renta variable: catorce vehículos (ETF de país + empresas por sector), factores, reglas de criterio por perfil
+js/cartera/anio-rv-1.js, -2.js, -3.js → renta variable: clientes, configuración (C.CFG) y los 12 meses
+js/cartera/app.js      → pantallas, guardado de la partida y repaso final (sirven para ambas simulaciones; cada una define C.CFG con sus textos)
 ```
 
-La partida se guarda en el navegador (clave `elEscritorio_cartera_v1`). En el Aula, la tarjeta del Simulador de carteras se habilita al terminar el Taller del CER, y el resumen de la partida se suma a "Mi informe". Para agregar otro año se escribe un archivo como `anio1.js`.
+La partida se guarda en el navegador (clave `elEscritorio_cartera_v1`). Las simulaciones se declaran en `AULA.simulaciones` (js/aula/catalogo.js) con los módulos que las habilitan; la de renta fija se habilita con el Taller del CER y la de renta variable con el Taller T3, y el resumen de la partida se suma a "Mi informe". Para agregar otro año se escribe un archivo como `anio1.js`.
 
 ## Archivos del Aula
 
@@ -32,6 +34,8 @@ js/aula/app.js             → navegación y pantallas
 ```
 
 Las evaluaciones de cada módulo usan preguntas de `js/preguntas.js`.
+
+El Taller T3 ("Armar una cartera de acciones", después del módulo 05) vive en `js/aula/modulos/carterasrv.js` y sus herramientas en `js/aula/herramientas-carterasrv.js`. Prepara la futura simulación de renta variable.
 
 El módulo 08 (Macro) tiene datos de coyuntura fijados a noviembre de 2026 en `js/aula/modulos/macro.js` y `js/aula/herramientas-macro.js`. No se actualizan solos.
 

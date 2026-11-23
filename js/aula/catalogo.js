@@ -28,6 +28,7 @@ AULA.catalogo = [
     descripcion: "Acciones, CEDEARs, ETFs y vehículos colectivos.",
     modulos: [
       { id: "empresas", numero: "05", titulo: "Analizar una empresa", capitulos: "Cap. 5 y 11", disponible: true },
+      { id: "carterasrv", numero: "T3", titulo: "Taller: armar una cartera de acciones", capitulos: "Taller práctico", disponible: true },
       { id: "fci", numero: "06", titulo: "Fondos comunes de inversión", bajada: "Un fondo es lo que tiene adentro: leer el factsheet, medir la comisión y elegir el fondo para cada necesidad.", capitulos: "Cap. 6", disponible: true }
     ]
   },
@@ -48,8 +49,20 @@ AULA.catalogo = [
   }
 ];
 
+/* Simulaciones: cada una se habilita cuando están completos los módulos de `req`. */
+AULA.simulaciones = [
+  { id: "anio1", titulo: "Simulador de carteras: renta fija y dólar", clave: "elEscritorio_cartera_v1", href: "cartera.html",
+    req: ["mercado", "perfil", "bonos", "duration", "rfarg", "cer"], habilita: "Taller del CER",
+    bajada: "Administrás las carteras de una jubilada conservadora y de un inversor agresivo durante un año. Riesgo país, inflación, dólar y tasas: leés los titulares, armás la propuesta y le explicás a cada uno.",
+    tema: "Bonos, tasas, CER y dólar" },
+  { id: "rv", titulo: "Simulación de renta variable", clave: "elEscritorio_cartera_rv_v1", href: "cartera.html?sim=rv",
+    req: ["mercado", "perfil", "empresas", "carterasrv"], habilita: "Taller de carteras de acciones",
+    bajada: "Una jubilada que necesita estabilidad y un inversor que quiere crecer, con catorce vehículos para repartir entre geografías y sectores. Concentración, correlación y caídas: qué pasa cuando todo cae junto y cuando una sola empresa falla.",
+    tema: "Acciones, ETFs, geografías y sectores" }
+];
+
 /* Recorrido sugerido: el orden en que conviene hacer los módulos disponibles. */
-AULA.recorrido = ["mercado", "perfil", "bonos", "duration", "rfarg", "cer", "empresas", "fci", "operar", "macro", "criterio"];
+AULA.recorrido = ["mercado", "perfil", "bonos", "duration", "rfarg", "cer", "empresas", "carterasrv", "fci", "operar", "macro", "criterio"];
 
 /* Diagnóstico: 2 preguntas del banco por módulo o taller, en orden del recorrido.
    Fijas a propósito, para poder comparar un diagnóstico con el siguiente. */

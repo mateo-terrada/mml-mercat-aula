@@ -7,7 +7,7 @@
 <link rel="icon" href="img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <meta name="theme-color" content="#1C2B2D">
-<title>Simulador de carteras · El Escritorio</title>
+<title>Simulaciones · El Escritorio</title>
 <meta name="description" content="Simulación de administración de carteras: doce meses, dos clientes y un mercado que se mueve.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,7 +19,7 @@
 <header class="top"><div class="top-in">
   <div class="brand"><small>El Escritorio</small>Simulador de carteras</div>
   <nav class="topnav" aria-label="Secciones">
-    <a href="index.html">Aula</a><a href="practica.html">Práctica diaria</a><a href="simulador.html">Mesa de operaciones</a><a class="on" href="cartera.html">Simulador</a>
+    <a href="index.html">Aula</a><a href="practica.html">Práctica diaria</a><a href="simulador.html">Mesa de operaciones</a><a class="on" href="index.html#/simulaciones">Simulaciones</a>
   </nav>
   <div class="mes" id="mes"></div>
 </div></header>
@@ -45,8 +45,13 @@
   </div>
 </div></footer>
 
-<script src="js/cartera/motor.js"></script>
-<script src="js/cartera/anio1.js"></script>
-<script src="js/cartera/app.js"></script>
+<script>
+  /* Qué simulación se abre: cartera.html (renta fija, año 1) o cartera.html?sim=rv (renta variable) */
+  (function () {
+    var sim = new URLSearchParams(location.search).get("sim");
+    var pack = sim === "rv" ? ["motor-rv", "anio-rv-1", "anio-rv-2", "anio-rv-3"] : ["motor", "anio1"];
+    pack.concat(["app"]).forEach(function (f) { document.write('<script src="js/cartera/' + f + '.js"><\/script>'); });
+  })();
+</script>
 </body>
 </html>

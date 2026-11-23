@@ -52,5 +52,8 @@ AULA.glosario = {
   pp:            { termino: "Punto porcentual (p.p.)", def: "Diferencia absoluta entre dos porcentajes. Si la TIR pasa de 8% a 9%, subió 1 p.p. (no 1%: eso sería pasar de 8% a 8,08%). 1 p.p. = 100 puntos básicos." },
   pb:            { termino: "Punto básico", def: "Un centésimo de punto porcentual. 100 puntos básicos = 1%." },
   t1:            { termino: "T+1 y CI", def: "Plazos de liquidación. En Argentina el estándar es T+1 (se liquida al día hábil siguiente); contado inmediato (CI) se usa cuando hay urgencia." },
+  correlacion:   { termino: "Correlación", def: "Cuánto se mueven juntas dos inversiones. Cerca de 1, suben y bajan a la vez; cerca de 0, no tienen relación; negativa, una sube cuando la otra baja. Cuanto más baja, más diversifican." },
+  beta:          { termino: "Beta", def: "Cuánto se mueve una acción o una cartera respecto del mercado. Beta 1,3: si el mercado cae 10%, cae unos 13%. Beta 0,6: se mueve bastante menos que el mercado." },
+  drawdown:      { termino: "Caída máxima (drawdown)", def: "Lo que bajó una cartera desde su último máximo hasta su punto más bajo. Es la caída que el cliente efectivamente ve en pantalla." },
   mep:           { termino: "Dólar MEP y CCL", def: "Tipos de cambio que surgen de comprar un bono en pesos y venderlo en dólares (MEP, dólares en Argentina) o en dólares en el exterior (CCL o cable)." }
 };

@@ -7,7 +7,23 @@
   "use strict";
   const C = window.CARTERA, { fmt, sg, A, usd, usdS, cls, pct } = C.u;
   const $ = s => document.querySelector(s);
-  const CLAVE = "elEscritorio_cartera_v1";
+  /* Configuración de la simulación (cada paquete puede definir C.CFG; si no, valen estos textos) */
+  const DEF = {
+    clave: "elEscritorio_cartera_v1", titulo: "Simulador de carteras", etiqueta: "Año 1", periodo: "Diciembre 2026 a noviembre 2027",
+    h1: "Doce meses, dos clientes, un mercado que no sabés para dónde va",
+    lead: "Empezás a atender dos cuentas que te pasó un colega que dejó la sociedad. Cada mes llegan noticias, el mercado se mueve y tus clientes reaccionan. Vos proponés; ellos confirman.",
+    nLiq: "Plazo, liquidez y moneda",
+    metricas: (m0, m) => [["Si las tasas suben 1 p.p., pierde", "≈ " + fmt(m0.sens) + "%", "≈ " + fmt(m.sens) + "%"], ["En acciones", m0.acc + "%", m.acc + "%"],
+      ["Con riesgo argentino", m0.arg + "%", m.arg + "%"], ["En pesos", m0.pesos + "%", m.pesos + "%"],
+      ["Liquidez sin riesgo de precio", usd(m0.liqUSD), usd(m.liqUSD)], ["Posición más grande (un emisor)", m0.max + "%", m.max + "%"]],
+    temas: [["perfil", "Encaje con el perfil", "perfil", "02 · Perfil, riesgo y carteras"], ["div", "Diversificación", "perfil", "02 · Perfil, riesgo y carteras"],
+      ["liq", "Plazo, liquidez y moneda", "criterio", "09 · Integración y criterio"], ["com", "Comunicación", "criterio", "09 · Integración y criterio"]],
+    extraFinal: () => ""
+  };
+  const K = Object.assign({}, DEF, C.CFG || {});
+  const CLAVE = K.clave;
+  document.title = K.titulo + " · El Escritorio";
+  { const b = document.querySelector(".brand"); if (b) b.innerHTML = `<small>El Escritorio</small>${K.titulo}`; }
   const CL = () => [C.CLI.g, C.CLI.m];
   const N = C.MESES.length;
 
@@ -52,9 +68,9 @@
       <blockquote class="meet">${c.cita}</blockquote>
       <div class="pie">${torta(c.cart)}${leyenda(c.cart)}</div>
       <p class="hint" style="margin:10px 0 0">Cartera heredada del asesor anterior · ${usd(c.monto)}</p></div>`;
-    return `<div class="hero"><span class="eyebrow">Año 1 · Diciembre 2026 a noviembre 2027</span>
-      <h1>Doce meses, dos clientes, un mercado que no sabés para dónde va</h1>
-      <p class="lead">Empezás a atender dos cuentas que te pasó un colega que dejó la sociedad. Cada mes llegan noticias, el mercado se mueve y tus clientes reaccionan. Vos proponés; ellos confirman.</p></div>
+    return `<div class="hero"><span class="eyebrow">${K.etiqueta} · ${K.periodo}</span>
+      <h1>${K.h1}</h1>
+      <p class="lead">${K.lead}</p></div>
       <div class="rules">
         <div class="rule"><h4>Un turno es un mes</h4><p>Leés lo que pasó, mirás cómo le pegó a cada cartera, atendés a cada cliente y proponés cambios si hacen falta. Son unos 5 minutos por mes; la partida se guarda sola.</p></div>
         <div class="rule"><h4>Dos marcadores</h4><p><b>Resultado:</b> cuánto ganaron o perdieron. Depende en parte de la suerte. <b>Criterio:</b> si cada decisión tenía sentido para ese cliente en el momento de tomarla. Es el que importa.</p></div>
@@ -135,12 +151,7 @@
     return `<h3 style="font-size:18px">Cómo queda</h3>
       <div class="pies" style="margin-top:14px"><figure>${torta(h, 80)}<figcaption>Hoy</figcaption></figure><span class="arrow">→</span><figure>${torta(w, 112)}<figcaption>Tu propuesta</figcaption></figure></div>
       <ul class="metrics">
-        ${fila("Si las tasas suben 1 p.p., pierde", "≈ " + fmt(m0.sens) + "%", "≈ " + fmt(m.sens) + "%")}
-        ${fila("En acciones", m0.acc + "%", m.acc + "%")}
-        ${fila("Con riesgo argentino", m0.arg + "%", m.arg + "%")}
-        ${fila("En pesos", m0.pesos + "%", m.pesos + "%")}
-        ${fila("Liquidez sin riesgo de precio", usd(m0.liqUSD), usd(m.liqUSD))}
-        ${fila("Posición más grande (un emisor)", m0.max + "%", m.max + "%")}
+        ${K.metricas(m0, m).map(r => fila(r[0], r[1], r[2])).join("")}
       </ul>
       <p class="hint" style="margin:12px 0 0">Son datos, no una nota: la evaluación llega cuando ${c.corto} responde.</p>`;
   }
@@ -183,7 +194,7 @@
           <div><span class="eyebrow">Criterio de esta decisión</span><h2 style="font-size:30px;margin-top:4px">${ev.total}<span style="font-size:17px;color:var(--ink-faint)"> / 100</span></h2></div>
           <div style="min-width:240px"><div class="meter-h"><span>Confianza de ${c.corto}</span><b>${ev.conf0} → ${ev.conf}</b></div><div class="meter-t"><i style="width:${ev.conf}%"></i></div></div></div>
         <p class="key">${ev.key}</p>
-        <div class="score">${critBox("Encaje con el perfil", ev.perfil)}${critBox("Diversificación", ev.div)}${critBox("Plazo, liquidez y moneda", ev.liq)}${critBox("Comunicación", ev.com)}</div>
+        <div class="score">${critBox("Encaje con el perfil", ev.perfil)}${critBox("Diversificación", ev.div)}${critBox(K.nLiq, ev.liq)}${critBox("Comunicación", ev.com)}</div>
         <p class="hint" style="margin:16px 0 0">El criterio se mide en el momento de decidir, sin saber qué va a pasar. Que el mes que viene el mercado suba o baje no cambia esta nota.</p></div>`;
   }
 
@@ -205,8 +216,7 @@
   }
 
   /* ---------- Repaso final ---------- */
-  const TEMAS = [["perfil", "Encaje con el perfil", "perfil", "02 · Perfil, riesgo y carteras"], ["div", "Diversificación", "perfil", "02 · Perfil, riesgo y carteras"],
-    ["liq", "Plazo, liquidez y moneda", "criterio", "09 · Integración y criterio"], ["com", "Comunicación", "criterio", "09 · Integración y criterio"]];
+  const TEMAS = K.temas;
   function promTemas() {
     return TEMAS.map(([k, n, mod, tit]) => { let s = 0, q = 0; CL().forEach(c => C.MESES.forEach((_, j) => { const ev = C.evaluar(c, j); if (ev) { s += ev[k][0]; q++; } }));
       return { k, n, mod, tit, v: q ? s / q : 0 }; });
@@ -218,7 +228,7 @@
         return `<tr><td>${M.fecha.split(" ")[0]}</td><td class="n ${cls(r)}">${sg(r)}%</td><td class="n"><span class="pill ${e.total >= 85 ? "ok" : e.total >= 70 ? "mid" : "low"}">${e.total}</span></td><td class="n">${e.conf}</td><td class="rk">${e.key}</td></tr>`; }).join("");
       return `<div class="panel" style="margin-top:22px"><div class="client"><div class="avatar" style="background:${c.color}">${c.ini}</div><div><h2 style="font-size:22px">${c.nombre}</h2><p>Perfil ${c.perfil.toLowerCase()} · terminó el año con ${usd(C.montoDespues(c, u))}</p></div></div>
         <div class="board"><div><span>Criterio promedio</span><b>${promCrit(c, u)}</b></div>
-          <div><span>Resultado del año</span><b class="${cls(a)}">${sg(a)}%</b><span class="acc">Heredada sin tocar: ${sg(h)}%</span></div>
+          <div><span>Resultado del año</span><b class="${cls(a)}">${sg(a)}%</b><span class="acc">Heredada sin tocar: ${sg(h)}%</span>${K.extraFinal(c, u)}</div>
           <div><span>Confianza final</span><b>${ev.conf}</b><span class="acc">Empezó en ${c.conf}</span></div></div>
         <div class="rev"><table><thead><tr><th>Mes</th><th class="n">Resultado</th><th class="n">Criterio</th><th class="n">Confianza</th><th>Lo que se evaluó</th></tr></thead><tbody>${filas}</tbody></table></div></div>`; };
     return `<span class="eyebrow">Repaso del año</span>
@@ -238,7 +248,7 @@
   /* ---------- Resumen para "Mi informe" del Aula ---------- */
   function resumen() {
     const u = decididoHasta(); if (u < 0) return null;
-    const L = [`Año 1 · ${u + 1} de ${N} meses jugados${u === N - 1 ? " (año terminado)" : ""}`];
+    const L = [`${K.etiqueta} · ${u + 1} de ${N} meses jugados${u === N - 1 ? " (año terminado)" : ""}`];
     CL().forEach(c => L.push(`- ${c.nombre} (${c.perfil.toLowerCase()}): criterio promedio ${promCrit(c, u)}/100 · resultado acumulado ${sg(C.acum(c, u))}% (heredada sin tocar: ${sg(C.acumHer(c, u))}%) · confianza ${C.evaluar(c, u).conf}/100`));
     L.push("Criterio por tema (promedio sobre 25): " + promTemas().map(t => `${t.n.toLowerCase()} ${fmt(t.v)}`).join(" · "));
     const bajas = [];
@@ -256,7 +266,7 @@
     const p = actual(); if (C.S.paso === FLUJO.length - 1) return `<div class="nav"><button type="button" class="btn" data-ir="${C.S.paso - 1}">← Atrás</button><span></span></div>`;
     const sig = FLUJO[C.S.paso + 1];
     const txt = C.S.paso === 0 ? "Empezar diciembre" : p.v === vCierre ? (sig.v === vFinal ? "Ver el repaso del año" : `Pasar a ${C.MESES[sig.mes].fecha.toLowerCase()}`)
-      : p.v === vTitular ? "Ver la cartera de Graciela" : p.v === vRespuesta && p.c === "g" ? "Ahora, Martín" : p.v === vRespuesta ? "Cerrar el mes" : p.v === vDecision ? "Mandar la propuesta" : "Seguir";
+      : p.v === vTitular ? "Ver la cartera de " + C.CLI.g.corto : p.v === vRespuesta && p.c === "g" ? "Ahora, " + C.CLI.m.corto : p.v === vRespuesta ? "Cerrar el mes" : p.v === vDecision ? "Mandar la propuesta" : "Seguir";
     return `<div class="nav" id="nav">${C.S.paso > 0 ? `<button type="button" class="btn" data-ir="${C.S.paso - 1}">← Atrás</button>` : "<span></span>"}
       <div style="display:flex;align-items:center;gap:14px"><span class="hint" id="navhint" ${listo() ? "hidden" : ""}>Armá la cartera (100%) y elegí qué le decís</span>
       <button type="button" class="btn btn-p" id="navsig" data-ir="${C.S.paso + 1}" ${listo() ? "" : "disabled"}>${txt} →</button></div></div>`;
@@ -266,7 +276,7 @@
 
   function render() {
     const p = actual(), X = C.X(p.mes), fin = p.v === vFinal;
-    $("#mes").innerHTML = fin ? `<b>Año 1</b>Terminado<div class="mesbar"><i style="width:100%"></i></div>` : `<b>${X.M.fecha}</b>Mes ${p.mes + 1} de ${N}<div class="mesbar"><i style="width:${(p.mes + 1) / N * 100}%"></i></div>`;
+    $("#mes").innerHTML = fin ? `<b>${K.etiqueta}</b>Terminado<div class="mesbar"><i style="width:100%"></i></div>` : `<b>${X.M.fecha}</b>Mes ${p.mes + 1} de ${N}<div class="mesbar"><i style="width:${(p.mes + 1) / N * 100}%"></i></div>`;
     $("#tape").innerHTML = C.tape(X).map(f => `<div class="fac"><span>${f[0]}</span><b>${f[1]}</b><em class="${f[3]}">${f[2]}</em></div>`).join("");
     $("#steps").innerHTML = fin ? "" : FLUJO.map((x, j) => x.mes !== p.mes || x.v === vFinal || (j === 0 && C.S.paso !== 0) ? "" :
       `<span class="step ${j === C.S.paso ? "on" : j < C.S.paso ? "ok" : ""}">${x.c ? `<span class="who">${C.CLI[x.c].ini}</span>` : ""}${x.t}</span>`).join("");

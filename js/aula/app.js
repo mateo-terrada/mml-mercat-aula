@@ -27,29 +27,49 @@
     const ev = P.evaluacion(m.id);
     return { total, hechas, pct: Math.round(hechas / total * 100), ev, aprobado: m.evaluacion ? !!(ev && ev.mejor >= 0.7) : hechas === total };
   }
-  /* La cartera (simulación): se habilita al terminar el Taller CER */
-  const REQ_CARTERA = ["mercado", "perfil", "bonos", "duration", "rfarg", "cer"];
-  function partidaCartera() {
-    try { const s = JSON.parse(localStorage.getItem("elEscritorio_cartera_v1") || "null"); return s && s.resumen ? s.resumen : null; } catch (e) { return null; }
+  /* Simulaciones (AULA.simulaciones): cada una se habilita al completar sus módulos */
+  function partidaDe(sim) {
+    try { const s = JSON.parse(localStorage.getItem(sim.clave) || "null"); return s && s.resumen ? s.resumen : null; } catch (e) { return null; }
   }
-  function tarjetaCartera() {
-    const req = REQ_CARTERA.map(modulo).filter(Boolean);
-    const faltan = req.filter(m => { const a = avanceModulo(m); return a.hechas < a.total; });
-    const pc = partidaCartera();
-    if (faltan.length && !pc) return `
-      <section class="diag-card">
-        <div><span class="eyebrow">Simulador de carteras</span>
-          <strong>Doce meses, dos clientes, un mercado que se mueve</strong>
-          <p>Se habilita al terminar el Taller del CER. Te falta: ${faltan.map(m => esc(m.titulo)).join(" · ")}.</p></div>
-        <div class="diag-card-act"><span class="tag">Bloqueada</span></div>
-      </section>`;
+  const faltanDe = sim => sim.req.map(modulo).filter(Boolean).filter(m => { const a = avanceModulo(m); return a.hechas < a.total; });
+  function tarjetaSimulaciones() {
+    const sims = AULA.simulaciones, abiertas = sims.filter(s => !faltanDe(s).length || partidaDe(s));
+    const enCurso = sims.filter(s => partidaDe(s));
+    const txt = !abiertas.length ? "La primera se habilita al terminar el Taller del CER o el Taller de carteras de acciones."
+      : enCurso.length ? "Tenés " + (enCurso.length === 1 ? "una partida en curso" : enCurso.length + " partidas en curso") + ": " + enCurso.map(s => esc(partidaDe(s).lineas[0])).join(" · ") + "."
+      : "Administrás las carteras de dos clientes durante un año. Unos 5 minutos por mes; se guarda sola.";
     return `
-      <section class="diag-card ${pc ? "" : "is-new"}">
-        <div><span class="eyebrow">Simulador de carteras</span>
-          <strong>${pc ? "Tu partida en curso" : "Doce meses, dos clientes, un mercado que se mueve"}</strong>
-          <p>${pc ? esc(pc.lineas[0]) + "." : "Administrás las carteras de dos clientes durante un año: leés los titulares, armás la propuesta y le explicás a cada uno. Unos 5 minutos por mes; se guarda sola."}</p></div>
-        <div class="diag-card-act"><a class="btn btn-primary" href="cartera.html">${pc ? "Seguir la partida" : "Empezar"} ${flecha}</a></div>
+      <section class="diag-card ${enCurso.length ? "" : "is-new"}">
+        <div><span class="eyebrow">Simulaciones</span>
+          <strong>${abiertas.length} de ${sims.length} disponibles</strong>
+          <p>${txt}</p></div>
+        <div class="diag-card-act"><a class="btn btn-primary" href="#/simulaciones">Ver las simulaciones ${flecha}</a></div>
       </section>`;
+  }
+  function vistaSimulaciones() {
+    const card = sim => {
+      const faltan = faltanDe(sim), pc = partidaDe(sim), cerrada = faltan.length && !pc;
+      return `<article class="panel sim-card ${cerrada ? "is-locked" : ""}">
+        <span class="eyebrow">${esc(sim.tema)}</span>
+        <h3>${esc(sim.titulo)}</h3>
+        <p>${esc(sim.bajada)}</p>
+        ${pc ? `<p class="hint"><strong>Tu partida:</strong> ${esc(pc.lineas[0])}.</p>` : ""}
+        ${cerrada ? `<p class="hint">Se habilita al terminar el ${esc(sim.habilita)}. Te falta: ${faltan.map(m => esc(m.titulo)).join(" · ")}.</p><span class="tag">Bloqueada</span>
+          <details class="sim-igual"><summary>Entrar igual</summary>
+            <p>Esta simulación usa lo que se ve en ${faltan.length > 1 ? "esos módulos" : "ese módulo"}. Si entrás sin haberlo hecho, algunos términos y decisiones te van a quedar poco claros. Podés entrar igual y volver al curso cuando quieras.</p>
+            <a class="btn btn-ghost" href="${sim.href}">Entrar de todos modos ${flecha}</a>
+          </details>`
+          : `<a class="btn btn-primary" href="${sim.href}">${pc ? "Seguir la partida" : "Empezar"} ${flecha}</a>`}
+      </article>`;
+    };
+    app.innerHTML = `
+      <nav class="crumbs"><a href="#/">Aula</a><span>/</span><span>Simulaciones</span></nav>
+      <section class="panel">
+        <p class="eyebrow">Practicar decidiendo</p>
+        <h1>Simulaciones</h1>
+        <p class="lede">Cada simulación entrena un tema distinto: los clientes y el mercado cambian, y vos proponés cada mes. Se van habilitando a medida que avanzás en el curso. Unos 15 a 20 minutos por sesión; la partida se guarda sola.</p>
+      </section>
+      <div class="sim-grid">${AULA.simulaciones.map(card).join("")}</div>`;
   }
 
   function estadoModulo(m) {
@@ -204,7 +224,7 @@
         <div class="diag-card-act"><a class="btn btn-primary" href="#/diagnostico">Hacer el diagnóstico ${flecha}</a></div>
       </section>`}
 
-      ${tarjetaCartera()}
+      ${tarjetaSimulaciones()}
 
       <section class="panel">
         <header class="section-head"><span class="eyebrow">Recorrido recomendado</span><h2>Por dónde seguir</h2></header>
@@ -882,7 +902,7 @@ ${m.evaluacion ? `        <section class="panel eval-card ${a.aprobado ? "is-ok"
         practica = { total: raw.totalRespondidas || 0, correctas: raw.totalCorrectas || 0, cats, fall, mejorRacha: raw.mejorRacha || 0 };
       }
     } catch (e) { /* sin datos de la práctica */ }
-    return { s, dias, mods, costaron, casos, evalFall, practica, cartera: partidaCartera(), diag: ultimoDiag(), diagPrev: P.diagnosticos().slice(-2, -1)[0] || null };
+    return { s, dias, mods, costaron, casos, evalFall, practica, carteras: AULA.simulaciones.map(x => ({ sim: x, p: partidaDe(x) })), diag: ultimoDiag(), diagPrev: P.diagnosticos().slice(-2, -1)[0] || null };
   }
 
   function textoInforme(d) {
@@ -913,9 +933,8 @@ ${m.evaluacion ? `        <section class="panel eval-card ${a.aprobado ? "is-ok"
       Object.entries(d.practica.cats).forEach(([c, v]) => L.push(`- ${c}: ${v.bien}/${v.vistas} preguntas bien la última vez`));
       if (d.practica.fall.length) L.push(`Temas que falló la última vez: ${d.practica.fall.slice(0, 20).map(q => q.subtema).join(" · ")}${d.practica.fall.length > 20 ? ` (y ${d.practica.fall.length - 20} más)` : ""}`);
     }
-    L.push("", "SIMULADOR DE CARTERAS");
-    if (!d.cartera) L.push("Todavía no empezó una partida en este navegador.");
-    else d.cartera.lineas.forEach(x => L.push(x));
+    L.push("", "SIMULACIONES");
+    d.carteras.forEach(x => { L.push(x.sim.titulo.toUpperCase()); if (!x.p) L.push("Todavía no empezó una partida en este navegador."); else x.p.lineas.forEach(y => L.push(y)); });
     return L.join("\n");
   }
 
@@ -1041,6 +1060,7 @@ ${m.evaluacion ? `        <section class="panel eval-card ${a.aprobado ? "is-ok"
     const partes = path.split("/").filter(Boolean);
     const params = new URLSearchParams(qs || "");
     if (partes[0] === "glosario") return { tipo: "glosario" };
+    if (partes[0] === "simulaciones") return { tipo: "simulaciones" };
     if (partes[0] === "informe") return { tipo: "informe" };
     if (partes[0] === "diagnostico") return { tipo: "diagnostico", ver: params.get("ver") === "1" };
     if (partes[0] === "m" && modulo(partes[1])) {
@@ -1055,7 +1075,7 @@ ${m.evaluacion ? `        <section class="panel eval-card ${a.aprobado ? "is-ok"
   function navegar() {
     cerrarPop();
     const r = ruta();
-    document.querySelectorAll(".nav-link").forEach(a => a.classList.toggle("is-active", a.dataset.nav === (r.tipo === "glosario" ? "glosario" : "aula")));
+    document.querySelectorAll(".nav-link").forEach(a => a.classList.toggle("is-active", a.dataset.nav === (r.tipo === "glosario" ? "glosario" : r.tipo === "simulaciones" ? "simulaciones" : "aula")));
     if (r.tipo !== "evaluacion") evalActual = null;
     if (r.tipo !== "diagnostico") diagActual = null;
     if (r.tipo === "inicio") vistaInicio();
@@ -1063,10 +1083,11 @@ ${m.evaluacion ? `        <section class="panel eval-card ${a.aprobado ? "is-ok"
     else if (r.tipo === "leccion") vistaLeccion(r.m, r.l, r.foco);
     else if (r.tipo === "evaluacion") vistaEvaluacion(r.m);
     else if (r.tipo === "glosario") vistaGlosario();
+    else if (r.tipo === "simulaciones") vistaSimulaciones();
     else if (r.tipo === "diagnostico") vistaDiagnostico(r.ver);
     else if (r.tipo === "informe") vistaInforme();
     if (r.tipo !== "leccion") window.scrollTo(0, 0);
-    document.title = (r.l ? r.l.titulo + " — " : r.m ? r.m.titulo + " — " : r.tipo === "diagnostico" ? "Diagnóstico — " : r.tipo === "informe" ? "Mi informe — " : "") + "Aula · El Escritorio";
+    document.title = (r.l ? r.l.titulo + " — " : r.m ? r.m.titulo + " — " : r.tipo === "diagnostico" ? "Diagnóstico — " : r.tipo === "informe" ? "Mi informe — " : r.tipo === "simulaciones" ? "Simulaciones — " : "") + "Aula · El Escritorio";
   }
 
   // Borrar progreso (con confirmación propia, sin diálogos del navegador)
